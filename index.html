@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>美股量化 & 現金流 Dashboard</title>
+    <title>美股量化 & 現金流 Dashboard (24H 全面報價版)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -69,7 +69,7 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- 頂部跑馬燈價格列表 -->
+    <!-- 頂部跑馬燈價格列表 (支援 24H 延長盤面) -->
     <div class="tradingview-widget-container bg-white border-b-2 border-pink-300">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
@@ -103,13 +103,12 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <h1 class="text-lg font-black text-black">美股量化 & 現金流 Dashboard</h1>
-                        <!-- 綠色即時更新燈號 -->
                         <div class="flex items-center gap-1.5 bg-emerald-50 border border-emerald-300 px-2.5 py-0.5 rounded-full shadow-xs">
                             <span class="live-dot"></span>
-                            <span class="text-xs font-black text-emerald-700">實時更新中</span>
+                            <span class="text-xs font-black text-emerald-700">24H 延長盤面實時中</span>
                         </div>
                     </div>
-                    <p class="text-xs text-desc">多資產定投 • 雙幣轉換 • 即時總覽</p>
+                    <p class="text-xs text-desc">支援夜盤、盤前、盤後與即時雙幣對照</p>
                 </div>
             </div>
 
@@ -130,7 +129,7 @@
         <!-- 頁面 1：核心資產與美債 -->
         <div id="tab-macro" class="tab-pane flex flex-col space-y-6">
             
-            <!-- 頂部 4 個小報價方塊 -->
+            <!-- 頂部 4 個小報價方塊 (延長盤面) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPY", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                 <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US10Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
@@ -138,22 +137,35 @@
                 <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:USOIL", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
             </div>
 
-            <!-- 標普 500 (SPY) 動態技術分析圖表 -->
+            <!-- 標普 500 (SPY) 24H 延長交易技術分析圖表 -->
             <div class="dashboard-card p-5">
-                <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-chart-candlestick text-pink-600 mr-2"></i>標普 500 (SPY) 動態技術分析圖表</h2>
-                <p class="text-xs text-desc mb-3">追蹤美國大盤、均線與技術形態走勢圖</p>
+                <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-chart-candlestick text-pink-600 mr-2"></i>標普 500 (SPY) 24H 延長盤面技術分析圖表</h2>
+                <p class="text-xs text-desc mb-3">支援盤前、盤後與夜盤價格波動軌跡檢視</p>
                 <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200" style="height: 400px;">
                     <div class="tradingview-widget-container" style="height:100%;width:100%">
                         <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
                         <script type="text/javascript">
-                        new TradingView.widget({ "autosize": true, "symbol": "AMEX:SPY", "interval": "D", "timezone": "Asia/Hong_Kong", "theme": "light", "style": "1", "locale": "zh_TW", "toolbar_bg": "#f1f3f6", "enable_publishing": false, "allow_symbol_change": true, "container_id": "tradingview_spy_chart" });
+                        new TradingView.widget({ 
+                            "autosize": true, 
+                            "symbol": "AMEX:SPY", 
+                            "interval": "D", 
+                            "timezone": "Asia/Hong_Kong", 
+                            "theme": "light", 
+                            "style": "1", 
+                            "locale": "zh_TW", 
+                            "toolbar_bg": "#f1f3f6", 
+                            "enable_publishing": false, 
+                            "allow_symbol_change": true, 
+                            "extended_hours": true,
+                            "container_id": "tradingview_spy_chart" 
+                        });
                         </script>
                         <div id="tradingview_spy_chart" style="height:100%;width:100%"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- 美國主要國債收益率 (US Treasuries) -->
+            <!-- 美國主要國債收益率 -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-landmark text-pink-600 mr-2"></i>美國主要國債收益率 (US Treasuries)</h2>
                 <p class="text-xs text-desc mb-3">涵蓋短中長端美國公債收益率即時表現</p>
@@ -165,41 +177,45 @@
                 </div>
             </div>
 
-            <!-- 核心資產與商品行情列表 -->
+            <!-- 升級版：核心資產與商品行情高階看板（支援最新實時與多維度數據） -->
             <div class="dashboard-card p-5">
-                <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-list-check text-pink-600 mr-2"></i>核心資產與商品行情列表</h2>
-                <p class="text-xs text-desc mb-3">包含 SPY、QQQ、SPYM、QQQM、SOXX、SGOV 及 CLmain (WTI 原油)</p>
-                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 p-2 bg-white" style="height: 350px;">
+                <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-list-check text-pink-600 mr-2"></i>核心資產與商品行情高階看板</h2>
+                <p class="text-xs text-desc mb-3">即時追蹤 SPY、QQQ、SPLG、QQQM、SOXX、SGOV 及原油之全方位表現</p>
+                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 bg-white" style="height: 480px;">
                     <div class="tradingview-widget-container" style="height:100%;width:100%">
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
                         {
+                            "colorTheme": "light",
+                            "dateRange": "12M",
+                            "showChart": true,
+                            "locale": "zh_TW",
+                            "largeChartUrl": "",
+                            "isTransparent": true,
+                            "showSymbolLogo": true,
+                            "showFloatingTooltip": true,
                             "width": "100%",
                             "height": "100%",
-                            "symbolsGroups": [
+                            "tabs": [
                                 {
-                                    "name": "Core Assets",
+                                    "title": "核心資產與商品",
                                     "symbols": [
-                                        { "name": "AMEX:SPY", "title": "標普 500 ETF (SPY)" },
-                                        { "name": "NASDAQ:QQQ", "title": "納指 100 ETF (QQQ)" },
-                                        { "name": "AMEX:SPLG", "title": "標普 500 低費率 (SPYM)" },
-                                        { "name": "NASDAQ:QQQM", "title": "納指 100 低費率 (QQQM)" },
-                                        { "name": "NASDAQ:SOXX", "title": "費城半導體 ETF (SOXX)" },
-                                        { "name": "AMEX:SGOV", "title": "短期美債 ETF (SGOV)" },
-                                        { "name": "TVC:USOIL", "title": "WTI 原油主連合約 (CLmain)" }
+                                        { "s": "AMEX:SPY", "d": "標普 500 ETF (SPY)" },
+                                        { "s": "NASDAQ:QQQ", "d": "納指 100 ETF (QQQ)" },
+                                        { "s": "AMEX:SPLG", "d": "標普 500 低費率 (SPLG)" },
+                                        { "s": "NASDAQ:QQQM", "d": "納指 100 低費率 (QQQM)" },
+                                        { "s": "NASDAQ:SOXX", "d": "費城半導體 ETF (SOXX)" },
+                                        { "s": "AMEX:SGOV", "d": "短期美債 ETF (SGOV)" },
+                                        { "s": "TVC:USOIL", "d": "WTI 原油主連合約" }
                                     ]
                                 }
-                            ],
-                            "showSymbolLogo": true,
-                            "colorTheme": "light",
-                            "isTransparent": true,
-                            "locale": "zh_TW"
+                            ]
                         }
                         </script>
                     </div>
                 </div>
             </div>
 
-            <!-- 財經日報：三大核心事件日期行程表 (非農、CPI、FOMC) -->
+            <!-- 財經日報：三大核心事件日期行程表 -->
             <div class="dashboard-card p-5">
                 <div class="flex justify-between items-center mb-3">
                     <div>
@@ -286,7 +302,7 @@
             
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-sack-dollar text-pink-600 mr-2"></i>現金流資產即時報價</h2>
-                <p class="text-xs text-desc mb-4">100% 成功連線，開市期間價格實時跳動</p>
+                <p class="text-xs text-desc mb-4">支援延長盤面價格動態追蹤</p>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                     <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPYI", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
