@@ -39,7 +39,7 @@
 
     <main class="max-w-7xl mx-auto px-4 space-y-6">
 
-        <!-- 頂部即時跑馬燈（包含 SPY, QQQ, WTI 原油, 黃金, 美債, SPYI） -->
+        <!-- 頂部即時跑馬燈 -->
         <div class="pink-card overflow-hidden p-2">
             <div class="tradingview-widget-container">
               <div class="tradingview-widget-container__widget"></div>
@@ -65,56 +65,28 @@
             </div>
         </div>
 
-        <!-- 頁面 1：宏觀與核心資產 -->
+        <!-- 頁面 1：宏觀與核心資產 (穩定版 K 線圖，可搜尋與切換 SPY/QQQ/原油/黃金) -->
         <div id="tab-macro" class="tab-content space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- SPY & QQQ 即時走勢圖 -->
-                <div class="pink-card p-5">
-                    <h2 class="text-base font-bold text-pink-950 mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-chart-line text-pink-500"></i> SPY / QQQ 美股大盤走勢
-                    </h2>
-                    <div class="tradingview-widget-container" style="height: 380px;">
-                      <div id="tv_chart_macro" style="height: 100%;"></div>
-                      <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-                      <script type="text/javascript">
-                      new TradingView.widget({
-                      "autosize": true,
-                      "symbol": "AMEX:SPY",
-                      "interval": "D",
-                      "timezone": "Asia/Hong_Kong",
-                      "theme": "light",
-                      "style": "1",
-                      "locale": "zh_TW",
-                      "enable_publishing": false,
-                      "allow_symbol_change": true,
-                      "container_id": "tv_chart_macro"
-                    });
-                      </script>
-                    </div>
-                </div>
-
-                <!-- WTI 原油 & 黃金即時走勢圖 -->
-                <div class="pink-card p-5">
-                    <h2 class="text-base font-bold text-pink-950 mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-droplet text-pink-500"></i> WTI 原油 & 宏觀商品監控
-                    </h2>
-                    <div class="tradingview-widget-container" style="height: 380px;">
-                      <div id="tv_chart_oil" style="height: 100%;"></div>
-                      <script type="text/javascript">
-                      new TradingView.widget({
-                      "autosize": true,
-                      "symbol": "TVC:USOIL",
-                      "interval": "D",
-                      "timezone": "Asia/Hong_Kong",
-                      "theme": "light",
-                      "style": "1",
-                      "locale": "zh_TW",
-                      "enable_publishing": false,
-                      "allow_symbol_change": true,
-                      "container_id": "tv_chart_oil"
-                    });
-                      </script>
-                    </div>
+            <div class="pink-card p-5">
+                <h2 class="text-base font-bold text-pink-950 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-line text-pink-500"></i> 宏觀與核心資產即時 K 線圖 (支援切換 SPY / QQQ / WTI原油 / 黃金)
+                </h2>
+                <div class="tradingview-widget-container" style="height: 520px;">
+                  <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                  {
+                  "autosize": true,
+                  "symbol": "AMEX:SPY",
+                  "interval": "D",
+                  "timezone": "Asia/Hong_Kong",
+                  "theme": "light",
+                  "style": "1",
+                  "locale": "zh_TW",
+                  "allow_symbol_change": true,
+                  "calendar": false,
+                  "support_host": "https://www.tradingview.com"
+                }
+                  </script>
                 </div>
             </div>
         </div>
@@ -125,7 +97,7 @@
                 <h2 class="text-base font-bold text-pink-950 mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-sack-dollar text-pink-500"></i> 高股息 & 現金流 ETF 數據診斷 (SPYI / QQQI / DIVO)
                 </h2>
-                <div class="tradingview-widget-container" style="height: 420px;">
+                <div class="tradingview-widget-container" style="height: 480px;">
                   <div class="tradingview-widget-container__widget"></div>
                   <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
                   {
@@ -183,7 +155,7 @@
                 <h2 class="text-base font-bold text-pink-950 mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-rss text-pink-500"></i> 即時美股財經頭條新聞流
                 </h2>
-                <div class="tradingview-widget-container" style="height: 450px;">
+                <div class="tradingview-widget-container" style="height: 480px;">
                   <div class="tradingview-widget-container__widget"></div>
                   <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
                   {
@@ -201,13 +173,13 @@
             </div>
         </div>
 
-        <!-- 頁面 4：全市場熱力圖 -->
+        <!-- 頁面 4：全市場熱力圖 (拉高尺寸至 650px) -->
         <div id="tab-heatmap" class="tab-content hidden space-y-6">
             <div class="pink-card p-5">
                 <h2 class="text-base font-bold text-pink-950 mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-fire text-pink-500"></i> S&P 500 板塊資金熱力圖
+                    <i class="fa-solid fa-fire text-pink-500"></i> S&P 500 板塊資金熱力圖 (高解析度)
                 </h2>
-                <div class="tradingview-widget-container" style="height: 450px;">
+                <div class="tradingview-widget-container" style="height: 650px;">
                   <div class="tradingview-widget-container__widget"></div>
                   <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
                   {
@@ -218,6 +190,10 @@
                   "blockColor": "change",
                   "locale": "zh_TW",
                   "colorTheme": "light",
+                  "hasTopBar": true,
+                  "isDataSetEnabled": true,
+                  "isZoomEnabled": true,
+                  "hasSymbolTooltip": true,
                   "width": "100%",
                   "height": "100%"
                 }
@@ -231,17 +207,13 @@
     <!-- 分頁切換 JavaScript 腳本 -->
     <script>
         function switchTab(tabName) {
-            // 隱藏所有分頁內容
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            // 移除所有按鈕的 active 樣式
             document.querySelectorAll('.tab-btn').forEach(el => {
                 el.classList.remove('active');
                 el.classList.add('text-pink-950');
             });
 
-            // 顯示目標分頁
             document.getElementById('tab-' + tabName).classList.remove('hidden');
-            // 激活目標按鈕
             const activeBtn = document.getElementById('btn-' + tabName);
             activeBtn.classList.add('active');
             activeBtn.classList.remove('text-pink-950');
