@@ -510,7 +510,7 @@
                     <h3 class="text-xs font-black text-black mb-3 uppercase tracking-wider">
                         <i class="fa-solid fa-sack-dollar mr-1.5 text-pink-600"></i> 現金流預估收益結果（稅後）
                     </h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                         <div class="bg-white p-3 rounded-xl border border-pink-200">
                             <div class="text-xs text-desc">預估平均實際年化股息率（稅後）</div>
                             <div id="cf-avg-yield" class="text-lg font-black text-pink-600">0.0%</div>
@@ -518,6 +518,10 @@
                         <div class="bg-white p-3 rounded-xl border border-pink-200">
                             <div class="text-xs text-desc">預估全年總現金流回報（稅後）</div>
                             <div id="cf-total-annual" class="text-lg font-black text-emerald-600">$0</div>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-pink-200">
+                            <div class="text-xs text-desc">預估每月現金流（稅後）</div>
+                            <div id="cf-total-monthly" class="text-lg font-black text-emerald-600">$0</div>
                         </div>
                     </div>
                     <div id="cf-results-grid" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
@@ -827,8 +831,11 @@
                 `;
             });
 
+            const totalMonthlyCashFlow = totalAnnualCashFlow / 12;
+
             document.getElementById('cf-avg-yield').innerText = (totalWeight > 0 ? (weightedYieldSum / (totalWeight > 0 ? totalWeight/100 : 1)).toFixed(2) : 0) + '%';
             document.getElementById('cf-total-annual').innerText = '$' + totalAnnualCashFlow.toFixed(2);
+            document.getElementById('cf-total-monthly').innerText = '$' + totalMonthlyCashFlow.toFixed(2);
         }
 
         // 初始化載入
