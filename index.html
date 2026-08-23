@@ -103,7 +103,6 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <h1 class="text-lg font-black text-black">美股量化 & 現金流 Dashboard</h1>
-                        <!-- 綠色即時更新燈號 -->
                         <div class="flex items-center gap-1.5 bg-emerald-50 border border-emerald-300 px-2.5 py-0.5 rounded-full shadow-xs">
                             <span class="live-dot"></span>
                             <span class="text-xs font-black text-emerald-700">實時更新中</span>
@@ -129,8 +128,6 @@
 
         <!-- 頁面 1：核心資產與美債 -->
         <div id="tab-macro" class="tab-pane flex flex-col space-y-6">
-            
-            <!-- 頂部 4 個小報價方塊 -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPY", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                 <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US10Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
@@ -138,7 +135,6 @@
                 <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:USOIL", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
             </div>
 
-            <!-- 標普 500 (SPY) 動態技術分析圖表 -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-chart-candlestick text-pink-600 mr-2"></i>標普 500 (SPY) 動態技術分析圖表</h2>
                 <p class="text-xs text-desc mb-3">追蹤美國大盤、均線與技術形態走勢圖</p>
@@ -153,11 +149,9 @@
                 </div>
             </div>
 
-            <!-- 美國主要國債收益率 (US Treasuries) -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-landmark text-pink-600 mr-2"></i>美國主要國債收益率 (US Treasuries)</h2>
                 <p class="text-xs text-desc mb-3">涵蓋短中長端美國公債收益率即時表現</p>
-                
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div class="dashboard-card p-2 h-[110px] bg-white"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US02Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                     <div class="dashboard-card p-2 h-[110px] bg-white"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US10Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
@@ -165,7 +159,6 @@
                 </div>
             </div>
 
-            <!-- 核心資產與商品行情列表 -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-list-check text-pink-600 mr-2"></i>核心資產與商品行情列表</h2>
                 <p class="text-xs text-desc mb-3">包含 SPY、QQQ、SPYM、QQQM、SOXX、SGOV 及 CLmain (WTI 原油)</p>
@@ -199,7 +192,6 @@
                 </div>
             </div>
 
-            <!-- 財經日報：三大核心事件日期行程表 (非農、CPI、FOMC) -->
             <div class="dashboard-card p-5">
                 <div class="flex justify-between items-center mb-3">
                     <div>
@@ -208,7 +200,6 @@
                     </div>
                     <span class="text-xs bg-pink-100 text-pink-800 font-bold px-2.5 py-1 rounded-lg">中文實用版</span>
                 </div>
-
                 <div class="overflow-x-auto rounded-xl border-2 border-pink-200">
                     <table class="w-full text-left border-collapse bg-white">
                         <thead>
@@ -278,16 +269,13 @@
                     </table>
                 </div>
             </div>
-
         </div>
 
         <!-- 頁面 2：現金流資產與報價 -->
         <div id="tab-cashflow" class="tab-pane hidden flex-col space-y-6">
-            
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-sack-dollar text-pink-600 mr-2"></i>現金流資產即時報價</h2>
                 <p class="text-xs text-desc mb-4">100% 成功連線，開市期間價格實時跳動</p>
-                
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                     <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPYI", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                     <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NASDAQ:QQQI", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
@@ -301,7 +289,6 @@
             <div class="dashboard-card p-6">
                 <h2 class="text-lg font-black text-black mb-1"><i class="fa-solid fa-table-cells text-pink-600 mr-2"></i>現金流資產屬性對照表</h2>
                 <p class="text-xs text-desc mb-5">詳細列出代碼、名稱、預估年化股息率與策略優勢</p>
-
                 <div class="overflow-x-auto rounded-xl border-2 border-pink-200">
                     <table class="w-full text-left border-collapse bg-white">
                         <thead>
@@ -360,7 +347,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
 
         <!-- 頁面 3：中文新聞摘要 -->
@@ -383,7 +369,7 @@
             </div>
         </div>
 
-        <!-- 頁面 5：多標的定投、幣種轉換與複利計算器 -->
+        <!-- 頁面 5：多標的定投、幣種轉換與分階段複利計算器 -->
         <div id="tab-calc" class="tab-pane hidden flex-col space-y-6">
             
             <div class="dashboard-card p-6">
@@ -436,44 +422,105 @@
                 </div>
             </div>
 
+            <!-- 新增：分階段長期複利與現金流計算器 -->
             <div class="dashboard-card p-6">
-                <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-pink-200 pb-4">
-                    <div>
-                        <h2 class="text-base font-black text-black"><i class="fa-solid fa-arrow-trend-up text-pink-600 mr-2"></i>長期複利與現金流增長預測（含雙幣顯示）</h2>
-                        <p class="text-xs text-desc">計算每月定投後的資產成長與預估被動收入</p>
+                <div class="mb-6 border-b-2 border-pink-200 pb-4">
+                    <h2 class="text-base font-black text-black"><i class="fa-solid fa-arrow-trend-up text-pink-600 mr-2"></i>三階段長期複利與現金流增長預測計劃</h2>
+                    <p class="text-xs text-desc">依序規劃 $5,000 階段 $\rightarrow$ $7,000 階段 $\rightarrow$ 現金流收穫階段之滾存表現</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- 階段一 -->
+                    <div class="bg-white border-2 border-pink-200 p-4 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="bg-pink-600 text-white text-xs font-black px-2.5 py-1 rounded-lg">階段一：$5,000 基礎期</span>
+                            </div>
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <label class="block font-black text-black mb-1">每月投入金額 ($)</label>
+                                    <input type="number" id="stage1-amount" value="5000" class="custom-input w-full p-2 rounded-lg" oninput="calculateStagedCompound()">
+                                </div>
+                                <div>
+                                    <label class="block font-black text-black mb-1">持續年限 (年)</label>
+                                    <input type="number" id="stage1-years" value="5" class="custom-input w-full p-2 rounded-lg" oninput="calculateStagedCompound()">
+                                </div>
+                                <div>
+                                    <label class="block font-black text-black mb-1">預估年化報酬率 (%)</label>
+                                    <input type="number" id="stage1-rate" value="10" step="0.5" class="custom-input w-full p-2 rounded-lg" oninput="calculateStagedCompound()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-pink-100 bg-pink-50 p-3 rounded-xl">
+                            <p class="text-[11px] text-gray-600 font-bold">階段結束總資產：</p>
+                            <p id="stage1-result" class="text-sm font-black text-pink-700">--</p>
+                        </div>
+                    </div>
+
+                    <!-- 階段二 -->
+                    <div class="bg-white border-2 border-pink-200 p-4 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="bg-pink-600 text-white text-xs font-black px-2.5 py-1 rounded-lg">階段二：$7,000 增長期</span>
+                            </div>
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <label class="block font-black text-black mb-1">每月投入金額 ($)</label>
+                                    <input type="number" id="stage2-amount" value="7000" class="custom-input w-full p-2 rounded-lg" oninput="calculateStagedCompound()">
+                                </div>
+                                <div>
+                                    <label class="block font-black text-black mb-1">持續年限 (年)</label>
+                                    <input type="number" id="stage2-years" value="5" class="custom-input w-full p-2 rounded-lg" oninput="calculateStagedCompound()">
+                                </div>
+                                <div>
+                                    <label class="block font-black text-black mb-1">預估年化報酬率 (%)</label>
+                                    <input type="number" id="stage2-rate" value="12" step="0.5" class="custom-input w-full p-2 rounded-lg" oninput="calculateStagedCompound()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-pink-100 bg-pink-50 p-3 rounded-xl">
+                            <p class="text-[11px] text-gray-600 font-bold">階段結束總資產：</p>
+                            <p id="stage2-result" class="text-sm font-black text-pink-700">--</p>
+                        </div>
+                    </div>
+
+                    <!-- 階段三：現金流階段 -->
+                    <div class="bg-white border-2 border-pink-200 p-4 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="bg-emerald-600 text-white text-xs font-black px-2.5 py-1 rounded-lg">階段三：現金流收穫期</span>
+                            </div>
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <label class="block font-black text-black mb-1">目標資產配置 / 轉換</label>
+                                    <p class="text-[11px] text-desc font-bold">自動承接前兩階段累積的滾存總本金</p>
+                                </div>
+                                <div>
+                                    <label class="block font-black text-black mb-1">現金流資產年化股息率 (%)</label>
+                                    <input type="number" id="stage3-yield" value="12" step="0.5" class="custom-input w-full p-2 rounded-lg" oninput="calculateStagedCompound()">
+                                </div>
+                                <div>
+                                    <label class="block font-black text-black mb-1">資產本金繼續滾存年限</label>
+                                    <input type="number" id="stage3-years" value="10" class="custom-input w-full p-2 rounded-lg" oninput="calculateStagedCompound()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-emerald-100 bg-emerald-50 p-3 rounded-xl">
+                            <p class="text-[11px] text-emerald-800 font-bold">最終總資產 & 每月被動現金流：</p>
+                            <p id="stage3-result" class="text-sm font-black text-emerald-700">--</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <!-- 總結看板 -->
+                <div class="mt-6 bg-pink-900 text-white p-5 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4">
                     <div>
-                        <label class="block text-xs font-black text-black mb-1">每月定投金額</label>
-                        <input type="number" id="compound-monthly" value="5000" class="custom-input w-full p-2.5 rounded-xl text-sm" oninput="calculateCompound()">
+                        <h4 class="text-xs font-black tracking-wider uppercase text-pink-300 mb-1"><i class="fa-solid fa-flag-checkered mr-1.5"></i> 三階段全週期目標總結</h4>
+                        <p id="grand-summary-text" class="text-sm font-bold text-white">規劃總時長 20 年，透過循序漸進的投入達成資產規模與現金流自由目標。</p>
                     </div>
-                    <div>
-                        <label class="block text-xs font-black text-black mb-1">預估年化收益/股息率 (%)</label>
-                        <input type="number" id="compound-rate" value="10" class="custom-input w-full p-2.5 rounded-xl text-sm" oninput="calculateCompound()">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black text-black mb-1">投資年限 (年)</label>
-                        <input type="number" id="compound-years" value="5" class="custom-input w-full p-2.5 rounded-xl text-sm" oninput="calculateCompound()">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="bg-gray-50 p-4 rounded-xl border-2 border-pink-200">
-                        <span class="text-xs font-black text-black">總累積本金</span>
-                        <p id="compound-principal-hkd" class="text-base font-black text-black mt-1">$300,000 HKD</p>
-                        <p id="compound-principal-usd" class="text-xs font-bold text-pink-700 mt-0.5">≈ $38,462 USD</p>
-                    </div>
-                    <div class="bg-gray-50 p-4 rounded-xl border-2 border-pink-200">
-                        <span class="text-xs font-black text-black">預期資產總額 (含複利)</span>
-                        <p id="compound-total-hkd" class="text-lg font-black text-pink-600 mt-1">$387,200 HKD</p>
-                        <p id="compound-total-usd" class="text-xs font-bold text-pink-700 mt-0.5">≈ $49,641 USD</p>
-                    </div>
-                    <div class="bg-gray-50 p-4 rounded-xl border-2 border-pink-200">
-                        <span class="text-xs font-black text-black">屆時預估每月被動收入</span>
-                        <p id="compound-monthly-income-hkd" class="text-lg font-black text-pink-600 mt-1">$3,226 HKD /月</p>
-                        <p id="compound-monthly-income-usd" class="text-xs font-bold text-pink-700 mt-0.5">≈ $414 USD /月</p>
+                    <div class="text-right bg-pink-800/80 px-4 py-3 rounded-xl border border-pink-700">
+                        <span class="text-xs text-pink-300 block font-bold">最終實現每月被動收入：</span>
+                        <span id="grand-monthly-income" class="text-lg font-black text-emerald-400">--</span>
                     </div>
                 </div>
             </div>
@@ -482,170 +529,147 @@
 
     </main>
 
+    <!-- Footer -->
+    <footer class="bg-white/80 border-t-2 border-pink-300 py-4 text-center text-xs text-desc font-bold mt-auto">
+        美股量化 & 現金流 Dashboard © 2026 • 實時金融數據支援
+    </footer>
+
     <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+
         let stocks = [
-            { symbol: 'QQQI', weight: 34 },
-            { symbol: 'SPYI', weight: 33 },
-            { symbol: 'SPMO', weight: 33 }
+            { name: "SPYI (標普高息)", weight: 40 },
+            { name: "QQQI (納指高息)", weight: 40 },
+            { name: "SGOV (短期美債)", weight: 20 }
         ];
 
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-pane').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('flex');
-            });
-            document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('active');
-            });
-
-            const targetTab = document.getElementById('tab-' + tabName);
-            targetTab.classList.remove('hidden');
-            targetTab.classList.add('flex');
-
-            const activeBtn = document.getElementById('btn-' + tabName);
-            activeBtn.classList.add('active');
-
-            if(tabName === 'calc') {
-                renderStockRows();
-                calculateMultiDCA();
-                calculateCompound();
-            }
-        }
-
-        function renderStockRows() {
+        function renderStocks() {
             const container = document.getElementById('stocks-container');
             container.innerHTML = '';
-
             stocks.forEach((stock, index) => {
-                const row = document.createElement('div');
-                row.className = 'flex items-center gap-3 bg-gray-50 p-2.5 rounded-xl border-2 border-pink-200';
-                row.innerHTML = `
-                    <input type="text" value="${stock.symbol}" oninput="updateStockSymbol(${index}, this.value)" placeholder="代碼" class="custom-input w-28 p-2 rounded-lg text-xs uppercase">
-                    <div class="flex-1 flex items-center gap-3">
-                        <input type="range" min="0" max="100" value="${stock.weight}" oninput="updateStockWeightSlider(${index}, this.value)" class="w-full h-2 bg-pink-200 rounded-lg appearance-none cursor-pointer">
-                        <div class="flex items-center gap-1">
-                            <input type="number" min="0" max="100" value="${stock.weight}" oninput="updateStockWeightNumber(${index}, this.value)" class="custom-input w-16 p-1.5 rounded-lg text-xs text-center">
-                            <span class="text-xs font-black text-black">%</span>
-                        </div>
+                container.innerHTML += `
+                    <div class="flex items-center gap-2 bg-white p-3 rounded-xl border-2 border-pink-200">
+                        <input type="text" value="${stock.name}" oninput="updateStockName(${index}, this.value)" class="custom-input flex-1 p-2 rounded-lg text-xs" placeholder="資產名稱">
+                        <input type="number" value="${stock.weight}" oninput="updateStockWeight(${index}, this.value)" class="custom-input w-24 p-2 rounded-lg text-xs" placeholder="權重%">
+                        <button onclick="removeStockRow(${index})" class="text-red-500 hover:text-red-700 p-2"><i class="fa-solid fa-trash"></i></button>
                     </div>
-                    <button onclick="removeStockRow(${index})" class="text-gray-500 hover:text-red-600 p-1 font-bold"><i class="fa-solid fa-trash-can"></i></button>
                 `;
-                container.appendChild(row);
             });
-        }
-
-        function updateStockSymbol(index, val) {
-            stocks[index].symbol = val;
-            calculateMultiDCA();
-        }
-
-        function updateStockWeightSlider(index, val) {
-            stocks[index].weight = parseFloat(val) || 0;
-            const container = document.getElementById('stocks-container');
-            const numInput = container.children[index]?.querySelector('input[type="number"]');
-            if(numInput && document.activeElement !== numInput) numInput.value = val;
-            calculateMultiDCA();
-        }
-
-        function updateStockWeightNumber(index, val) {
-            stocks[index].weight = parseFloat(val) || 0;
             calculateMultiDCA();
         }
 
         function addStockRow() {
-            stocks.push({ symbol: '新資產', weight: 10 });
-            renderStockRows();
-            calculateMultiDCA();
+            stocks.push({ name: "新資產標的", weight: 0 });
+            renderStocks();
         }
 
         function removeStockRow(index) {
-            if(stocks.length <= 1) return;
             stocks.splice(index, 1);
-            renderStockRows();
+            renderStocks();
+        }
+
+        function updateStockName(index, val) {
+            stocks[index].name = val;
+        }
+
+        function updateStockWeight(index, val) {
+            stocks[index].weight = parseFloat(val) || 0;
             calculateMultiDCA();
         }
 
         function normalizeWeights() {
-            const equalWeight = Math.floor(100 / stocks.length);
-            stocks.forEach((s, i) => {
-                s.weight = (i === stocks.length - 1) ? 100 - (equalWeight * (stocks.length - 1)) : equalWeight;
-            });
-            renderStockRows();
-            calculateMultiDCA();
+            if (stocks.length === 0) return;
+            let equalWeight = 100 / stocks.length;
+            stocks.forEach(s => s.weight = parseFloat(equalWeight.toFixed(1)));
+            renderStocks();
         }
 
         function calculateMultiDCA() {
-            const total = parseFloat(document.getElementById('calc-total').value) || 0;
-            const currency = document.getElementById('currency-select').value;
-            const fxRate = parseFloat(document.getElementById('fx-rate').value) || 7.8;
+            let totalAmount = parseFloat(document.getElementById('calc-total').value) || 0;
+            let currency = document.getElementById('currency-select').value;
+            let fxRate = parseFloat(document.getElementById('fx-rate').value) || 7.8;
 
-            const totalWeight = stocks.reduce((sum, s) => sum + s.weight, 0);
-            document.getElementById('total-weight-display').innerText = `${totalWeight}%`;
-
-            const resultsContainer = document.getElementById('multi-results-grid');
-            resultsContainer.innerHTML = '';
-
-            stocks.forEach(stock => {
-                const ratio = totalWeight > 0 ? (stock.weight / totalWeight) : 0;
-                const allocatedAmount = total * ratio;
-
-                let hkdAmount, usdAmount;
-                if (currency === 'HKD') {
-                    hkdAmount = allocatedAmount;
-                    usdAmount = allocatedAmount / fxRate;
-                } else {
-                    usdAmount = allocatedAmount;
-                    hkdAmount = allocatedAmount * fxRate;
-                }
-
-                const card = document.createElement('div');
-                card.className = 'bg-white p-3.5 rounded-xl border-2 border-pink-200 shadow-sm flex flex-col justify-between';
-                card.innerHTML = `
-                    <div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-black uppercase text-pink-700">${stock.symbol || '未命名'}</span>
-                            <span class="text-xs font-black text-black">${(ratio * 100).toFixed(1)}%</span>
-                        </div>
-                        <p class="text-lg font-black text-black mt-2">$${usdAmount.toFixed(2).toLocaleString()} USD</p>
-                        <p class="text-xs font-black text-pink-600 mt-0.5">≈ $${Math.round(hkdAmount).toLocaleString()} HKD</p>
-                    </div>
-                `;
-                resultsContainer.appendChild(card);
-            });
-        }
-
-        function calculateCompound() {
-            const monthly = parseFloat(document.getElementById('compound-monthly').value) || 0;
-            const annualRate = (parseFloat(document.getElementById('compound-rate').value) || 0) / 100;
-            const years = parseFloat(document.getElementById('compound-years').value) || 0;
-            const fxRate = parseFloat(document.getElementById('fx-rate').value) || 7.8;
-
-            const months = years * 12;
-            const monthlyRate = annualRate / 12;
-
-            let totalFutureValue = 0;
-            if (monthlyRate > 0) {
-                totalFutureValue = monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+            let totalWeight = stocks.reduce((sum, s) => sum + s.weight, 0);
+            document.getElementById('total-weight-display').innerText = totalWeight + '%';
+            if(totalWeight !== 100) {
+                document.getElementById('total-weight-display').classList.add('text-red-600');
             } else {
-                totalFutureValue = monthly * months;
+                document.getElementById('total-weight-display').classList.remove('text-red-600');
             }
 
-            const principal = monthly * months;
-            const monthlyPassiveIncome = (totalFutureValue * annualRate) / 12;
+            let resultsGrid = document.getElementById('multi-results-grid');
+            resultsGrid.innerHTML = '';
 
-            document.getElementById('compound-principal-hkd').innerText = `$${Math.round(principal).toLocaleString()} HKD`;
-            document.getElementById('compound-principal-usd').innerText = `≈ $${Math.round(principal / fxRate).toLocaleString()} USD`;
-            
-            document.getElementById('compound-total-hkd').innerText = `$${Math.round(totalFutureValue).toLocaleString()} HKD`;
-            document.getElementById('compound-total-usd').innerText = `≈ $${Math.round(totalFutureValue / fxRate).toLocaleString()} USD`;
-            
-            document.getElementById('compound-monthly-income-hkd').innerText = `$${Math.round(monthlyPassiveIncome).toLocaleString()} HKD /月`;
-            document.getElementById('compound-monthly-income-usd').innerText = `≈ $${Math.round(monthlyPassiveIncome / fxRate).toLocaleString()} USD /月`;
+            stocks.forEach(stock => {
+                let amountInInput = totalAmount * (stock.weight / 100);
+                let hkdVal = currency === 'USD' ? amountInInput * fxRate : amountInInput;
+                let usdVal = currency === 'USD' ? amountInInput : amountInInput / fxRate;
+
+                resultsGrid.innerHTML += `
+                    <div class="bg-white p-3.5 rounded-xl border-2 border-pink-200">
+                        <div class="font-black text-black text-xs mb-1">${stock.name} (${stock.weight}%)</div>
+                        <div class="text-pink-600 font-black text-sm">HKD $${hkdVal.toLocaleString('en-US', {maximumFractionDigits: 0})}</div>
+                        <div class="text-desc text-[11px]">USD $${usdVal.toLocaleString('en-US', {maximumFractionDigits: 0})}</div>
+                    </div>
+                `;
+            });
+
+            calculateStagedCompound();
         }
 
-        renderStockRows();
-        calculateMultiDCA();
-        calculateCompound();
+        function calculateStagedCompound() {
+            // 階段一計算 ($5000 階段)
+            let p1_amt = parseFloat(document.getElementById('stage1-amount').value) || 0;
+            let p1_yrs = parseFloat(document.getElementById('stage1-years').value) || 0;
+            let p1_rate = (parseFloat(document.getElementById('stage1-rate').value) || 0) / 100 / 12;
+            let p1_months = p1_yrs * 12;
+            
+            let fv1 = 0;
+            for(let i=0; i<p1_months; i++) {
+                fv1 = (fv1 + p1_amt) * (1 + p1_rate);
+            }
+            document.getElementById('stage1-result').innerText = '$' + fv1.toLocaleString('en-US', {maximumFractionDigits: 0});
+
+            // 階段二計算 ($7000 階段，從階段一結余繼續滾存)
+            let p2_amt = parseFloat(document.getElementById('stage2-amount').value) || 0;
+            let p2_yrs = parseFloat(document.getElementById('stage2-years').value) || 0;
+            let p2_rate = (parseFloat(document.getElementById('stage2-rate').value) || 0) / 100 / 12;
+            let p2_months = p2_yrs * 12;
+
+            let fv2 = fv1;
+            for(let i=0; i<p2_months; i++) {
+                fv2 = (fv2 + p2_amt) * (1 + p2_rate);
+            }
+            document.getElementById('stage2-result').innerText = '$' + fv2.toLocaleString('en-US', {maximumFractionDigits: 0});
+
+            // 階段三計算 (現金流收穫期：本金 fv2 不再每月額外投入，以收息資產繼續複利滾存或提取)
+            let p3_yield = (parseFloat(document.getElementById('stage3-yield').value) || 0) / 100;
+            let p3_yrs = parseFloat(document.getElementById('stage3-years').value) || 0;
+            let p3_rate = p3_yield / 12;
+            let p3_months = p3_yrs * 12;
+
+            let fv3 = fv2;
+            // 假設現金流階段將總資產投入高息收息資產，每年滾存本金增長
+            for(let i=0; i<p3_months; i++) {
+                fv3 = fv3 * (1 + p3_rate);
+            }
+
+            let monthlyIncome = fv3 * (p3_yield / 12);
+
+            document.getElementById('stage3-result').innerText = '總資產: $' + fv3.toLocaleString('en-US', {maximumFractionDigits: 0}) + '\n月現金流: $' + monthlyIncome.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('grand-monthly-income').innerText = '$' + monthlyIncome.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' / 月';
+
+            let totalYears = p1_yrs + p2_yrs + p3_yrs;
+            document.getElementById('grand-summary-text').innerText = `總規劃時長 ${totalYears} 年：完成 $5,000 與 $7,000 階段累積後，於階段三轉入高股息資產，最終滾存總資產達 $' + fv3.toLocaleString('en-US', {maximumFractionDigits: 0}) + '。`;
+        }
+
+        // 初始化
+        renderStocks();
     </script>
 </body>
 </html>
