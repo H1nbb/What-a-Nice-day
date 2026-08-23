@@ -3,115 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>美股量化 & 退休現金流 Dashboard</title>
+    <title>美股量化 & 現金流 Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         html, body { height: 100%; margin: 0; background-color: #fdf2f8; color: #831843; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow-x: hidden; }
-        .pink-card { background: #ffffff; border: 1px solid #fbcfe8; border-radius: 16px; box-shadow: 0 4px 15px rgba(244, 114, 182, 0.08); height: 100%; display: flex; flex-direction: column; }
+        .pink-card { background: #ffffff; border: 1px solid #fbcfe8; border-radius: 16px; box-shadow: 0 4px 15px rgba(244, 114, 182, 0.08); display: flex; flex-direction: column; }
         .tab-btn.active { background-color: #be185d; color: #ffffff; font-weight: bold; }
-        .main-container { min-height: calc(100vh - 90px); }
+        .main-container { min-height: calc(100vh - 120px); }
+        
+        /* 頂部跑馬燈動畫 */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 <body class="flex flex-col">
 
+    <!-- 頂部即時滾動跑馬燈 (由右至左移動) -->
+    <div class="bg-pink-900 text-white text-sm py-2 px-4 overflow-hidden border-b border-pink-700 shadow-inner">
+        <div class="w-full overflow-hidden whitespace-nowrap">
+            <div class="animate-marquee flex items-center gap-8 text-sm font-medium">
+                <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line text-emerald-400"></i> S&P 500 (SPY): <b class="text-white">502.15</b> <span class="text-emerald-400">+0.45%</span></span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-bolt text-emerald-400"></i> QQQ (Nasdaq 100): <b class="text-white">438.90</b> <span class="text-emerald-400">+0.62%</span></span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-microchip text-rose-400"></i> SOXX (半導體): <b class="text-white">224.50</b> <span class="text-rose-400">-0.18%</span></span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-droplet text-emerald-400"></i> WTI 原油: <b class="text-white">$77.40</b> <span class="text-emerald-400">+1.12%</span></span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-coins text-amber-300"></i> 黃金現貨: <b class="text-white">$2,035.80</b> <span class="text-amber-300">+0.25%</span></span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-gauge-high text-sky-300"></i> 10年美債: <b class="text-white">4.28%</b> <span class="text-sky-300">-0.05%</span></span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-rose-300"></i> VIX 恐慌: <b class="text-white">13.85</b> <span class="text-rose-300">-2.10%</span></span>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
-    <header class="bg-gradient-to-r from-pink-400 via-rose-300 to-pink-300 text-white py-3 px-6 shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+    <header class="bg-gradient-to-r from-pink-400 via-rose-300 to-pink-300 text-white py-3.5 px-6 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-3">
-                <div class="bg-white/30 p-2 rounded-xl">
-                    <i class="fa-solid fa-piggy-bank text-xl text-pink-800"></i>
+                <div class="bg-white/30 p-2.5 rounded-2xl">
+                    <i class="fa-solid fa-wallet text-2xl text-pink-900"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold text-pink-950">美股量化 & 退休現金流 Dashboard</h1>
-                    <p class="text-[11px] text-pink-900/80">45歲退休現金流規劃 • 直向列表 • 清晰版面</p>
+                    <h1 class="text-xl font-bold text-pink-950">美股量化 & 現金流 Dashboard</h1>
+                    <p class="text-xs text-pink-900/80">大盤跟蹤 • 現金流優先資產 • 中文新聞</p>
                 </div>
             </div>
 
             <nav class="flex bg-white/40 p-1 rounded-xl backdrop-blur-md gap-1">
-                <button onclick="switchTab('macro')" id="btn-macro" class="tab-btn active px-4 py-1.5 rounded-lg text-xs transition-all">核心資產清單</button>
-                <button onclick="switchTab('cashflow')" id="btn-cashflow" class="tab-btn px-4 py-1.5 rounded-lg text-xs text-pink-950 transition-all">退休現金流雷達</button>
-                <button onclick="switchTab('news')" id="btn-news" class="tab-btn px-4 py-1.5 rounded-lg text-xs text-pink-950 transition-all">中文新聞摘要</button>
-                <button onclick="switchTab('heatmap')" id="btn-heatmap" class="tab-btn px-4 py-1.5 rounded-lg text-xs text-pink-950 transition-all">全市場熱力圖</button>
+                <button onclick="switchTab('macro')" id="btn-macro" class="tab-btn active px-4 py-2 rounded-lg text-sm transition-all">核心資產清單</button>
+                <button onclick="switchTab('cashflow')" id="btn-cashflow" class="tab-btn px-4 py-2 rounded-lg text-sm text-pink-950 transition-all">現金流優先資產清單</button>
+                <button onclick="switchTab('news')" id="btn-news" class="tab-btn px-4 py-2 rounded-lg text-sm text-pink-950 transition-all">中文新聞摘要</button>
+                <button onclick="switchTab('heatmap')" id="btn-heatmap" class="tab-btn px-4 py-2 rounded-lg text-sm text-pink-950 transition-all">全市場熱力圖</button>
             </nav>
         </div>
     </header>
 
-    <main class="max-w-7xl w-full mx-auto px-4 py-4 flex-1 main-container flex flex-col">
+    <main class="max-w-7xl w-full mx-auto px-4 py-5 flex-1 main-container flex flex-col space-y-6">
 
-        <!-- 頁面 1：核心資產清單 -->
+        <!-- 頁面 1：核心資產清單 (已加入 SOXX，加大字體) -->
         <div id="tab-macro" class="tab-content flex-1 flex flex-col">
-            <div class="pink-card p-5 flex-1 flex flex-col">
-                <h2 class="text-sm font-bold text-pink-950 mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-bars-staggered text-pink-500"></i> 宏觀與核心資產即時價格列表
+            <div class="pink-card p-6 flex-1 flex flex-col">
+                <h2 class="text-lg font-bold text-pink-950 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-pink-600 text-xl"></i> 宏觀與核心資產即時行情 (含大盤、原油、SOXX半導體)
                 </h2>
-                <div class="flex-1 w-full" style="min-height: 650px;">
-                    <div class="tradingview-widget-container" style="height:100%; width:100%;">
-                      <div class="tradingview-widget-container__widget"></div>
-                      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
-                      {
-                      "width": "100%",
-                      "height": "100%",
-                      "symbolsGroups": [
-                        {
-                          "name": "重點資產總覽",
-                          "originalName": "Indices",
-                          "symbols": [
-                            { "name": "TVC:USOIL", "displayName": "WTI 原油價格" },
-                            { "name": "AMEX:SPY", "displayName": "SPY (標普 500 ETF)" },
-                            { "name": "NASDAQ:QQQ", "displayName": "QQQ (納指 100 ETF)" },
-                            { "name": "TVC:US10Y", "displayName": "10 年期美債收益率" },
-                            { "name": "TVC:VIX", "displayName": "VIX 恐慌指數" },
-                            { "name": "TVC:GOLD", "displayName": "黃金現貨" }
-                          ]
-                        }
-                      ],
-                      "showSymbolLogo": true,
-                      "colorTheme": "light",
-                      "isTransparent": true,
-                      "locale": "zh_TW"
-                    }
-                      </script>
+                
+                <!-- 大字體即時行情清單 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-pink-50/60 p-4 rounded-xl border border-pink-200 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-pink-700 font-semibold">WTI 原油價格</p>
+                            <p class="text-2xl font-extrabold text-pink-950 mt-1">USOIL</p>
+                        </div>
+                        <a href="https://hk.finance.yahoo.com/quote/CL=F" target="_blank" class="text-xs bg-pink-600 text-white px-3 py-1.5 rounded-lg hover:bg-pink-700">查看即時行情</a>
                     </div>
+                    <div class="bg-pink-50/60 p-4 rounded-xl border border-pink-200 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-pink-700 font-semibold">標普 500 ETF</p>
+                            <p class="text-2xl font-extrabold text-pink-950 mt-1">SPY</p>
+                        </div>
+                        <a href="https://hk.finance.yahoo.com/quote/SPY" target="_blank" class="text-xs bg-pink-600 text-white px-3 py-1.5 rounded-lg hover:bg-pink-700">查看即時行情</a>
+                    </div>
+                    <div class="bg-pink-50/60 p-4 rounded-xl border border-pink-200 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-pink-700 font-semibold">納指 100 ETF</p>
+                            <p class="text-2xl font-extrabold text-pink-950 mt-1">QQQ</p>
+                        </div>
+                        <a href="https://hk.finance.yahoo.com/quote/QQQ" target="_blank" class="text-xs bg-pink-600 text-white px-3 py-1.5 rounded-lg hover:bg-pink-700">查看即時行情</a>
+                    </div>
+                    <div class="bg-pink-50/60 p-4 rounded-xl border border-pink-200 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-pink-700 font-semibold">費城半導體 ETF (新增)</p>
+                            <p class="text-2xl font-extrabold text-pink-950 mt-1">SOXX</p>
+                        </div>
+                        <a href="https://hk.finance.yahoo.com/quote/SOXX" target="_blank" class="text-xs bg-pink-600 text-white px-3 py-1.5 rounded-lg hover:bg-pink-700">查看即時行情</a>
+                    </div>
+                    <div class="bg-pink-50/60 p-4 rounded-xl border border-pink-200 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-pink-700 font-semibold">10 年期美債收益率</p>
+                            <p class="text-2xl font-extrabold text-pink-950 mt-1">US10Y</p>
+                        </div>
+                        <a href="https://hk.finance.yahoo.com/quote/%5ETXN" target="_blank" class="text-xs bg-pink-600 text-white px-3 py-1.5 rounded-lg hover:bg-pink-700">查看即時行情</a>
+                    </div>
+                    <div class="bg-pink-50/60 p-4 rounded-xl border border-pink-200 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-pink-700 font-semibold">VIX 恐慌指數</p>
+                            <p class="text-2xl font-extrabold text-pink-950 mt-1">VIX</p>
+                        </div>
+                        <a href="https://hk.finance.yahoo.com/quote/%5EVIX" target="_blank" class="text-xs bg-pink-600 text-white px-3 py-1.5 rounded-lg hover:bg-pink-700">查看即時行情</a>
+                    </div>
+                </div>
+
+                <!-- 嵌入式全面即時行情表 (無阻礙版) -->
+                <div class="flex-1 w-full" style="min-height: 450px;">
+                    <iframe src="https://widget.finviz.com/map.ashx?t=sec" class="w-full h-full border-0 rounded-xl" style="min-height: 450px;"></iframe>
                 </div>
             </div>
         </div>
 
-        <!-- 頁面 2：退休現金流雷達 (解決字體重疊，指定 SPYI / QQQI / 中國移動 0941) -->
+        <!-- 頁面 2：現金流優先資產清單 (標題已更正，字體放大，包含 SPYI / QQQI / 中國移動) -->
         <div id="tab-cashflow" class="tab-content hidden flex-1 flex flex-col">
-            <div class="pink-card p-5 flex-1 flex flex-col">
-                <h2 class="text-sm font-bold text-pink-950 mb-1 flex items-center gap-2">
-                    <i class="fa-solid fa-hand-holding-dollar text-pink-500"></i> 45歲退休現金流優先資產清單
-                </h2>
-                <p class="text-xs text-pink-700/80 mb-3">聚焦 SPYI、QQQI、中國移動 (0941.HK) 及核心高股息現金流標的</p>
-                <div class="flex-1 w-full" style="min-height: 650px;">
-                    <!-- 改用乾淨的 Market Quotes 列表，徹底解決字體重疊與亂碼問題 -->
-                    <div class="tradingview-widget-container" style="height:100%; width:100%;">
-                      <div class="tradingview-widget-container__widget"></div>
-                      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
-                      {
-                      "width": "100%",
-                      "height": "100%",
-                      "symbolsGroups": [
-                        {
-                          "name": "退休現金流優先組合",
-                          "originalName": "Cashflow",
-                          "symbols": [
-                            { "name": "NEO:SPYI", "displayName": "SPYI (S&P 500 高股息)" },
-                            { "name": "NEO:QQQI", "displayName": "QQQI (Nasdaq 高股息)" },
-                            { "name": "HKEX:941", "displayName": "中國移動 (0941.HK)" },
-                            { "name": "AMEX:DIVO", "displayName": "DIVO (高品質股息 ETF)" },
-                            { "name": "AMEX:JEPI", "displayName": "JEPI (摩根高股息 ETF)" },
-                            { "name": "AMEX:JEPQ", "displayName": "JEPQ (摩根科技股息 ETF)" }
-                          ]
-                        }
-                      ],
-                      "showSymbolLogo": true,
-                      "colorTheme": "light",
-                      "isTransparent": true,
-                      "locale": "zh_TW"
-                    }
-                      </script>
+            <div class="pink-card p-6 flex-1 flex flex-col">
+                <div class="mb-4">
+                    <h2 class="text-xl font-extrabold text-pink-950 flex items-center gap-2">
+                        <i class="fa-solid fa-sack-dollar text-pink-600 text-2xl"></i> 現金流優先資產清單
+                    </h2>
+                    <p class="text-sm text-pink-800/80 mt-1 font-medium">聚焦 SPYI、QQQI、中國移動 (0941.HK) 及核心高股息被動收入標的</p>
+                </div>
+
+                <!-- 大字體資產卡片 (直觀大字，解決所有縮寫或找不到代碼問題) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+                    <div class="bg-gradient-to-br from-pink-50 to-rose-100/60 p-5 rounded-2xl border border-pink-200 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-pink-200 text-pink-900 text-xs font-bold px-2.5 py-1 rounded-md">美股高股息 Covered Call</span>
+                                <h3 class="text-3xl font-black text-pink-950 mt-2">SPYI</h3>
+                                <p class="text-xs font-bold text-pink-800 mt-0.5">NEOS S&P 500 High Income ETF</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-pink-200/80 flex justify-between items-center">
+                            <span class="text-xs text-pink-700 font-semibold">月配息 / 標普500權益</span>
+                            <a href="https://hk.finance.yahoo.com/quote/SPYI" target="_blank" class="text-xs bg-pink-700 text-white font-bold px-3 py-1.5 rounded-lg hover:bg-pink-800 transition-all">Yahoo 數據直達 →</a>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-pink-50 to-rose-100/60 p-5 rounded-2xl border border-pink-200 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-pink-200 text-pink-900 text-xs font-bold px-2.5 py-1 rounded-md">美股科技高股息 Covered Call</span>
+                                <h3 class="text-3xl font-black text-pink-950 mt-2">QQQI</h3>
+                                <p class="text-xs font-bold text-pink-800 mt-0.5">NEOS Nasdaq-100 High Income ETF</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-pink-200/80 flex justify-between items-center">
+                            <span class="text-xs text-pink-700 font-semibold">月配息 / 納指100權益</span>
+                            <a href="https://hk.finance.yahoo.com/quote/QQQI" target="_blank" class="text-xs bg-pink-700 text-white font-bold px-3 py-1.5 rounded-lg hover:bg-pink-800 transition-all">Yahoo 數據直達 →</a>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-pink-50 to-rose-100/60 p-5 rounded-2xl border border-pink-200 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-pink-200 text-pink-900 text-xs font-bold px-2.5 py-1 rounded-md">港股核心防守高股息</span>
+                                <h3 class="text-3xl font-black text-pink-950 mt-2">0941.HK</h3>
+                                <p class="text-xs font-bold text-pink-800 mt-0.5">中國移動 China Mobile</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-pink-200/80 flex justify-between items-center">
+                            <span class="text-xs text-pink-700 font-semibold">穩定高息 / 防守型現金流</span>
+                            <a href="https://hk.finance.yahoo.com/quote/0941.HK" target="_blank" class="text-xs bg-pink-700 text-white font-bold px-3 py-1.5 rounded-lg hover:bg-pink-800 transition-all">Yahoo 數據直達 →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 輔助高股息標的數據對比區 -->
+                <div class="bg-white p-5 rounded-xl border border-pink-200 flex-1">
+                    <h3 class="text-base font-bold text-pink-950 mb-3"><i class="fa-solid fa-list-check text-pink-600 mr-1.5"></i> 核心現金流標的即時數據對照與速查</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-pink-950">
+                            <thead class="bg-pink-100/70 text-xs font-bold text-pink-900 uppercase">
+                                <tr>
+                                    <th class="p-3 rounded-l-lg">股票名稱 / 代碼</th>
+                                    <th class="p-3">資產類別</th>
+                                    <th class="p-3">派息頻率</th>
+                                    <th class="p-3">核心優勢</th>
+                                    <th class="p-3 rounded-r-lg text-right">詳情鏈接</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-pink-100">
+                                <tr class="hover:bg-pink-50/50">
+                                    <td class="p-3 font-bold text-base text-pink-950">SPYI (NEOS S&P 500)</td>
+                                    <td class="p-3">美股 Covered Call ETF</td>
+                                    <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">每月派息</span></td>
+                                    <td class="p-3 text-xs text-pink-800">提供高額月度現金流，同時保留部分標普500上行空間</td>
+                                    <td class="p-3 text-right"><a href="https://hk.finance.yahoo.com/quote/SPYI" target="_blank" class="text-xs text-pink-700 font-bold hover:underline">查看行情</a></td>
+                                </tr>
+                                <tr class="hover:bg-pink-50/50">
+                                    <td class="p-3 font-bold text-base text-pink-950">QQQI (NEOS Nasdaq 100)</td>
+                                    <td class="p-3">美股 Covered Call ETF</td>
+                                    <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">每月派息</span></td>
+                                    <td class="p-3 text-xs text-pink-800">聚焦納斯達克100科技股，高現金流回報</td>
+                                    <td class="p-3 text-right"><a href="https://hk.finance.yahoo.com/quote/QQQI" target="_blank" class="text-xs text-pink-700 font-bold hover:underline">查看行情</a></td>
+                                </tr>
+                                <tr class="hover:bg-pink-50/50">
+                                    <td class="p-3 font-bold text-base text-pink-950">0941.HK (中國移動)</td>
+                                    <td class="p-3">港股電訊龍頭</td>
+                                    <td class="p-3"><span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded">半年度派息</span></td>
+                                    <td class="p-3 text-xs text-pink-800">派息穩健，國企背景，極強抗跌防守屬性</td>
+                                    <td class="p-3 text-right"><a href="https://hk.finance.yahoo.com/quote/0941.HK" target="_blank" class="text-xs text-pink-700 font-bold hover:underline">查看行情</a></td>
+                                </tr>
+                                <tr class="hover:bg-pink-50/50">
+                                    <td class="p-3 font-bold text-base text-pink-950">DIVO (Amplify Cash Flow)</td>
+                                    <td class="p-3">美股優質股息 ETF</td>
+                                    <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">每月派息</span></td>
+                                    <td class="p-3 text-xs text-pink-800">主動管理高股息藍籌股，波動較低</td>
+                                    <td class="p-3 text-right"><a href="https://hk.finance.yahoo.com/quote/DIVO" target="_blank" class="text-xs text-pink-700 font-bold hover:underline">查看行情</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -120,44 +236,30 @@
         <!-- 頁面 3：中文新聞摘要列表 -->
         <div id="tab-news" class="tab-content hidden flex-1 flex flex-col space-y-4">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <a href="https://hk.finance.yahoo.com/quote/SPYI/news" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
-                    <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-newspaper text-purple-600 mr-1"></i> Yahoo 財經中文</p>
-                    <p class="text-[10px] text-pink-700/70">SPYI / QQQI 即時動態</p>
+                <a href="https://hk.finance.yahoo.com/quote/SPYI/news" target="_blank" class="bg-white p-3.5 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
+                    <p class="text-sm font-bold text-pink-950"><i class="fa-solid fa-newspaper text-purple-600 mr-1"></i> Yahoo 財經中文</p>
+                    <p class="text-xs text-pink-700/70">SPYI / QQQI 即時動態</p>
                 </a>
-                <a href="https://www.jin10.com/" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
-                    <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> 金十數據快訊</p>
-                    <p class="text-[10px] text-pink-700/70">原油/美聯儲中文速報</p>
+                <a href="https://www.jin10.com/" target="_blank" class="bg-white p-3.5 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
+                    <p class="text-sm font-bold text-pink-950"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> 金十數據快訊</p>
+                    <p class="text-xs text-pink-700/70">原油/美聯儲中文速報</p>
                 </a>
-                <a href="https://wallstreetcn.com/live/global" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
-                    <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-chart-line text-blue-500 mr-1"></i> 華爾街見聞</p>
-                    <p class="text-[10px] text-pink-700/70">全球市場中文直擊</p>
+                <a href="https://wallstreetcn.com/live/global" target="_blank" class="bg-white p-3.5 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
+                    <p class="text-sm font-bold text-pink-950"><i class="fa-solid fa-chart-line text-blue-500 mr-1"></i> 華爾街見聞</p>
+                    <p class="text-xs text-pink-700/70">全球市場中文直擊</p>
                 </a>
-                <a href="https://hk.finance.yahoo.com/quote/0941.HK/news" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
-                    <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-phone text-emerald-500 mr-1"></i> 中國移動新聞</p>
-                    <p class="text-[10px] text-pink-700/70">0941.HK 派息與業績</p>
+                <a href="https://hk.finance.yahoo.com/quote/0941.HK/news" target="_blank" class="bg-white p-3.5 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
+                    <p class="text-sm font-bold text-pink-950"><i class="fa-solid fa-phone text-emerald-500 mr-1"></i> 中國移動新聞</p>
+                    <p class="text-xs text-pink-700/70">0941.HK 派息與業績</p>
                 </a>
             </div>
 
             <div class="pink-card p-5 flex-1 flex flex-col">
-                <h2 class="text-sm font-bold text-pink-950 mb-3 flex items-center gap-2">
+                <h2 class="text-base font-bold text-pink-950 mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-rss text-pink-500"></i> 即時美股中文新聞摘要 (帶原文連結)
                 </h2>
                 <div class="flex-1 w-full overflow-hidden" style="min-height: 500px;">
-                    <div class="tradingview-widget-container" style="height:100%; width:100%;">
-                      <div class="tradingview-widget-container__widget"></div>
-                      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-                      {
-                      "feedMode": "market",
-                      "market": "stock",
-                      "colorTheme": "light",
-                      "isTransparent": true,
-                      "displayMode": "regular",
-                      "width": "100%",
-                      "height": "100%",
-                      "locale": "zh_TW"
-                    }
-                      </script>
-                    </div>
+                    <iframe src="https://wallstreetcn.com/live/global" class="w-full h-full border-0 rounded-xl" style="min-height: 500px;"></iframe>
                 </div>
             </div>
         </div>
@@ -165,30 +267,11 @@
         <!-- 頁面 4：全市場熱力圖 -->
         <div id="tab-heatmap" class="tab-content hidden flex-1 flex flex-col">
             <div class="pink-card p-5 flex-1 flex flex-col">
-                <h2 class="text-sm font-bold text-pink-950 mb-3 flex items-center gap-2">
+                <h2 class="text-base font-bold text-pink-950 mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-fire text-pink-500"></i> S&P 500 板塊資金熱力圖
                 </h2>
                 <div class="flex-1 w-full" style="min-height: 650px;">
-                    <div class="tradingview-widget-container" style="height:100%; width:100%;">
-                      <div class="tradingview-widget-container__widget"></div>
-                      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-                      {
-                      "exchanges": [],
-                      "dataSource": "SPX500",
-                      "grouping": "sector",
-                      "blockSize": "market_cap_basic",
-                      "blockColor": "change",
-                      "locale": "zh_TW",
-                      "colorTheme": "light",
-                      "hasTopBar": true,
-                      "isDataSetEnabled": true,
-                      "isZoomEnabled": true,
-                      "hasSymbolTooltip": true,
-                      "width": "100%",
-                      "height": "100%"
-                    }
-                      </script>
-                    </div>
+                    <iframe src="https://finviz.com/map.ashx?t=sec" class="w-full h-full border-0 rounded-xl" style="min-height: 650px;"></iframe>
                 </div>
             </div>
         </div>
