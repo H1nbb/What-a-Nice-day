@@ -8,31 +8,33 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f8fafc;
+            --bg-color: #fdf2f8; /* Soft Baby Pink */
             --card-bg: #ffffff;
-            --card-border: #e2e8f0;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --header-bg: #0f172a;
-            --header-text: #ffffff;
-            --tab-active: #2563eb;
+            --card-border: #fbcfe8;
+            --text-primary: #831843;
+            --text-secondary: #9d174d;
+            --header-bg: #fbcfe8;
+            --header-text: #831843;
+            --tab-active: #f472b6;
             --tab-active-text: #ffffff;
-            --input-bg: #ffffff;
-            --input-border: #cbd5e1;
+            --input-bg: #fff5f8;
+            --input-border: #f9a8d4;
+            --accent-pink: #ec4899;
         }
 
         .dark {
-            --bg-color: #0b0f19;
-            --card-bg: #111827;
-            --card-border: #1f2937;
-            --text-primary: #f9fafb;
-            --text-secondary: #9ca3af;
-            --header-bg: #030712;
-            --header-text: #f9fafb;
-            --tab-active: #3b82f6;
+            --bg-color: #1f1118;
+            --card-bg: #2d1824;
+            --card-border: #4a243b;
+            --text-primary: #fce7f3;
+            --text-secondary: #fbcfe8;
+            --header-bg: #3b1c2e;
+            --header-text: #fce7f3;
+            --tab-active: #ec4899;
             --tab-active-text: #ffffff;
-            --input-bg: #1f2937;
-            --input-border: #374151;
+            --input-bg: #3b1c2e;
+            --input-border: #831843;
+            --accent-pink: #f472b6;
         }
 
         html, body { 
@@ -46,20 +48,24 @@
         .dashboard-card { 
             background: var(--card-bg); 
             border: 1px solid var(--card-border); 
-            border-radius: 12px; 
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); 
+            border-radius: 16px; 
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.05); 
             transition: background-color 0.2s, border-color 0.2s;
         }
         .tab-btn.active { 
             background-color: var(--tab-active); 
             color: var(--tab-active-text) !important; 
             font-weight: 600; 
+            box-shadow: 0 2px 8px rgba(236, 72, 153, 0.3);
         }
-        .text-desc { color: var(--text-secondary); }
+        .text-desc { color: var(--text-secondary); opacity: 0.85; }
         .custom-input {
             background-color: var(--input-bg);
             border: 1px solid var(--input-border);
             color: var(--text-primary);
+        }
+        .custom-input:focus {
+            outline: 2px solid var(--accent-pink);
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -68,21 +74,21 @@
 <body class="flex flex-col min-h-screen">
 
     <!-- 頂部跑馬燈 -->
-    <div class="tradingview-widget-container bg-slate-900 border-b border-slate-800">
+    <div class="tradingview-widget-container bg-pink-950/20 border-b border-pink-200 dark:border-pink-900/40">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
         {
             "symbols": [
+                { "proName": "AMEX:SPYI", "title": "SPYI" },
+                { "proName": "NASDAQ:QQQI", "title": "QQQI" },
+                { "proName": "NYSEARCA:SPMO", "title": "SPMO" },
                 { "proName": "AMEX:SGOV", "title": "短期美債 (SGOV)" },
                 { "proName": "AMEX:SPY", "title": "標普500 (SPY)" },
                 { "proName": "NASDAQ:QQQ", "title": "納指100 (QQQ)" },
-                { "proName": "NASDAQ:SOXX", "title": "半導體 (SOXX)" },
-                { "proName": "TVC:US10Y", "title": "10年美債" },
-                { "proName": "TVC:US02Y", "title": "2年美債" },
-                { "proName": "TVC:VIX", "title": "恐慌指數 (VIX)" }
+                { "proName": "TVC:US10Y", "title": "10年美債" }
             ],
             "showSymbolLogo": true,
-            "colorTheme": "dark",
+            "colorTheme": "light",
             "isTransparent": true,
             "displayMode": "adaptive",
             "locale": "zh_TW"
@@ -91,35 +97,35 @@
     </div>
 
     <!-- Header -->
-    <header class="bg-slate-900 text-white py-3 px-4 md:px-6 border-b border-slate-800 sticky top-0 z-50">
+    <header class="bg-pink-100/80 dark:bg-pink-950/60 backdrop-blur-md py-3 px-4 md:px-6 border-b border-pink-200 dark:border-pink-900/50 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-center justify-between w-full md:w-auto">
                 <div class="flex items-center gap-3">
-                    <div class="bg-blue-600 p-2 rounded-xl text-white">
-                        <i class="fa-solid fa-chart-line text-xl"></i>
+                    <div class="bg-pink-400 text-white p-2.5 rounded-2xl shadow-sm">
+                        <i class="fa-solid fa-heart text-lg"></i>
                     </div>
                     <div>
-                        <h1 class="text-lg font-bold">美股量化 & 現金流 Dashboard</h1>
-                        <p class="text-xs text-slate-400">大盤跟蹤 • 現金流資產 • 中文新聞 • 全市場熱力圖 • 快捷計算器</p>
+                        <h1 class="text-lg font-bold text-pink-900 dark:text-pink-100">美股量化 & 現金流 Dashboard</h1>
+                        <p class="text-xs text-pink-700/80 dark:text-pink-300/80">Baby Pink 甜美版 • 多資產定投 • 美聯儲利率 • 雙幣切換</p>
                     </div>
                 </div>
-                <button onclick="toggleTheme()" class="md:hidden bg-slate-800 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5">
-                    <i class="fa-solid fa-circle-half-stroke"></i> 主題
+                <button onclick="toggleTheme()" class="md:hidden bg-pink-200/50 dark:bg-pink-900/50 text-pink-900 dark:text-pink-100 px-3 py-1.5 rounded-xl text-xs font-medium flex items-center gap-1.5">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> 主題
                 </button>
             </div>
 
             <div class="flex items-center gap-2 w-full md:w-auto">
-                <!-- 響應式導航欄 -->
-                <nav class="flex bg-slate-800/80 p-1 rounded-xl border border-slate-700 gap-1 overflow-x-auto no-scrollbar w-full md:w-auto">
-                    <button onclick="switchTab('macro')" id="btn-macro" class="tab-btn active px-3.5 py-1.5 rounded-lg text-xs md:text-sm text-slate-300 whitespace-nowrap transition-all">核心資產與美債</button>
-                    <button onclick="switchTab('cashflow')" id="btn-cashflow" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs md:text-sm text-slate-300 whitespace-nowrap transition-all">現金流資產</button>
-                    <button onclick="switchTab('news')" id="btn-news" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs md:text-sm text-slate-300 whitespace-nowrap transition-all">中文新聞摘要</button>
-                    <button onclick="switchTab('heatmap')" id="btn-heatmap" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs md:text-sm text-slate-300 whitespace-nowrap transition-all">全市場熱力圖</button>
-                    <button onclick="switchTab('calc')" id="btn-calc" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs md:text-sm text-slate-300 whitespace-nowrap transition-all"><i class="fa-solid fa-calculator mr-1"></i>快捷計算器</button>
+                <!-- 導航欄 -->
+                <nav class="flex bg-pink-200/40 dark:bg-pink-900/40 p-1 rounded-2xl border border-pink-200 dark:border-pink-800 gap-1 overflow-x-auto no-scrollbar w-full md:w-auto">
+                    <button onclick="switchTab('macro')" id="btn-macro" class="tab-btn active px-3.5 py-1.5 rounded-xl text-xs md:text-sm text-pink-900 dark:text-pink-200 whitespace-nowrap transition-all">核心資產與美債</button>
+                    <button onclick="switchTab('cashflow')" id="btn-cashflow" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm text-pink-900 dark:text-pink-200 whitespace-nowrap transition-all">現金流資產</button>
+                    <button onclick="switchTab('news')" id="btn-news" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm text-pink-900 dark:text-pink-200 whitespace-nowrap transition-all">中文新聞摘要</button>
+                    <button onclick="switchTab('heatmap')" id="btn-heatmap" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm text-pink-900 dark:text-pink-200 whitespace-nowrap transition-all">全市場熱力圖</button>
+                    <button onclick="switchTab('calc')" id="btn-calc" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm text-pink-900 dark:text-pink-200 whitespace-nowrap transition-all"><i class="fa-solid fa-calculator mr-1"></i>多標的定投計算</button>
                 </nav>
 
-                <button onclick="toggleTheme()" class="hidden md:flex bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-medium items-center gap-1.5 transition-all">
-                    <i class="fa-solid fa-circle-half-stroke"></i> 主題
+                <button onclick="toggleTheme()" class="hidden md:flex bg-pink-200/50 dark:bg-pink-900/50 hover:bg-pink-300/50 text-pink-900 dark:text-pink-100 border border-pink-300 dark:border-pink-800 px-3 py-1.5 rounded-xl text-xs font-medium items-center gap-1.5 transition-all">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> 主題
                 </button>
             </div>
         </div>
@@ -130,7 +136,6 @@
         <!-- 頁面 1：核心資產與美債收益率 -->
         <div id="tab-macro" class="tab-content flex-1 flex flex-col space-y-6">
             
-            <!-- 頂部 4 個即時跳動數據組件 -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <div class="dashboard-card p-2 flex flex-col justify-center">
                     <div class="tradingview-widget-container" style="height: 110px;">
@@ -162,19 +167,29 @@
                 </div>
             </div>
 
-            <!-- 美聯儲加息/降息概率 (FedWatch/FED Rate Tracker) -->
+            <!-- 美聯儲利率與宏觀數據（全新穩定的官方 Widget） -->
             <div class="dashboard-card p-5">
                 <div class="flex justify-between items-center mb-3">
                     <div>
-                        <h2 class="text-base font-bold flex items-center gap-2">
-                            <i class="fa-solid fa-percent text-blue-600"></i> 美聯儲加息 / 降息預期概率 (Fed Rate Cut / Hike Expectation)
+                        <h2 class="text-base font-bold flex items-center gap-2 text-pink-900 dark:text-pink-100">
+                            <i class="fa-solid fa-building-columns text-pink-500"></i> 美聯儲聯邦基金利率 (Fed Interest Rate)
                         </h2>
-                        <p class="text-xs text-desc mt-0.5">基於聯邦基金期權/期貨市場推算的降息與加息機率與美聯儲目標利率區間</p>
+                        <p class="text-xs text-desc mt-0.5">即時追蹤美聯儲利率決議、加息/降息基準利率與通脹走勢</p>
                     </div>
-                    <span class="text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 font-medium px-2.5 py-1 rounded-md">市場利率預期</span>
+                    <span class="text-xs bg-pink-100 dark:bg-pink-950 text-pink-600 dark:text-pink-300 font-medium px-2.5 py-1 rounded-lg">美聯儲數據</span>
                 </div>
-                <div class="w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700" style="height: 380px;">
-                    <iframe src="https://s.tradingview.com/embed-widget/financials/?symbol=ECONOMICS%3AUSINTR&colorTheme=light&isTransparent=true&locale=zh_TW" class="w-full h-full border-0"></iframe>
+                <div class="w-full rounded-xl overflow-hidden border border-pink-200 dark:border-pink-800" style="height: 380px;">
+                    <div class="tradingview-widget-container" style="height:100%;width:100%">
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
+                        {
+                          "symbol": "ECONOMICS:USINTR",
+                          "width": "100%",
+                          "locale": "zh_TW",
+                          "colorTheme": "light",
+                          "isTransparent": true
+                        }
+                        </script>
+                    </div>
                 </div>
             </div>
 
@@ -182,14 +197,13 @@
             <div class="dashboard-card p-5">
                 <div class="flex justify-between items-center mb-3">
                     <div>
-                        <h2 class="text-base font-bold flex items-center gap-2">
-                            <i class="fa-solid fa-chart-candlestick text-blue-600"></i> 標普 500 (SPY) 動態技術分析圖表
+                        <h2 class="text-base font-bold flex items-center gap-2 text-pink-900 dark:text-pink-100">
+                            <i class="fa-solid fa-chart-candlestick text-pink-500"></i> 標普 500 (SPY) 動態技術分析圖表
                         </h2>
-                        <p class="text-xs text-desc mt-0.5">包含動態 K 線、均線與技術面指標，支援即時切換標的</p>
+                        <p class="text-xs text-desc mt-0.5">包含動態 K 線、均線與技術面指標</p>
                     </div>
-                    <span class="text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 font-medium px-2.5 py-1 rounded-md">交互式圖表</span>
                 </div>
-                <div class="w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700" style="height: 400px;">
+                <div class="w-full rounded-xl overflow-hidden border border-pink-200 dark:border-pink-800" style="height: 400px;">
                     <div class="tradingview-widget-container" style="height:100%;width:100%">
                         <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
                         <script type="text/javascript">
@@ -212,62 +226,17 @@
                 </div>
             </div>
 
-            <!-- 2. 美債收益率列表 -->
+            <!-- 2. 關鍵宏觀財經日曆 -->
             <div class="dashboard-card p-5">
                 <div class="flex justify-between items-center mb-3">
                     <div>
-                        <h2 class="text-base font-bold flex items-center gap-2">
-                            <i class="fa-solid fa-landmark text-blue-600"></i> 美國主要國債收益率 (US Treasuries)
+                        <h2 class="text-base font-bold flex items-center gap-2 text-pink-900 dark:text-pink-100">
+                            <i class="fa-solid fa-calendar-days text-pink-500"></i> 本週重點宏觀財經日曆
                         </h2>
-                        <p class="text-xs text-desc mt-0.5">涵蓋基準短中長期美債收益率數據</p>
-                    </div>
-                    <span class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium px-2.5 py-1 rounded-md">即時監測</span>
-                </div>
-
-                <div class="w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700" style="height: 380px;">
-                    <div class="tradingview-widget-container" style="height: 100%;">
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                        {
-                            "colorTheme": "light",
-                            "dateRange": "12M",
-                            "showChart": false,
-                            "locale": "zh_TW",
-                            "largeChartUrl": "",
-                            "isTransparent": true,
-                            "showSymbolLogo": true,
-                            "showFloatingTooltip": false,
-                            "width": "100%",
-                            "height": "100%",
-                            "tabs": [
-                                {
-                                    "title": "美債收益率",
-                                    "symbols": [
-                                        { "s": "TVC:US03M", "d": "3個月美債收益率" },
-                                        { "s": "TVC:US02Y", "d": "2年期美債收益率" },
-                                        { "s": "TVC:US05Y", "d": "5年期美債收益率" },
-                                        { "s": "TVC:US10Y", "d": "10年期美債收益率" },
-                                        { "s": "TVC:US30Y", "d": "30年期美債收益率" }
-                                    ]
-                                }
-                            ]
-                        }
-                        </script>
+                        <p class="text-xs text-desc mt-0.5">美聯儲決議、CPI 物價指數、非農數據</p>
                     </div>
                 </div>
-            </div>
-
-            <!-- 3. 關鍵宏觀財經日曆 -->
-            <div class="dashboard-card p-5">
-                <div class="flex justify-between items-center mb-3">
-                    <div>
-                        <h2 class="text-base font-bold flex items-center gap-2">
-                            <i class="fa-solid fa-calendar-days text-blue-600"></i> 本週重點宏觀財經日曆 (Economic Calendar)
-                        </h2>
-                        <p class="text-xs text-desc mt-0.5">追蹤美聯儲利率決議、CPI 物價指數、非農數據等重大事件</p>
-                    </div>
-                    <span class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium px-2.5 py-1 rounded-md">動態更新</span>
-                </div>
-                <div class="w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700" style="height: 450px;">
+                <div class="w-full rounded-xl overflow-hidden border border-pink-200 dark:border-pink-800" style="height: 400px;">
                     <div class="tradingview-widget-container" style="height: 100%;">
                         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
                         {
@@ -290,49 +259,49 @@
         <div id="tab-cashflow" class="tab-content hidden flex-1 flex flex-col space-y-6">
             <div class="dashboard-card p-5">
                 <div class="mb-4">
-                    <h2 class="text-base font-bold flex items-center gap-2">
-                        <i class="fa-solid fa-sack-dollar text-emerald-600"></i> 現金流資產即時報價
+                    <h2 class="text-base font-bold flex items-center gap-2 text-pink-900 dark:text-pink-100">
+                        <i class="fa-solid fa-sack-dollar text-pink-500"></i> 現金流資產即時報價
                     </h2>
-                    <p class="text-xs text-desc mt-0.5">100% 成功連線，開市期間價格實時動態跳動</p>
+                    <p class="text-xs text-desc mt-0.5">開市期間價格實時動態跳動</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mb-6">
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <div class="bg-pink-50/50 dark:bg-pink-950/30 p-2 rounded-xl border border-pink-200 dark:border-pink-800">
                         <div class="tradingview-widget-container" style="height: 125px;">
                             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                             { "symbol": "AMEX:SPYI", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }
                             </script>
                         </div>
                     </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <div class="bg-pink-50/50 dark:bg-pink-950/30 p-2 rounded-xl border border-pink-200 dark:border-pink-800">
                         <div class="tradingview-widget-container" style="height: 125px;">
                             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                             { "symbol": "NASDAQ:QQQI", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }
                             </script>
                         </div>
                     </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <div class="bg-pink-50/50 dark:bg-pink-950/30 p-2 rounded-xl border border-pink-200 dark:border-pink-800">
                         <div class="tradingview-widget-container" style="height: 125px;">
                             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                            { "symbol": "NASDAQ:QQQY", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }
+                            { "symbol": "NYSEARCA:SPMO", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }
                             </script>
                         </div>
                     </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <div class="bg-pink-50/50 dark:bg-pink-950/30 p-2 rounded-xl border border-pink-200 dark:border-pink-800">
                         <div class="tradingview-widget-container" style="height: 125px;">
                             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                             { "symbol": "HKEX:941", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }
                             </script>
                         </div>
                     </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <div class="bg-pink-50/50 dark:bg-pink-950/30 p-2 rounded-xl border border-pink-200 dark:border-pink-800">
                         <div class="tradingview-widget-container" style="height: 125px;">
                             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                             { "symbol": "NYSEARCA:DIVO", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }
                             </script>
                         </div>
                     </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <div class="bg-pink-50/50 dark:bg-pink-950/30 p-2 rounded-xl border border-pink-200 dark:border-pink-800">
                         <div class="tradingview-widget-container" style="height: 125px;">
                             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                             { "symbol": "NYSEARCA:JEPI", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }
@@ -342,13 +311,13 @@
                 </div>
 
                 <!-- 現金流資產對照表 -->
-                <div class="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
-                    <div class="p-3 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-table text-blue-600 mr-1.5"></i> 現金流資產屬性對照表</h3>
+                <div class="border border-pink-200 dark:border-pink-800 rounded-xl overflow-hidden">
+                    <div class="p-3 bg-pink-100/60 dark:bg-pink-900/40 border-b border-pink-200 dark:border-pink-800">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-pink-900 dark:text-pink-200"><i class="fa-solid fa-table text-pink-500 mr-1.5"></i> 現金流資產屬性對照表</h3>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs md:text-sm">
-                            <thead class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">
+                            <thead class="bg-pink-50 dark:bg-pink-950/80 text-pink-800 dark:text-pink-200 font-medium">
                                 <tr>
                                     <th class="p-3">代碼</th>
                                     <th class="p-3">名稱 / 資產類型</th>
@@ -357,48 +326,27 @@
                                     <th class="p-3">策略與優勢</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
-                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40">
+                            <tbody class="divide-y divide-pink-100 dark:divide-pink-900/50">
+                                <tr>
                                     <td class="p-3 font-bold">SPYI</td>
                                     <td class="p-3 text-desc">NEOS S&P 500 High Income ETF</td>
-                                    <td class="p-3 font-extrabold text-emerald-600 dark:text-emerald-400">~12.1%</td>
-                                    <td class="p-3"><span class="bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold px-2 py-0.5 rounded">每月派息</span></td>
+                                    <td class="p-3 font-extrabold text-pink-600 dark:text-pink-400">~12.1%</td>
+                                    <td class="p-3"><span class="bg-pink-100 dark:bg-pink-950 text-pink-700 dark:text-pink-300 text-xs font-semibold px-2 py-0.5 rounded">每月派息</span></td>
                                     <td class="p-3 text-desc">Covered Call 策略，保留標普部分上行空間</td>
                                 </tr>
-                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40">
+                                <tr>
                                     <td class="p-3 font-bold">QQQI</td>
                                     <td class="p-3 text-desc">NEOS Nasdaq-100 High Income ETF</td>
-                                    <td class="p-3 font-extrabold text-emerald-600 dark:text-emerald-400">~14.3%</td>
-                                    <td class="p-3"><span class="bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold px-2 py-0.5 rounded">每月派息</span></td>
+                                    <td class="p-3 font-extrabold text-pink-600 dark:text-pink-400">~14.3%</td>
+                                    <td class="p-3"><span class="bg-pink-100 dark:bg-pink-950 text-pink-700 dark:text-pink-300 text-xs font-semibold px-2 py-0.5 rounded">每月派息</span></td>
                                     <td class="p-3 text-desc">聚焦科技巨頭，提供超高月度現金流</td>
                                 </tr>
-                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40">
-                                    <td class="p-3 font-bold">QQQY</td>
-                                    <td class="p-3 text-desc">Defiance Nasdaq-100 Enhanced Options Income ETF</td>
-                                    <td class="p-3 font-extrabold text-emerald-600 dark:text-emerald-400">~50%+</td>
-                                    <td class="p-3"><span class="bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 text-xs font-semibold px-2 py-0.5 rounded">每月/高頻派息</span></td>
-                                    <td class="p-3 text-desc">極深價內 (ITM) / 0DTE 期權策略，追求極高現金流</td>
-                                </tr>
-                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40">
-                                    <td class="p-3 font-bold">0941.HK</td>
-                                    <td class="p-3 text-desc">中國移動 (China Mobile)</td>
-                                    <td class="p-3 font-extrabold text-emerald-600 dark:text-emerald-400">~6.8%</td>
-                                    <td class="p-3"><span class="bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs font-semibold px-2 py-0.5 rounded">半年度</span></td>
-                                    <td class="p-3 text-desc">港股防守型國企巨頭，派息非常穩健</td>
-                                </tr>
-                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40">
-                                    <td class="p-3 font-bold">DIVO</td>
-                                    <td class="p-3 text-desc">Amplify Cash Flow ETF</td>
-                                    <td class="p-3 font-extrabold text-emerald-600 dark:text-emerald-400">~4.8%</td>
-                                    <td class="p-3"><span class="bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold px-2 py-0.5 rounded">每月派息</span></td>
-                                    <td class="p-3 text-desc">主動篩選高股息藍籌，波動小兼顧資本增值</td>
-                                </tr>
-                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40">
-                                    <td class="p-3 font-bold">JEPI</td>
-                                    <td class="p-3 text-desc">JPMorgan Equity Premium Income ETF</td>
-                                    <td class="p-3 font-extrabold text-emerald-600 dark:text-emerald-400">~7.5%</td>
-                                    <td class="p-3"><span class="bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-xs font-semibold px-2 py-0.5 rounded">每月派息</span></td>
-                                    <td class="p-3 text-desc">摩根大通主動管理，低波動防守型現金流</td>
+                                <tr>
+                                    <td class="p-3 font-bold">SPMO</td>
+                                    <td class="p-3 text-desc">Invesco S&P 500 Momentum ETF</td>
+                                    <td class="p-3 font-extrabold text-pink-600 dark:text-pink-400">~1.2% (動能成長)</td>
+                                    <td class="p-3"><span class="bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 text-xs font-semibold px-2 py-0.5 rounded">每季度</span></td>
+                                    <td class="p-3 text-desc">精選標普動能最強股票，強勢跑贏大盤</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -410,30 +358,30 @@
         <!-- 頁面 3：中文新聞摘要 -->
         <div id="tab-news" class="tab-content hidden flex-1 flex flex-col space-y-4">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <a href="https://hk.finance.yahoo.com/quote/SPYI/news" target="_blank" class="dashboard-card p-3 text-center hover:border-blue-500 transition-all">
-                    <p class="text-sm font-bold"><i class="fa-solid fa-newspaper text-purple-500 mr-1"></i> Yahoo 財經中文</p>
+                <a href="https://hk.finance.yahoo.com/quote/SPYI/news" target="_blank" class="dashboard-card p-3 text-center hover:border-pink-400 transition-all">
+                    <p class="text-sm font-bold"><i class="fa-solid fa-newspaper text-pink-500 mr-1"></i> Yahoo 財經中文</p>
                     <p class="text-xs text-desc mt-0.5">SPYI / QQQI 動態</p>
                 </a>
-                <a href="https://www.jin10.com/" target="_blank" class="dashboard-card p-3 text-center hover:border-blue-500 transition-all">
+                <a href="https://www.jin10.com/" target="_blank" class="dashboard-card p-3 text-center hover:border-pink-400 transition-all">
                     <p class="text-sm font-bold"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> 金十數據快訊</p>
                     <p class="text-xs text-desc mt-0.5">原油/美聯儲中文速報</p>
                 </a>
-                <a href="https://wallstreetcn.com/live/global" target="_blank" class="dashboard-card p-3 text-center hover:border-blue-500 transition-all">
+                <a href="https://wallstreetcn.com/live/global" target="_blank" class="dashboard-card p-3 text-center hover:border-pink-400 transition-all">
                     <p class="text-sm font-bold"><i class="fa-solid fa-chart-line text-blue-500 mr-1"></i> 華爾街見聞</p>
                     <p class="text-xs text-desc mt-0.5">全球市場中文直擊</p>
                 </a>
-                <a href="https://hk.finance.yahoo.com/quote/0941.HK/news" target="_blank" class="dashboard-card p-3 text-center hover:border-blue-500 transition-all">
+                <a href="https://hk.finance.yahoo.com/quote/0941.HK/news" target="_blank" class="dashboard-card p-3 text-center hover:border-pink-400 transition-all">
                     <p class="text-sm font-bold"><i class="fa-solid fa-phone text-emerald-500 mr-1"></i> 中國移動新聞</p>
                     <p class="text-xs text-desc mt-0.5">0941.HK 派息資訊</p>
                 </a>
             </div>
 
             <div class="dashboard-card p-5 flex-1 flex flex-col">
-                <h2 class="text-base font-bold mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-rss text-blue-600"></i> 即時美股中文新聞摘要
+                <h2 class="text-base font-bold mb-3 flex items-center gap-2 text-pink-900 dark:text-pink-100">
+                    <i class="fa-solid fa-rss text-pink-500"></i> 即時美股中文新聞摘要
                 </h2>
                 <div class="flex-1 w-full overflow-hidden" style="min-height: 500px;">
-                    <iframe src="https://wallstreetcn.com/live/global" class="w-full h-full border-0 rounded-lg" style="min-height: 500px;"></iframe>
+                    <iframe src="https://wallstreetcn.com/live/global" class="w-full h-full border-0 rounded-xl" style="min-height: 500px;"></iframe>
                 </div>
             </div>
         </div>
@@ -442,115 +390,75 @@
         <div id="tab-heatmap" class="tab-content hidden flex-1 flex flex-col">
             <div class="dashboard-card p-5 flex-1 flex flex-col">
                 <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-base font-bold flex items-center gap-2">
-                        <i class="fa-solid fa-fire text-amber-500"></i> S&P 500 板塊資金熱力圖 (開市動態更新)
+                    <h2 class="text-base font-bold flex items-center gap-2 text-pink-900 dark:text-pink-100">
+                        <i class="fa-solid fa-fire text-amber-500"></i> S&P 500 板塊資金熱力圖
                     </h2>
-                    <span class="text-xs text-desc">點擊板塊可放大看個別成分股</span>
                 </div>
-                <div class="w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700" style="height: 650px;">
+                <div class="w-full rounded-xl overflow-hidden border border-pink-200 dark:border-pink-800" style="height: 650px;">
                     <iframe src="https://s.tradingview.com/embed-widget/stock-heatmap/?locale=zh_TW#%7B%22exchanges%22%3A%5B%5D%2C%22dataSource%22%3A%22SPX500%22%2C%22grouping%22%3A%22sector%22%2C%22blockSize%22%3A%22market_cap_basic%22%2C%22blockColor%22%3A%22change%22%2C%22symbolUrl%22%3A%22%22%2C%22colorTheme%22%3A%22light%22%2C%22hasTopBar%22%3Atrue%2C%22isDataSetEnabled%22%3Afalse%2C%22isZoomEnabled%22%3Atrue%2C%22hasSymbolTooltip%22%3Atrue%7D" class="w-full h-full border-0"></iframe>
                 </div>
             </div>
         </div>
 
-        <!-- 頁面 5：快捷資產與定投計算器 -->
+        <!-- 頁面 5：多標的定投 & 幣種轉換計算器 -->
         <div id="tab-calc" class="tab-content hidden flex-1 flex flex-col space-y-6">
             
-            <!-- 定投比例分配計算器 -->
             <div class="dashboard-card p-6">
-                <div class="mb-4">
-                    <h2 class="text-base font-bold flex items-center gap-2">
-                        <i class="fa-solid fa-sliders text-blue-600"></i> 定額定期投資 (定投) 比例分配計算器
-                    </h2>
-                    <p class="text-xs text-desc mt-0.5">輸入你預計投入的總金額（HKD / USD）以及兩支資產代碼，自動拆分投入資金。</p>
+                <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b border-pink-200 dark:border-pink-800 pb-4">
+                    <div>
+                        <h2 class="text-lg font-bold flex items-center gap-2 text-pink-900 dark:text-pink-100">
+                            <i class="fa-solid fa-coins text-pink-500"></i> 多資產定投與幣種折算計算器
+                        </h2>
+                        <p class="text-xs text-desc mt-0.5">可自訂多支股票與比例（如 QQQI / SPYI / SPMO），支援美元及港幣雙向轉換</p>
+                    </div>
+                    <button onclick="addStockRow()" class="bg-pink-500 hover:bg-pink-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 self-start md:self-auto">
+                        <i class="fa-solid fa-plus"></i> 新增股票標的
+                    </button>
                 </div>
 
+                <!-- 投資本金與幣種設定 -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div>
-                        <label class="block text-xs font-semibold mb-1">本次準備投入總金額 ($)</label>
-                        <input type="number" id="calc-total" value="5000" class="custom-input w-full p-2.5 rounded-lg text-sm font-bold" oninput="calculateDCA()">
+                        <label class="block text-xs font-semibold mb-1 text-pink-900 dark:text-pink-200">投資本金總額</label>
+                        <input type="number" id="calc-total" value="5000" class="custom-input w-full p-2.5 rounded-xl text-sm font-bold" oninput="calculateMultiDCA()">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold mb-1">資產 A 代碼 / 名稱</label>
-                        <input type="text" id="symbol-a" value="SPYI" class="custom-input w-full p-2.5 rounded-lg text-sm font-bold" oninput="calculateDCA()">
+                        <label class="block text-xs font-semibold mb-1 text-pink-900 dark:text-pink-200">輸入幣種 (Input Currency)</label>
+                        <select id="currency-select" class="custom-input w-full p-2.5 rounded-xl text-sm font-bold" onchange="calculateMultiDCA()">
+                            <option value="HKD" selected>港幣 (HKD $)</option>
+                            <option value="USD">美元 (USD $)</option>
+                        </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold mb-1">資產 B 代碼 / 名稱</label>
-                        <input type="text" id="symbol-b" value="QQQI" class="custom-input w-full p-2.5 rounded-lg text-sm font-bold" oninput="calculateDCA()">
+                        <label class="block text-xs font-semibold mb-1 text-pink-900 dark:text-pink-200">即時參考匯率 (1 USD = HKD)</label>
+                        <input type="number" id="fx-rate" value="7.8" step="0.01" class="custom-input w-full p-2.5 rounded-xl text-sm font-bold" oninput="calculateMultiDCA()">
                     </div>
                 </div>
 
-                <div class="mb-6">
-                    <div class="flex justify-between items-center mb-1">
-                        <label class="text-xs font-semibold">選擇或拉動配置比例 (A : B)</label>
-                        <span id="ratio-display" class="text-xs font-extrabold text-blue-600 dark:text-blue-400">70% : 30% (7:3)</span>
-                    </div>
-                    <input type="range" id="ratio-slider" min="0" max="100" value="70" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700" oninput="calculateDCA()">
-                    <div class="flex justify-between text-xs text-desc mt-1">
-                        <button onclick="setRatio(70)" class="hover:underline">7:3 經典配</button>
-                        <button onclick="setRatio(80)" class="hover:underline">8:2 進攻配</button>
-                        <button onclick="setRatio(50)" class="hover:underline">5:5 平衡配</button>
-                    </div>
-                </div>
-
-                <!-- 計算結果面板 -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 p-4 rounded-xl flex justify-between items-center">
-                        <div>
-                            <span id="result-symbol-a" class="text-xs text-blue-600 dark:text-blue-300 font-bold uppercase">SPYI</span>
-                            <p class="text-xl font-extrabold text-blue-900 dark:text-blue-100 mt-1" id="result-amount-a">$3,500 HKD</p>
-                            <p class="text-xs text-desc" id="result-percent-a">佔總投資金額 70%</p>
-                        </div>
-                        <div class="text-2xl text-blue-600"><i class="fa-solid fa-chart-pie"></i></div>
-                    </div>
-
-                    <div class="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 p-4 rounded-xl flex justify-between items-center">
-                        <div>
-                            <span id="result-symbol-b" class="text-xs text-emerald-600 dark:text-emerald-300 font-bold uppercase">QQQI</span>
-                            <p class="text-xl font-extrabold text-emerald-900 dark:text-emerald-100 mt-1" id="result-amount-b">$1,500 HKD</p>
-                            <p class="text-xs text-desc" id="result-percent-b">佔總投資金額 30%</p>
-                        </div>
-                        <div class="text-2xl text-emerald-600"><i class="fa-solid fa-wallet"></i></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 現金流複利試算器 -->
-            <div class="dashboard-card p-6">
+                <!-- 動態股票清單區域 -->
                 <div class="mb-4">
-                    <h2 class="text-base font-bold flex items-center gap-2">
-                        <i class="fa-solid fa-arrow-trend-up text-emerald-600"></i> 長期複利與現金流增長預測
-                    </h2>
-                    <p class="text-xs text-desc mt-0.5">計算每月定期定額投入高股息/現金流資產後的長期資產成長與預估月領股息。</p>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                    <div>
-                        <label class="block text-xs font-semibold mb-1">每月定投金額 ($)</label>
-                        <input type="number" id="compound-monthly" value="5000" class="custom-input w-full p-2.5 rounded-lg text-sm font-bold" oninput="calculateCompound()">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-pink-900 dark:text-pink-200">各股票分配比例與名稱設定</span>
+                        <button onclick="normalizeWeights()" class="text-xs text-pink-600 dark:text-pink-400 underline hover:font-bold">自動歸一化 (平分100%)</button>
                     </div>
-                    <div>
-                        <label class="block text-xs font-semibold mb-1">預估年化收益/股息率 (%)</label>
-                        <input type="number" id="compound-rate" value="10" class="custom-input w-full p-2.5 rounded-lg text-sm font-bold" oninput="calculateCompound()">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold mb-1">投資年限 (年)</label>
-                        <input type="number" id="compound-years" value="5" class="custom-input w-full p-2.5 rounded-lg text-sm font-bold" oninput="calculateCompound()">
+                    <div id="stocks-container" class="space-y-3">
+                        <!-- JS 動態生成區域 -->
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="bg-slate-50 dark:bg-slate-800/60 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
-                        <span class="text-xs text-desc font-medium">總累積本金</span>
-                        <p id="compound-principal" class="text-lg font-extrabold mt-1">$300,000 HKD</p>
-                    </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/60 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
-                        <span class="text-xs text-desc font-medium">預期資產總額 (含複利)</span>
-                        <p id="compound-total" class="text-lg font-extrabold text-blue-600 dark:text-blue-400 mt-1">$387,200 HKD</p>
-                    </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/60 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
-                        <span class="text-xs text-desc font-medium">屆時預估每月被動收入</span>
-                        <p id="compound-monthly-income" class="text-lg font-extrabold text-emerald-600 dark:text-emerald-400 mt-1">$3,226 HKD /月</p>
+                <!-- 總比例提示語 -->
+                <div class="flex justify-between items-center text-xs mb-6 px-1">
+                    <span class="text-desc">當前總權重和：</span>
+                    <span id="total-weight-display" class="font-bold text-pink-600 dark:text-pink-400">100%</span>
+                </div>
+
+                <!-- 計算拆分結果面板 -->
+                <div class="bg-pink-100/50 dark:bg-pink-950/40 border border-pink-200 dark:border-pink-800 p-5 rounded-2xl">
+                    <h3 class="text-xs font-bold text-pink-900 dark:text-pink-200 mb-3 uppercase tracking-wider">
+                        <i class="fa-solid fa-receipt mr-1.5 text-pink-500"></i> 本期定投拆分結果與雙幣對照
+                    </h3>
+                    <div id="multi-results-grid" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <!-- 結果卡片 -->
                     </div>
                 </div>
             </div>
@@ -560,6 +468,13 @@
     </main>
 
     <script>
+        // 預設股票數據
+        let stocks = [
+            { symbol: 'SPYI', weight: 40 },
+            { symbol: 'QQQI', weight: 30 },
+            { symbol: 'SPMO', weight: 30 }
+        ];
+
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => {
                 el.classList.add('hidden');
@@ -577,8 +492,8 @@
             activeBtn.classList.add('active');
 
             if(tabName === 'calc') {
-                calculateDCA();
-                calculateCompound();
+                renderStockRows();
+                calculateMultiDCA();
             }
         }
 
@@ -586,58 +501,101 @@
             document.body.classList.toggle('dark');
         }
 
-        function setRatio(val) {
-            document.getElementById('ratio-slider').value = val;
-            calculateDCA();
+        function renderStockRows() {
+            const container = document.getElementById('stocks-container');
+            container.innerHTML = '';
+
+            stocks.forEach((stock, index) => {
+                const row = document.createElement('div');
+                row.className = 'flex items-center gap-2 bg-pink-50/60 dark:bg-pink-900/30 p-2.5 rounded-xl border border-pink-200 dark:border-pink-800/60';
+                row.innerHTML = `
+                    <input type="text" value="${stock.symbol}" oninput="updateStockSymbol(${index}, this.value)" placeholder="代碼" class="custom-input w-28 p-2 rounded-lg text-xs font-bold uppercase">
+                    <div class="flex-1 flex items-center gap-2">
+                        <input type="range" min="0" max="100" value="${stock.weight}" oninput="updateStockWeight(${index}, this.value)" class="w-full h-1.5 bg-pink-200 rounded-lg appearance-none cursor-pointer dark:bg-pink-800">
+                        <span class="text-xs font-bold w-12 text-right">${stock.weight}%</span>
+                    </div>
+                    <button onclick="removeStockRow(${index})" class="text-pink-400 hover:text-pink-600 p-1"><i class="fa-solid fa-trash-can"></i></button>
+                `;
+                container.appendChild(row);
+            });
         }
 
-        function calculateDCA() {
+        function updateStockSymbol(index, val) {
+            stocks[index].symbol = val;
+            calculateMultiDCA();
+        }
+
+        function updateStockWeight(index, val) {
+            stocks[index].weight = parseFloat(val) || 0;
+            renderStockRows();
+            calculateMultiDCA();
+        }
+
+        function addStockRow() {
+            stocks.push({ symbol: '新資產', weight: 10 });
+            renderStockRows();
+            calculateMultiDCA();
+        }
+
+        function removeStockRow(index) {
+            if(stocks.length <= 1) return;
+            stocks.splice(index, 1);
+            renderStockRows();
+            calculateMultiDCA();
+        }
+
+        function normalizeWeights() {
+            const equalWeight = Math.floor(100 / stocks.length);
+            stocks.forEach((s, i) => {
+                s.weight = (i === stocks.length - 1) ? 100 - (equalWeight * (stocks.length - 1)) : equalWeight;
+            });
+            renderStockRows();
+            calculateMultiDCA();
+        }
+
+        function calculateMultiDCA() {
             const total = parseFloat(document.getElementById('calc-total').value) || 0;
-            const symbolA = document.getElementById('symbol-a').value || '資產 A';
-            const symbolB = document.getElementById('symbol-b').value || '資產 B';
-            const ratioA = parseInt(document.getElementById('ratio-slider').value);
-            const ratioB = 100 - ratioA;
+            const currency = document.getElementById('currency-select').value;
+            const fxRate = parseFloat(document.getElementById('fx-rate').value) || 7.8;
 
-            const amountA = (total * (ratioA / 100)).toFixed(1);
-            const amountB = (total * (ratioB / 100)).toFixed(1);
+            const totalWeight = stocks.reduce((sum, s) => sum + s.weight, 0);
+            document.getElementById('total-weight-display').innerText = `${totalWeight}%`;
 
-            document.getElementById('ratio-display').innerText = `${ratioA}% : ${ratioB}% (${ratioA/10}:${ratioB/10})`;
-            
-            document.getElementById('result-symbol-a').innerText = symbolA;
-            document.getElementById('result-amount-a').innerText = `$${Number(amountA).toLocaleString()} HKD`;
-            document.getElementById('result-percent-a').innerText = `佔總投資金額 ${ratioA}%`;
+            const resultsContainer = document.getElementById('multi-results-grid');
+            resultsContainer.innerHTML = '';
 
-            document.getElementById('result-symbol-b').innerText = symbolB;
-            document.getElementById('result-amount-b').innerText = `$${Number(amountB).toLocaleString()} HKD`;
-            document.getElementById('result-percent-b').innerText = `佔總投資金額 ${ratioB}%`;
+            stocks.forEach(stock => {
+                const ratio = totalWeight > 0 ? (stock.weight / totalWeight) : 0;
+                const allocatedAmount = total * ratio;
+
+                let hkdAmount, usdAmount;
+                if (currency === 'HKD') {
+                    hkdAmount = allocatedAmount;
+                    usdAmount = allocatedAmount / fxRate;
+                } else {
+                    usdAmount = allocatedAmount;
+                    hkdAmount = allocatedAmount * fxRate;
+                }
+
+                const card = document.createElement('div');
+                card.className = 'bg-white dark:bg-pink-900/60 p-3.5 rounded-xl border border-pink-200 dark:border-pink-800 shadow-sm flex flex-col justify-between';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-black uppercase text-pink-600 dark:text-pink-300">${stock.symbol || '未命名'}</span>
+                            <span class="text-xs font-semibold text-pink-400">${(ratio * 100).toFixed(1)}%</span>
+                        </div>
+                        <p class="text-lg font-extrabold text-pink-950 dark:text-pink-100 mt-2">$${usdAmount.toFixed(2).toLocaleString()} USD</p>
+                        <p class="text-xs font-bold text-pink-500/90 dark:text-pink-300/90 mt-0.5">≈ $${Math.round(hkdAmount).toLocaleString()} HKD</p>
+                    </div>
+                `;
+                resultsContainer.appendChild(card);
+            });
         }
 
-        function calculateCompound() {
-            const monthly = parseFloat(document.getElementById('compound-monthly').value) || 0;
-            const annualRate = (parseFloat(document.getElementById('compound-rate').value) || 0) / 100;
-            const years = parseFloat(document.getElementById('compound-years').value) || 0;
-
-            const months = years * 12;
-            const monthlyRate = annualRate / 12;
-
-            let totalFutureValue = 0;
-            if (monthlyRate > 0) {
-                totalFutureValue = monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
-            } else {
-                totalFutureValue = monthly * months;
-            }
-
-            const principal = monthly * months;
-            const monthlyPassiveIncome = (totalFutureValue * annualRate) / 12;
-
-            document.getElementById('compound-principal').innerText = `$${Math.round(principal).toLocaleString()} HKD`;
-            document.getElementById('compound-total').innerText = `$${Math.round(totalFutureValue).toLocaleString()} HKD`;
-            document.getElementById('compound-monthly-income').innerText = `$${Math.round(monthlyPassiveIncome).toLocaleString()} HKD /月`;
-        }
-
-        // 初始化計算
-        calculateDCA();
-        calculateCompound();
+        // 初始化
+        renderStockRows();
+        calculateMultiDCA();
     </script>
 </body>
 </html>
