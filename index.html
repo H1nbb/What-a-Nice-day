@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>美股量化 & 現金流 Dashboard</title>
+    <title>美股量化 & 退休現金流 Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         html, body { height: 100%; margin: 0; background-color: #fdf2f8; color: #831843; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow-x: hidden; }
         .pink-card { background: #ffffff; border: 1px solid #fbcfe8; border-radius: 16px; box-shadow: 0 4px 15px rgba(244, 114, 182, 0.08); height: 100%; display: flex; flex-direction: column; }
         .tab-btn.active { background-color: #be185d; color: #ffffff; font-weight: bold; }
-        /* 強制填滿螢幕高度 */
         .main-container { min-height: calc(100vh - 90px); }
     </style>
 </head>
@@ -21,17 +20,17 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-3">
                 <div class="bg-white/30 p-2 rounded-xl">
-                    <i class="fa-solid fa-list-check text-xl text-pink-800"></i>
+                    <i class="fa-solid fa-piggy-bank text-xl text-pink-800"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold text-pink-950">美股量化 & 現金流 Dashboard</h1>
-                    <p class="text-[11px] text-pink-900/80">直向列表 • 中文新聞摘要 • 滿版佈局</p>
+                    <h1 class="text-lg font-bold text-pink-950">美股量化 & 退休現金流 Dashboard</h1>
+                    <p class="text-[11px] text-pink-900/80">45歲退休現金流規劃 • 直向列表 • 清晰版面</p>
                 </div>
             </div>
 
             <nav class="flex bg-white/40 p-1 rounded-xl backdrop-blur-md gap-1">
                 <button onclick="switchTab('macro')" id="btn-macro" class="tab-btn active px-4 py-1.5 rounded-lg text-xs transition-all">核心資產清單</button>
-                <button onclick="switchTab('cashflow')" id="btn-cashflow" class="tab-btn px-4 py-1.5 rounded-lg text-xs text-pink-950 transition-all">現金流雷達</button>
+                <button onclick="switchTab('cashflow')" id="btn-cashflow" class="tab-btn px-4 py-1.5 rounded-lg text-xs text-pink-950 transition-all">退休現金流雷達</button>
                 <button onclick="switchTab('news')" id="btn-news" class="tab-btn px-4 py-1.5 rounded-lg text-xs text-pink-950 transition-all">中文新聞摘要</button>
                 <button onclick="switchTab('heatmap')" id="btn-heatmap" class="tab-btn px-4 py-1.5 rounded-lg text-xs text-pink-950 transition-all">全市場熱力圖</button>
             </nav>
@@ -40,14 +39,13 @@
 
     <main class="max-w-7xl w-full mx-auto px-4 py-4 flex-1 main-container flex flex-col">
 
-        <!-- 頁面 1：直向資產價格清單 (滿版 + 嚴格列表) -->
+        <!-- 頁面 1：核心資產清單 -->
         <div id="tab-macro" class="tab-content flex-1 flex flex-col">
             <div class="pink-card p-5 flex-1 flex flex-col">
                 <h2 class="text-sm font-bold text-pink-950 mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-bars-staggered text-pink-500"></i> 核心資產即時價格列表
+                    <i class="fa-solid fa-bars-staggered text-pink-500"></i> 宏觀與核心資產即時價格列表
                 </h2>
                 <div class="flex-1 w-full" style="min-height: 650px;">
-                    <!-- TradingView Market Quotes (純列表，無放大 K 線) -->
                     <div class="tradingview-widget-container" style="height:100%; width:100%;">
                       <div class="tradingview-widget-container__widget"></div>
                       <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
@@ -56,7 +54,7 @@
                       "height": "100%",
                       "symbolsGroups": [
                         {
-                          "name": "關注資產列表",
+                          "name": "重點資產總覽",
                           "originalName": "Indices",
                           "symbols": [
                             { "name": "TVC:USOIL", "displayName": "WTI 原油價格" },
@@ -64,9 +62,7 @@
                             { "name": "NASDAQ:QQQ", "displayName": "QQQ (納指 100 ETF)" },
                             { "name": "TVC:US10Y", "displayName": "10 年期美債收益率" },
                             { "name": "TVC:VIX", "displayName": "VIX 恐慌指數" },
-                            { "name": "TVC:GOLD", "displayName": "黃金現貨" },
-                            { "name": "NEO:SPYI", "displayName": "SPYI (高股息 ETF)" },
-                            { "name": "NEO:QQQI", "displayName": "QQQI (科技高股息 ETF)" }
+                            { "name": "TVC:GOLD", "displayName": "黃金現貨" }
                           ]
                         }
                       ],
@@ -81,34 +77,39 @@
             </div>
         </div>
 
-        <!-- 頁面 2：現金流雷達 -->
+        <!-- 頁面 2：退休現金流雷達 (解決字體重疊，指定 SPYI / QQQI / 中國移動 0941) -->
         <div id="tab-cashflow" class="tab-content hidden flex-1 flex flex-col">
             <div class="pink-card p-5 flex-1 flex flex-col">
-                <h2 class="text-sm font-bold text-pink-950 mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-sack-dollar text-pink-500"></i> 現金流與高股息 ETF 數據診斷
+                <h2 class="text-sm font-bold text-pink-950 mb-1 flex items-center gap-2">
+                    <i class="fa-solid fa-hand-holding-dollar text-pink-500"></i> 45歲退休現金流優先資產清單
                 </h2>
+                <p class="text-xs text-pink-700/80 mb-3">聚焦 SPYI、QQQI、中國移動 (0941.HK) 及核心高股息現金流標的</p>
                 <div class="flex-1 w-full" style="min-height: 650px;">
+                    <!-- 改用乾淨的 Market Quotes 列表，徹底解決字體重疊與亂碼問題 -->
                     <div class="tradingview-widget-container" style="height:100%; width:100%;">
                       <div class="tradingview-widget-container__widget"></div>
-                      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+                      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
                       {
                       "width": "100%",
                       "height": "100%",
-                      "defaultColumn": "overview",
-                      "defaultScreen": "general",
-                      "market": "america",
-                      "showToolbar": true,
+                      "symbolsGroups": [
+                        {
+                          "name": "退休現金流優先組合",
+                          "originalName": "Cashflow",
+                          "symbols": [
+                            { "name": "NEO:SPYI", "displayName": "SPYI (S&P 500 高股息)" },
+                            { "name": "NEO:QQQI", "displayName": "QQQI (Nasdaq 高股息)" },
+                            { "name": "HKEX:941", "displayName": "中國移動 (0941.HK)" },
+                            { "name": "AMEX:DIVO", "displayName": "DIVO (高品質股息 ETF)" },
+                            { "name": "AMEX:JEPI", "displayName": "JEPI (摩根高股息 ETF)" },
+                            { "name": "AMEX:JEPQ", "displayName": "JEPQ (摩根科技股息 ETF)" }
+                          ]
+                        }
+                      ],
+                      "showSymbolLogo": true,
                       "colorTheme": "light",
-                      "locale": "zh_TW",
-                      "symbols": {
-                        "tickers": [
-                          "NEO:SPYI",
-                          "NEO:QQQI",
-                          "AMEX:DIVO",
-                          "AMEX:JEPI",
-                          "AMEX:JEPQ"
-                        ]
-                      }
+                      "isTransparent": true,
+                      "locale": "zh_TW"
                     }
                       </script>
                     </div>
@@ -118,27 +119,25 @@
 
         <!-- 頁面 3：中文新聞摘要列表 -->
         <div id="tab-news" class="tab-content hidden flex-1 flex flex-col space-y-4">
-            <!-- 快速中文財經入口卡片 -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <a href="https://hk.finance.yahoo.com/quote/SPYI/news" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
                     <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-newspaper text-purple-600 mr-1"></i> Yahoo 財經中文</p>
                     <p class="text-[10px] text-pink-700/70">SPYI / QQQI 即時動態</p>
                 </a>
                 <a href="https://www.jin10.com/" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
-                    <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> 金十數據即時快訊</p>
+                    <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> 金十數據快訊</p>
                     <p class="text-[10px] text-pink-700/70">原油/美聯儲中文速報</p>
                 </a>
                 <a href="https://wallstreetcn.com/live/global" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
                     <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-chart-line text-blue-500 mr-1"></i> 華爾街見聞</p>
                     <p class="text-[10px] text-pink-700/70">全球市場中文直擊</p>
                 </a>
-                <a href="https://news.cnhubei.com/" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
-                    <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-globe text-emerald-500 mr-1"></i> 第一財經中文</p>
-                    <p class="text-[10px] text-pink-700/70">宏觀經濟與大盤解讀</p>
+                <a href="https://hk.finance.yahoo.com/quote/0941.HK/news" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
+                    <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-phone text-emerald-500 mr-1"></i> 中國移動新聞</p>
+                    <p class="text-[10px] text-pink-700/70">0941.HK 派息與業績</p>
                 </a>
             </div>
 
-            <!-- 動態新聞摘要流 -->
             <div class="pink-card p-5 flex-1 flex flex-col">
                 <h2 class="text-sm font-bold text-pink-950 mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-rss text-pink-500"></i> 即時美股中文新聞摘要 (帶原文連結)
@@ -163,7 +162,7 @@
             </div>
         </div>
 
-        <!-- 頁面 4：全市場熱力圖 (滿版) -->
+        <!-- 頁面 4：全市場熱力圖 -->
         <div id="tab-heatmap" class="tab-content hidden flex-1 flex flex-col">
             <div class="pink-card p-5 flex-1 flex flex-col">
                 <h2 class="text-sm font-bold text-pink-950 mb-3 flex items-center gap-2">
@@ -196,7 +195,6 @@
 
     </main>
 
-    <!-- 分頁切換 JavaScript -->
     <script>
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => {
