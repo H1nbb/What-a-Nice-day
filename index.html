@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -14,6 +15,7 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
+    <!-- 頂部跑馬燈 -->
     <div class="tradingview-widget-container bg-pink-900 border-b border-pink-700">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
@@ -35,6 +37,7 @@
         </script>
     </div>
 
+    <!-- Header -->
     <header class="bg-gradient-to-r from-pink-400 via-rose-300 to-pink-300 text-white py-3.5 px-6 shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-3">
@@ -58,6 +61,7 @@
 
     <main class="max-w-7xl w-full mx-auto px-4 py-6 flex-1 flex flex-col space-y-6">
 
+        <!-- 頁面 1：核心資產與大盤 -->
         <div id="tab-macro" class="tab-content flex-1 flex flex-col space-y-6">
             
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -91,43 +95,27 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 flex-1">
-                
-                <div class="pink-card p-6 flex flex-col justify-center items-center text-center bg-gradient-to-b from-pink-100/80 via-rose-50 to-pink-100/50 border-2 border-pink-300 shadow-md">
-                    <div class="w-16 h-16 bg-pink-200 rounded-full flex items-center justify-center mb-4 shadow-inner">
-                        <span class="text-3xl animate-bounce">💩</span>
+            <!-- 第一頁下方：放大佔滿空間的實時行情動態列表 -->
+            <div class="pink-card p-6 flex-1 flex flex-col" style="min-height: 600px;">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-pink-950 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-pink-600"></i> 跑馬燈資產即時行情動態列表 (全屏放大版)
+                        </h2>
+                        <p class="text-xs text-pink-800/80 mt-1">包含 SPY、QQQ、SOXX、原油、10年美債與 VIX 的即時價格、漲跌額與市場指標</p>
                     </div>
-                    <span class="text-xs font-black text-pink-600 bg-white px-3 py-1 rounded-full shadow-sm mb-2 border border-pink-200">
-                        ❤️ 專屬貼心提醒
-                    </span>
-                    <h2 class="text-2xl md:text-3xl font-black text-pink-900 my-2 tracking-wide leading-snug drop-shadow-sm">
-                        BB屁屁臭臭
-                    </h2>
-                    <p class="text-xs text-pink-700/80 mt-2 font-medium">
-                        專屬共用 Dashboard 閃光彩蛋卡片 ✨
-                    </p>
+                    <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">開市即時跳動</span>
                 </div>
 
-                <div class="pink-card p-6 md:col-span-3 flex flex-col" style="min-height: 550px;">
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <h2 class="text-xl font-bold text-pink-950 flex items-center gap-2">
-                                <i class="fa-solid fa-list-check text-pink-600"></i> 跑馬燈資產即時行情動態列表
-                            </h2>
-                            <p class="text-xs text-pink-800/80 mt-1">包含 SPY、QQQ、SOXX、原油、10年美債與 VIX 的即時價格與動態</p>
-                        </div>
-                        <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">開市即時跳動</span>
-                    </div>
-
-                    <div class="w-full flex-1 rounded-xl overflow-hidden border border-pink-200" style="min-height: 450px;">
-                        <iframe src="https://s.tradingview.com/embed-widget/market-quotes/?locale=zh_TW#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22symbolsGroups%22%3A%5B%7B%22name%22%3A%22%E8%B7%91%E9%A6%AC%E7%87%8B%E6%A0%B8%E5%BF%83%E8%B3%87%E7%94%A2%22%2C%22originalName%22%3A%22Indices%22%2C%22symbols%22%3A%5B%7B%22name%22%3A%22AMEX%3ASPY%22%2C%22displayName%22%3A%22%E6%A0%87%E6%99%AE%20500%20ETF%20(SPY)%22%7D%2C%7B%22name%22%3A%22NASDAQ%3AQQQ%22%2C%22displayName%22%3A%22%E7%B4%8D%E6%8C%87%20100%20ETF%20(QQQ)%22%7D%2C%7B%22name%22%3A%22NASDAQ%3ASOXX%22%2C%22displayName%22%3A%22%E8%B2%BB%E5%9F%8E%E5%8D%8A%E5%B0%8E%E9%AB%94%20ETF%20(SOXX)%22%7D%2C%7B%22name%22%3A%22TVC%3AUSOIL%22%2C%22displayName%22%3A%22WTI%20%E5%8E%9F%E2%80%8B%E2%80%8B%E6%B2%B9%E6%9C%9F%E8%B2%A8%20(USOIL)%22%7D%2C%7B%22name%22%3A%22US10Y%22%2C%22displayName%22%3A%2210%20%E5%B9%B4%E6%9C%9F%E7%BE%8E%E5%9C%8B%E5%9C%8B%E5%82%B5%E6%94%B6%E7%9B%8A%E7%8E%87%22%7D%2C%7B%22name%22%3A%22TVC%3AVIX%22%2C%22displayName%22%3A%22VIX%20%E6%81%90%E6%85%8C%E6%8C%87%E6%95%B8%22%7D%5D%7D%5D%2C%22showSymbolLogo%22%3Atrue%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Atrue%7D" class="w-full h-full border-0" style="min-height: 450px;"></iframe>
-                    </div>
+                <!-- 強制填滿高度的動態 Screener / Market Table -->
+                <div class="w-full flex-1 rounded-xl overflow-hidden border border-pink-200" style="min-height: 500px;">
+                    <iframe src="https://s.tradingview.com/embed-widget/market-quotes/?locale=zh_TW#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22symbolsGroups%22%3A%5B%7B%22name%22%3A%22%E8%B7%91%E9%A6%AC%E7%87%8B%E6%A0%B8%E5%BF%83%E8%B3%87%E7%94%A2%22%2C%22originalName%22%3A%22Indices%22%2C%22symbols%22%3A%5B%7B%22name%22%3A%22AMEX%3ASPY%22%2C%22displayName%22%3A%22%E6%A0%87%E6%99%AE%20500%20ETF%20(SPY)%22%7D%2C%7B%22name%22%3A%22NASDAQ%3AQQQ%22%2C%22displayName%22%3A%22%E7%B4%8D%E6%8C%87%20100%20ETF%20(QQQ)%22%7D%2C%7B%22name%22%3A%22NASDAQ%3ASOXX%22%2C%22displayName%22%3A%22%E8%B2%BB%E5%9F%8E%E5%8D%8A%E5%B0%8E%E9%AB%94%20ETF%20(SOXX)%22%7D%2C%7B%22name%22%3A%22TVC%3AUSOIL%22%2C%22displayName%22%3A%22WTI%20%E5%8E%9F%E2%80%8B%E2%80%8B%E6%B2%B9%E6%9C%9F%E8%B2%A8%20(USOIL)%22%7D%2C%7B%22name%22%3A%22US10Y%22%2C%22displayName%22%3A%2210%20%E5%B9%B4%E6%9C%9F%E7%BE%8E%E5%9C%8B%E5%9C%8B%E5%82%B5%E6%94%B6%E7%9B%8A%E7%8E%87%22%7D%2C%7B%22name%22%3A%22TVC%3AVIX%22%2C%22displayName%22%3A%22VIX%20%E6%81%90%E6%85%8C%E6%8C%87%E6%95%B8%22%7D%5D%7D%5D%2C%22showSymbolLogo%22%3Atrue%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Atrue%7D" class="w-full h-full border-0" style="min-height: 500px;"></iframe>
                 </div>
-
             </div>
 
         </div>
 
+        <!-- 頁面 2：現金流資產清單 -->
         <div id="tab-cashflow" class="tab-content hidden flex-1 flex flex-col space-y-6">
             <div class="pink-card p-6">
                 <div class="mb-4">
@@ -231,6 +219,7 @@
             </div>
         </div>
 
+        <!-- 頁面 3：中文新聞摘要 -->
         <div id="tab-news" class="tab-content hidden flex-1 flex flex-col space-y-4">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <a href="https://hk.finance.yahoo.com/quote/SPYI/news" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
@@ -261,6 +250,7 @@
             </div>
         </div>
 
+        <!-- 頁面 4：全市場熱力圖 -->
         <div id="tab-heatmap" class="tab-content hidden flex-1 flex flex-col">
             <div class="pink-card p-5 flex-1 flex flex-col">
                 <div class="flex justify-between items-center mb-3">
