@@ -3,165 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>柔粉美股現金流 & 晨報 Dashboard</title>
+    <title>美股量化 & 現金流 Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { background-color: #fdf2f8; color: #831843; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; min-height: 100vh; }
-        .pink-card { background: #ffffff; border: 1px solid #fbcfe8; border-radius: 16px; box-shadow: 0 4px 15px rgba(244, 114, 182, 0.08); }
+        html, body { height: 100%; margin: 0; background-color: #fdf2f8; color: #831843; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow-x: hidden; }
+        .pink-card { background: #ffffff; border: 1px solid #fbcfe8; border-radius: 16px; box-shadow: 0 4px 15px rgba(244, 114, 182, 0.08); height: 100%; display: flex; flex-direction: column; }
         .tab-btn.active { background-color: #be185d; color: #ffffff; font-weight: bold; }
+        /* 強制填滿螢幕高度 */
+        .main-container { min-height: calc(100vh - 90px); }
     </style>
 </head>
-<body class="flex flex-col min-h-screen pb-6">
+<body class="flex flex-col">
 
     <!-- Header -->
-    <header class="bg-gradient-to-r from-pink-400 via-rose-300 to-pink-300 text-white py-4 px-6 shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <header class="bg-gradient-to-r from-pink-400 via-rose-300 to-pink-300 text-white py-3 px-6 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-3">
-                <div class="bg-white/30 p-2 rounded-2xl">
-                    <i class="fa-solid fa-sack-dollar text-2xl text-pink-800"></i>
+                <div class="bg-white/30 p-2 rounded-xl">
+                    <i class="fa-solid fa-list-check text-xl text-pink-800"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold text-pink-950">美股量化 & 現金流 Dashboard</h1>
-                    <p class="text-xs text-pink-900/80">Baby Pink 護眼模式 • 直觀列表 & 中文新聞流</p>
+                    <h1 class="text-lg font-bold text-pink-950">美股量化 & 現金流 Dashboard</h1>
+                    <p class="text-[11px] text-pink-900/80">直向列表 • 中文新聞摘要 • 滿版佈局</p>
                 </div>
             </div>
 
             <nav class="flex bg-white/40 p-1 rounded-xl backdrop-blur-md gap-1">
-                <button onclick="switchTab('macro')" id="btn-macro" class="tab-btn active px-4 py-1.5 rounded-lg text-xs transition-all">核心資產列表</button>
+                <button onclick="switchTab('macro')" id="btn-macro" class="tab-btn active px-4 py-1.5 rounded-lg text-xs transition-all">核心資產清單</button>
                 <button onclick="switchTab('cashflow')" id="btn-cashflow" class="tab-btn px-4 py-1.5 rounded-lg text-xs text-pink-950 transition-all">現金流雷達</button>
-                <button onclick="switchTab('news')" id="btn-news" class="tab-btn px-4 py-1.5 rounded-lg text-xs text-pink-950 transition-all">中文新聞流</button>
+                <button onclick="switchTab('news')" id="btn-news" class="tab-btn px-4 py-1.5 rounded-lg text-xs text-pink-950 transition-all">中文新聞摘要</button>
                 <button onclick="switchTab('heatmap')" id="btn-heatmap" class="tab-btn px-4 py-1.5 rounded-lg text-xs text-pink-950 transition-all">全市場熱力圖</button>
             </nav>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 mt-6 flex-1 w-full space-y-6">
+    <main class="max-w-7xl w-full mx-auto px-4 py-4 flex-1 main-container flex flex-col">
 
-        <!-- 頁面 1：核心資產即時列表 (原油、SPY、QQQ、美債、SPYI/QQQI 一目了然) -->
-        <div id="tab-macro" class="tab-content space-y-6">
-            <div class="pink-card p-6">
-                <h2 class="text-base font-bold text-pink-950 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-pink-500"></i> 全資產即時數據清單 (原油 / 大盤 / 美債 / 現金流標的)
+        <!-- 頁面 1：直向資產價格清單 (滿版 + 嚴格列表) -->
+        <div id="tab-macro" class="tab-content flex-1 flex flex-col">
+            <div class="pink-card p-5 flex-1 flex flex-col">
+                <h2 class="text-sm font-bold text-pink-950 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-bars-staggered text-pink-500"></i> 核心資產即時價格列表
                 </h2>
-                <!-- TradingView Market Overview Widget (LIST VIEW) -->
-                <div class="tradingview-widget-container" style="height: 600px;">
-                  <div class="tradingview-widget-container__widget"></div>
-                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                  {
-                  "colorTheme": "light",
-                  "dateRange": "1D",
-                  "showChart": true,
-                  "locale": "zh_TW",
-                  "width": "100%",
-                  "height": "100%",
-                  "largeChartUrl": "",
-                  "isTransparent": true,
-                  "showSymbolLogo": true,
-                  "showFloatingTooltip": false,
-                  "tabs": [
-                    {
-                      "title": "重點資產總覽",
-                      "symbols": [
-                        { "s": "TVC:USOIL", "d": "WTI 原油價格" },
-                        { "s": "AMEX:SPY", "d": "SPY (標普 500 ETF)" },
-                        { "s": "NASDAQ:QQQ", "d": "QQQ (納指 100 ETF)" },
-                        { "s": "TVC:US10Y", "d": "10 年期美債收益率" },
-                        { "s": "TVC:VIX", "d": "VIX 恐慌指數" },
-                        { "s": "NEO:SPYI", "d": "SPYI (高股息 ETF)" },
-                        { "s": "NEO:QQQI", "d": "QQQI (科技高股息 ETF)" },
-                        { "s": "AMEX:DIVO", "title": "DIVO" }
-                      ]
+                <div class="flex-1 w-full" style="min-height: 650px;">
+                    <!-- TradingView Market Quotes (純列表，無放大 K 線) -->
+                    <div class="tradingview-widget-container" style="height:100%; width:100%;">
+                      <div class="tradingview-widget-container__widget"></div>
+                      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+                      {
+                      "width": "100%",
+                      "height": "100%",
+                      "symbolsGroups": [
+                        {
+                          "name": "關注資產列表",
+                          "originalName": "Indices",
+                          "symbols": [
+                            { "name": "TVC:USOIL", "displayName": "WTI 原油價格" },
+                            { "name": "AMEX:SPY", "displayName": "SPY (標普 500 ETF)" },
+                            { "name": "NASDAQ:QQQ", "displayName": "QQQ (納指 100 ETF)" },
+                            { "name": "TVC:US10Y", "displayName": "10 年期美債收益率" },
+                            { "name": "TVC:VIX", "displayName": "VIX 恐慌指數" },
+                            { "name": "TVC:GOLD", "displayName": "黃金現貨" },
+                            { "name": "NEO:SPYI", "displayName": "SPYI (高股息 ETF)" },
+                            { "name": "NEO:QQQI", "displayName": "QQQI (科技高股息 ETF)" }
+                          ]
+                        }
+                      ],
+                      "showSymbolLogo": true,
+                      "colorTheme": "light",
+                      "isTransparent": true,
+                      "locale": "zh_TW"
                     }
-                  ]
-                }
-                  </script>
+                      </script>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- 頁面 2：現金流雷達 -->
-        <div id="tab-cashflow" class="tab-content hidden space-y-6">
-            <div class="pink-card p-6">
-                <h2 class="text-base font-bold text-pink-950 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-sack-dollar text-pink-500"></i> 現金流與高股息 ETF 即時行情表
+        <div id="tab-cashflow" class="tab-content hidden flex-1 flex flex-col">
+            <div class="pink-card p-5 flex-1 flex flex-col">
+                <h2 class="text-sm font-bold text-pink-950 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-sack-dollar text-pink-500"></i> 現金流與高股息 ETF 數據診斷
                 </h2>
-                <div class="tradingview-widget-container" style="height: 550px;">
-                  <div class="tradingview-widget-container__widget"></div>
-                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-                  {
-                  "width": "100%",
-                  "height": "100%",
-                  "defaultColumn": "overview",
-                  "defaultScreen": "general",
-                  "market": "america",
-                  "showToolbar": true,
-                  "colorTheme": "light",
-                  "locale": "zh_TW",
-                  "symbols": {
-                    "tickers": [
-                      "NEO:SPYI",
-                      "NEO:QQQI",
-                      "AMEX:DIVO",
-                      "AMEX:JEPI",
-                      "AMEX:JEPQ"
-                    ]
-                  }
-                }
-                  </script>
+                <div class="flex-1 w-full" style="min-height: 650px;">
+                    <div class="tradingview-widget-container" style="height:100%; width:100%;">
+                      <div class="tradingview-widget-container__widget"></div>
+                      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+                      {
+                      "width": "100%",
+                      "height": "100%",
+                      "defaultColumn": "overview",
+                      "defaultScreen": "general",
+                      "market": "america",
+                      "showToolbar": true,
+                      "colorTheme": "light",
+                      "locale": "zh_TW",
+                      "symbols": {
+                        "tickers": [
+                          "NEO:SPYI",
+                          "NEO:QQQI",
+                          "AMEX:DIVO",
+                          "AMEX:JEPI",
+                          "AMEX:JEPQ"
+                        ]
+                      }
+                    }
+                      </script>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 頁面 3：中文新聞流 (繁體中文 + 點擊看原文) -->
-        <div id="tab-news" class="tab-content hidden space-y-6">
-            <div class="pink-card p-6">
-                <h2 class="text-base font-bold text-pink-950 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-newspaper text-pink-500"></i> 全中文美股財經新聞流 (包含摘要與原文連結)
+        <!-- 頁面 3：中文新聞摘要列表 -->
+        <div id="tab-news" class="tab-content hidden flex-1 flex flex-col space-y-4">
+            <!-- 快速中文財經入口卡片 -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <a href="https://hk.finance.yahoo.com/quote/SPYI/news" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
+                    <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-newspaper text-purple-600 mr-1"></i> Yahoo 財經中文</p>
+                    <p class="text-[10px] text-pink-700/70">SPYI / QQQI 即時動態</p>
+                </a>
+                <a href="https://www.jin10.com/" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
+                    <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> 金十數據即時快訊</p>
+                    <p class="text-[10px] text-pink-700/70">原油/美聯儲中文速報</p>
+                </a>
+                <a href="https://wallstreetcn.com/live/global" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
+                    <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-chart-line text-blue-500 mr-1"></i> 華爾街見聞</p>
+                    <p class="text-[10px] text-pink-700/70">全球市場中文直擊</p>
+                </a>
+                <a href="https://news.cnhubei.com/" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
+                    <p class="text-xs font-bold text-pink-950"><i class="fa-solid fa-globe text-emerald-500 mr-1"></i> 第一財經中文</p>
+                    <p class="text-[10px] text-pink-700/70">宏觀經濟與大盤解讀</p>
+                </a>
+            </div>
+
+            <!-- 動態新聞摘要流 -->
+            <div class="pink-card p-5 flex-1 flex flex-col">
+                <h2 class="text-sm font-bold text-pink-950 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-rss text-pink-500"></i> 即時美股中文新聞摘要 (帶原文連結)
                 </h2>
-                <div class="tradingview-widget-container" style="height: 600px;">
-                  <div class="tradingview-widget-container__widget"></div>
-                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-                  {
-                  "feedMode": "market",
-                  "market": "stock",
-                  "colorTheme": "light",
-                  "isTransparent": true,
-                  "displayMode": "regular",
-                  "width": "100%",
-                  "height": "100%",
-                  "locale": "zh_TW"
-                }
-                  </script>
+                <div class="flex-1 w-full overflow-hidden" style="min-height: 500px;">
+                    <div class="tradingview-widget-container" style="height:100%; width:100%;">
+                      <div class="tradingview-widget-container__widget"></div>
+                      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                      {
+                      "feedMode": "market",
+                      "market": "stock",
+                      "colorTheme": "light",
+                      "isTransparent": true,
+                      "displayMode": "regular",
+                      "width": "100%",
+                      "height": "100%",
+                      "locale": "zh_TW"
+                    }
+                      </script>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- 頁面 4：全市場熱力圖 (滿版) -->
-        <div id="tab-heatmap" class="tab-content hidden space-y-6">
-            <div class="pink-card p-6">
-                <h2 class="text-base font-bold text-pink-950 mb-4 flex items-center gap-2">
+        <div id="tab-heatmap" class="tab-content hidden flex-1 flex flex-col">
+            <div class="pink-card p-5 flex-1 flex flex-col">
+                <h2 class="text-sm font-bold text-pink-950 mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-fire text-pink-500"></i> S&P 500 板塊資金熱力圖
                 </h2>
-                <div class="tradingview-widget-container" style="height: 650px;">
-                  <div class="tradingview-widget-container__widget"></div>
-                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-                  {
-                  "exchanges": [],
-                  "dataSource": "SPX500",
-                  "grouping": "sector",
-                  "blockSize": "market_cap_basic",
-                  "blockColor": "change",
-                  "locale": "zh_TW",
-                  "colorTheme": "light",
-                  "hasTopBar": true,
-                  "isDataSetEnabled": true,
-                  "isZoomEnabled": true,
-                  "hasSymbolTooltip": true,
-                  "width": "100%",
-                  "height": "100%"
-                }
-                  </script>
+                <div class="flex-1 w-full" style="min-height: 650px;">
+                    <div class="tradingview-widget-container" style="height:100%; width:100%;">
+                      <div class="tradingview-widget-container__widget"></div>
+                      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+                      {
+                      "exchanges": [],
+                      "dataSource": "SPX500",
+                      "grouping": "sector",
+                      "blockSize": "market_cap_basic",
+                      "blockColor": "change",
+                      "locale": "zh_TW",
+                      "colorTheme": "light",
+                      "hasTopBar": true,
+                      "isDataSetEnabled": true,
+                      "isZoomEnabled": true,
+                      "hasSymbolTooltip": true,
+                      "width": "100%",
+                      "height": "100%"
+                    }
+                      </script>
+                    </div>
                 </div>
             </div>
         </div>
@@ -171,13 +199,19 @@
     <!-- 分頁切換 JavaScript -->
     <script>
         function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+            });
             document.querySelectorAll('.tab-btn').forEach(el => {
                 el.classList.remove('active');
                 el.classList.add('text-pink-950');
             });
 
-            document.getElementById('tab-' + tabName).classList.remove('hidden');
+            const targetTab = document.getElementById('tab-' + tabName);
+            targetTab.classList.remove('hidden');
+            targetTab.classList.add('flex');
+
             const activeBtn = document.getElementById('btn-' + tabName);
             activeBtn.classList.add('active');
             activeBtn.classList.remove('text-pink-950');
