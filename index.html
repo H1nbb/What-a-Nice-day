@@ -146,11 +146,11 @@
                 </div>
             </div>
 
-            <!-- 核心資產與商品行情列表 -->
+            <!-- 核心資產與商品行情列表 (已更新為 SPY, QQQ, SPYM/SPLG, QQQM, SOXX, SGOV, CLmain/USOIL) -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-list-check text-pink-600 mr-2"></i>核心資產與商品行情列表</h2>
-                <p class="text-xs text-desc mb-3">包含 SPY、QQQ、SQQQ、USOIL 及 VIX 恐慌指數</p>
-                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 p-2 bg-white" style="height: 300px;">
+                <p class="text-xs text-desc mb-3">包含 SPY、QQQ、SPYM、QQQM、SOXX、SGOV 及 CLmain (WTI 原油)</p>
+                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 p-2 bg-white" style="height: 350px;">
                     <div class="tradingview-widget-container" style="height:100%;width:100%">
                         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
                         {
@@ -162,9 +162,11 @@
                                     "symbols": [
                                         { "name": "AMEX:SPY", "title": "標普 500 ETF (SPY)" },
                                         { "name": "NASDAQ:QQQ", "title": "納指 100 ETF (QQQ)" },
-                                        { "name": "NASDAQ:SQQQ", "title": "做空納指 3X ETF (SQQQ)" },
-                                        { "name": "TVC:USOIL", "title": "WTI 原油現貨" },
-                                        { "name": "TVC:VIX", "title": "VIX 恐慌指數" }
+                                        { "name": "AMEX:SPLG", "title": "標普 500 低費率 (SPYM)" },
+                                        { "name": "NASDAQ:QQQM", "title": "納指 100 低費率 (QQQM)" },
+                                        { "name": "NASDAQ:SOXX", "title": "費城半導體 ETF (SOXX)" },
+                                        { "name": "AMEX:SGOV", "title": "短期美債 ETF (SGOV)" },
+                                        { "name": "TVC:USOIL", "title": "WTI 原油主連合約 (CLmain)" }
                                     ]
                                 }
                             ],
