@@ -369,14 +369,15 @@
             </div>
         </div>
 
-        <!-- 頁面 5：多標的定投、幣種轉換與分階段複利計算器 -->
+        <!-- 頁面 5：多標的定投計算器與現金流計劃 -->
         <div id="tab-calc" class="tab-pane hidden flex-col space-y-6">
             
+            <!-- 原汁原味的定投與資產配置計算器 -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-pink-200 pb-4">
                     <div>
                         <h2 class="text-lg font-black text-black"><i class="fa-solid fa-coins text-pink-600 mr-2"></i>多資產定投與幣種折算計算器</h2>
-                        <p class="text-xs text-desc">支援滑桿或直接打字輸入百分比設定權重</p>
+                        <p class="text-xs text-desc">支援設定總投入金額、幣種、即時匯率與各股票清單權重</p>
                     </div>
                     <button onclick="addStockRow()" class="bg-pink-600 hover:bg-pink-700 text-white text-xs font-black px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1.5 self-start">
                         <i class="fa-solid fa-plus"></i> 新增股票標的
@@ -422,36 +423,36 @@
                 </div>
             </div>
 
-            <!-- 分階段長期複利與現金流計算器 -->
+            <!-- 新增的現金流長期複利計劃模組 -->
             <div class="dashboard-card p-6">
                 <div class="mb-6 border-b-2 border-pink-200 pb-4">
-                    <h2 class="text-base font-black text-black"><i class="fa-solid fa-arrow-trend-up text-pink-600 mr-2"></i>三階段長期複利與現金流增長預測計劃</h2>
-                    <p class="text-xs text-desc">依序規劃資產滾存與現金流收穫表現</p>
+                    <h2 class="text-base font-black text-black"><i class="fa-solid fa-arrow-trend-up text-pink-600 mr-2"></i>三階段長期複利與現金流增長計劃</h2>
+                    <p class="text-xs text-desc">依序規劃資產滾存與現金流收穫表現，打造穩健的被動收入系統</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-white border-2 border-pink-200 p-4 rounded-2xl flex flex-col justify-between">
                         <div>
                             <span class="bg-pink-100 text-pink-800 text-xs font-black px-2.5 py-1 rounded-lg">階段一</span>
-                            <h3 class="font-black text-black text-sm mt-2">資本累積期</h3>
-                            <p class="text-xs text-desc mt-1">透過定期投入高成長與現金流資產建立底倉。</p>
+                            <h3 class="font-black text-black text-sm mt-2">資本累積期 (1-3年)</h3>
+                            <p class="text-xs text-desc mt-1">透過定期投入高成長與高現金流資產建立底倉，善用股息再投資（DRIP）加速滾大本金。</p>
                         </div>
-                        <div class="mt-4 pt-3 border-t border-pink-100 text-xs font-bold text-pink-700">目標：穩健滾存資產規模</div>
+                        <div class="mt-4 pt-3 border-t border-pink-100 text-xs font-bold text-pink-700">目標：穩健滾存資產規模，擴大現金流基數</div>
                     </div>
                     <div class="bg-white border-2 border-pink-200 p-4 rounded-2xl flex flex-col justify-between">
                         <div>
                             <span class="bg-pink-100 text-pink-800 text-xs font-black px-2.5 py-1 rounded-lg">階段二</span>
-                            <h3 class="font-black text-black text-sm mt-2">規模加速期</h3>
-                            <p class="text-xs text-desc mt-1">加大投入或複利再投資，創造資產雪球效應。</p>
+                            <h3 class="font-black text-black text-sm mt-2">規模加速期 (3-6年)</h3>
+                            <p class="text-xs text-desc mt-1">本金與每月收到的股息總額持續放大，創造強大的複利雪球效應，縮短資產翻倍所需的時間。</p>
                         </div>
-                        <div class="mt-4 pt-3 border-t border-pink-100 text-xs font-bold text-pink-700">目標：放大被動現金流基數</div>
+                        <div class="mt-4 pt-3 border-t border-pink-100 text-xs font-bold text-pink-700">目標：被動現金流足以覆蓋部分固定開支</div>
                     </div>
                     <div class="bg-white border-2 border-pink-200 p-4 rounded-2xl flex flex-col justify-between">
                         <div>
                             <span class="bg-pink-100 text-pink-800 text-xs font-black px-2.5 py-1 rounded-lg">階段三</span>
-                            <h3 class="font-black text-black text-sm mt-2">現金流收穫期</h3>
-                            <p class="text-xs text-desc mt-1">全面轉向高股息與高收益資產，支援日常開銷。</p>
+                            <h3 class="font-black text-black text-sm mt-2">現金流收穫期 (6年以上)</h3>
+                            <p class="text-xs text-desc mt-1">全面轉向穩定派息的收息資產組合，將現金流轉為實質生活支持，實現財務自由。</p>
                         </div>
-                        <div class="mt-4 pt-3 border-t border-pink-100 text-xs font-bold text-pink-700">目標：達成財務自主與現金流自由</div>
+                        <div class="mt-4 pt-3 border-t border-pink-100 text-xs font-bold text-pink-700">目標：達成完全自主與全額被動現金流支撐</div>
                     </div>
                 </div>
             </div>
@@ -485,7 +486,7 @@
             "QQQ": 0.6
         };
 
-        // 初始股票清單數據
+        // 初始股票清單數據（維持您原本的設定）
         let stockRows = [
             { ticker: "SPYI", weight: 40 },
             { ticker: "QQQI", weight: 40 },
@@ -569,7 +570,6 @@
                 const weightRatio = item.weight / 100;
                 const allocatedInput = totalInput * weightRatio;
 
-                // 換算成港幣與美元對照
                 let allocatedHKD, allocatedUSD;
                 if (currency === 'HKD') {
                     allocatedHKD = allocatedInput;
@@ -579,7 +579,6 @@
                     allocatedHKD = allocatedInput * fxRate;
                 }
 
-                // 取得預估年化股息率 (若無對照則預設 5%)
                 const upperTicker = item.ticker.toUpperCase();
                 const divYield = defaultYields[upperTicker] || defaultYields[item.ticker] || 5.0;
                 const annualDividendHKD = allocatedHKD * (divYield / 100);
