@@ -14,12 +14,13 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- 頂部跑馬燈 -->
+    <!-- 頂部跑馬燈 (已加入 SGOV) -->
     <div class="tradingview-widget-container bg-pink-900 border-b border-pink-700">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
         {
             "symbols": [
+                { "proName": "AMEX:SGOV", "title": "短期美債 (SGOV)" },
                 { "proName": "AMEX:SPY", "title": "標普500 (SPY)" },
                 { "proName": "NASDAQ:QQQ", "title": "納指100 (QQQ)" },
                 { "proName": "NASDAQ:SOXX", "title": "半導體 (SOXX)" },
@@ -94,23 +95,6 @@
                 </div>
             </div>
 
-            <!-- SGOV 短期國債報價卡片 -->
-            <div class="pink-card p-5">
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-base font-bold text-pink-950 flex items-center gap-2">
-                        <i class="fa-solid fa-vault text-pink-600"></i> 短期國債現金流防守標的：SGOV (0-3個月美債 ETF)
-                    </h2>
-                    <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-full">超短期現金管理</span>
-                </div>
-                <div class="bg-pink-50/60 p-3 rounded-xl border border-pink-200">
-                    <div class="tradingview-widget-container" style="height: 125px;">
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                        { "symbol": "AMEX:SGOV", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }
-                        </script>
-                    </div>
-                </div>
-            </div>
-
             <!-- 各年期美國國債收益率 (US Treasury Yield Curve) -->
             <div class="pink-card p-6">
                 <div class="flex justify-between items-center mb-4">
@@ -128,20 +112,20 @@
                 </div>
             </div>
 
-            <!-- 第一頁下方：核心大盤與商品行情 -->
-            <div class="pink-card p-6 flex-1 flex flex-col" style="min-height: 400px;">
+            <!-- 第一頁下方：核心大盤、國債與商品行情列表 (已包含 SGOV) -->
+            <div class="pink-card p-6 flex-1 flex flex-col" style="min-height: 420px;">
                 <div class="flex justify-between items-center mb-4">
                     <div>
                         <h2 class="text-xl font-bold text-pink-950 flex items-center gap-2">
                             <i class="fa-solid fa-list-check text-pink-600"></i> 跑馬燈大盤與商品即時行情列表
                         </h2>
-                        <p class="text-xs text-pink-800/80 mt-1">包含 SPY、QQQ、SOXX、原油與 VIX 的即時價格與動態</p>
+                        <p class="text-xs text-pink-800/80 mt-1">包含 SGOV 超短期國債、SPY、QQQ、SOXX、原油與 VIX 的即時價格與動態</p>
                     </div>
                     <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">開市即時跳動</span>
                 </div>
 
-                <div class="w-full flex-1 rounded-xl overflow-hidden border border-pink-200" style="min-height: 300px;">
-                    <iframe src="https://s.tradingview.com/embed-widget/market-quotes/?locale=zh_TW#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22symbolsGroups%22%3A%5B%7B%22name%22%3A%22%E5%A4%A7%E7%9B%A4%E8%88%87%E5%A4%A7%E2%80%8B%E2%80%8B%E2%80%8B%E2%80%8B%E5%AE%97%E5%95%86%E5%93%81%22%2C%22originalName%22%3A%22Indices%22%2C%22symbols%22%3A%5B%7B%22name%22%3A%22AMEX%3ASPY%22%2C%22displayName%22%3A%22%E6%A0%87%E6%99%AE%20500%20ETF%20(SPY)%22%7D%2C%7B%22name%22%3A%22NASDAQ%3AQQQ%22%2C%22displayName%22%3A%22%E7%B4%8D%E6%8C%87%20100%20ETF%20(QQQ)%22%7D%2C%7B%22name%22%3A%22NASDAQ%3ASOXX%22%2C%22displayName%22%3A%22%E8%B2%BB%E5%9F%8E%E5%8D%8A%E5%B0%8E%E9%AB%94%20ETF%20(SOXX)%22%7D%2C%7B%22name%22%3A%22TVC%3AUSOIL%22%2C%22displayName%22%3A%22WTI%20%E5%8E%9F%E2%80%8B%E2%80%8B%E6%B2%B9%E6%9C%9F%E8%B2%A8%20(USOIL)%22%7D%2C%7B%22name%22%3A%22TVC%3AVIX%22%2C%22displayName%22%3A%22VIX%20%E6%81%90%E6%85%8C%E6%8C%87%E6%95%B8%22%7D%5D%7D%5D%2C%22showSymbolLogo%22%3Atrue%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Atrue%7D" class="w-full h-full border-0" style="min-height: 300px;"></iframe>
+                <div class="w-full flex-1 rounded-xl overflow-hidden border border-pink-200" style="min-height: 340px;">
+                    <iframe src="https://s.tradingview.com/embed-widget/market-quotes/?locale=zh_TW#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22symbolsGroups%22%3A%5B%7B%22name%22%3A%22%E5%A4%A7%E7%9B%A4%E8%88%87%E5%A4%A7%E2%80%8B%E2%80%8B%E2%80%8B%E2%80%8B%E5%AE%97%E5%95%86%E5%93%81%22%2C%22originalName%22%3A%22Indices%22%2C%22symbols%22%3A%5B%7B%22name%22%3A%22AMEX%3ASGOV%22%2C%22displayName%22%3A%22%E7%9F%AD%E6%9C%9F%E7%BE%8E%E5%82%B5%20ETF%20(SGOV)%22%7D%2C%7B%22name%22%3A%22AMEX%3ASPY%22%2C%22displayName%22%3A%22%E6%A0%87%E6%99%AE%20500%20ETF%20(SPY)%22%7D%2C%7B%22name%22%3A%22NASDAQ%3AQQQ%22%2C%22displayName%22%3A%22%E7%B4%8D%E6%8C%87%20100%20ETF%20(QQQ)%22%7D%2C%7B%22name%22%3A%22NASDAQ%3ASOXX%22%2C%22displayName%22%3A%22%E8%B2%BB%E5%9F%8E%E5%8D%8A%E5%B0%8E%E9%AB%94%20ETF%20(SOXX)%22%7D%2C%7B%22name%22%3A%22TVC%3AUSOIL%22%2C%22displayName%22%3A%22WTI%20%E5%8E%9F%E2%80%8B%E2%80%8B%E6%B2%B9%E6%9C%9F%E8%B2%A8%20(USOIL)%22%7D%2C%7B%22name%22%3A%22TVC%3AVIX%22%2C%22displayName%22%3A%22VIX%20%E6%81%90%E6%85%8C%E6%8C%87%E6%95%B8%22%7D%5D%7D%5D%2C%22showSymbolLogo%22%3Atrue%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Atrue%7D" class="w-full h-full border-0" style="min-height: 340px;"></iframe>
                 </div>
             </div>
 
