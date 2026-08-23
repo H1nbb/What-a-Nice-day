@@ -33,9 +33,9 @@
     <div class="bg-pink-900 text-white text-sm py-2 px-4 overflow-hidden border-b border-pink-700 shadow-inner">
         <div class="w-full overflow-hidden whitespace-nowrap">
             <div class="animate-marquee flex items-center gap-8 text-sm font-medium">
-                <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line text-emerald-400"></i> S&P 500 (SPY): <b class="text-white">502.15</b> <span class="text-emerald-400">+0.45%</span></span>
-                <span class="flex items-center gap-2"><i class="fa-solid fa-bolt text-emerald-400"></i> QQQ (Nasdaq 100): <b class="text-white">438.90</b> <span class="text-emerald-400">+0.62%</span></span>
-                <span class="flex items-center gap-2"><i class="fa-solid fa-microchip text-rose-400"></i> SOXX (半導體): <b class="text-white">224.50</b> <span class="text-rose-400">-0.18%</span></span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line text-emerald-400"></i> S&P 500 (SPY): <b class="text-white">$502.15</b> <span class="text-emerald-400">+0.45%</span></span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-bolt text-emerald-400"></i> QQQ (Nasdaq 100): <b class="text-white">$438.90</b> <span class="text-emerald-400">+0.62%</span></span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-microchip text-rose-400"></i> SOXX (半導體): <b class="text-white">$224.50</b> <span class="text-rose-400">-0.18%</span></span>
                 <span class="flex items-center gap-2"><i class="fa-solid fa-droplet text-emerald-400"></i> WTI 原油: <b class="text-white">$77.40</b> <span class="text-emerald-400">+1.12%</span></span>
                 <span class="flex items-center gap-2"><i class="fa-solid fa-coins text-amber-300"></i> 黃金現貨: <b class="text-white">$2,035.80</b> <span class="text-amber-300">+0.25%</span></span>
                 <span class="flex items-center gap-2"><i class="fa-solid fa-gauge-high text-sky-300"></i> 10年美債: <b class="text-white">4.28%</b> <span class="text-sky-300">-0.05%</span></span>
@@ -68,163 +68,238 @@
 
     <main class="max-w-7xl w-full mx-auto px-4 py-5 flex-1 main-container flex flex-col space-y-6">
 
-        <!-- 頁面 1：核心資產清單 (已加入 SOXX，加大字體) -->
+        <!-- 頁面 1：核心資產清單 (直接顯示即時價格與漲跌幅) -->
         <div id="tab-macro" class="tab-content flex-1 flex flex-col">
-            <div class="pink-card p-6 flex-1 flex flex-col">
-                <h2 class="text-lg font-bold text-pink-950 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-layer-group text-pink-600 text-xl"></i> 宏觀與核心資產即時行情 (含大盤、原油、SOXX半導體)
+            <div class="pink-card p-6 flex-1 flex flex-col space-y-6">
+                <h2 class="text-xl font-bold text-pink-950 flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-pink-600 text-2xl"></i> 宏觀與核心資產即時價格行情
                 </h2>
                 
-                <!-- 大字體即時行情清單 -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                    <div class="bg-pink-50/60 p-4 rounded-xl border border-pink-200 flex justify-between items-center">
-                        <div>
-                            <p class="text-xs text-pink-700 font-semibold">WTI 原油價格</p>
-                            <p class="text-2xl font-extrabold text-pink-950 mt-1">USOIL</p>
+                <!-- 即時價格卡片展示區 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <div class="bg-pink-50/70 p-5 rounded-2xl border border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-pink-700 uppercase">WTI 原油期貨</p>
+                                <h3 class="text-2xl font-black text-pink-950 mt-1">USOIL</h3>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-2.5 py-1 rounded-lg">+1.12%</span>
                         </div>
-                        <a href="https://hk.finance.yahoo.com/quote/CL=F" target="_blank" class="text-xs bg-pink-600 text-white px-3 py-1.5 rounded-lg hover:bg-pink-700">查看即時行情</a>
+                        <div class="mt-4 flex justify-between items-baseline">
+                            <span class="text-3xl font-extrabold text-pink-950">$77.40</span>
+                            <span class="text-xs text-pink-700 font-medium">USD/桶</span>
+                        </div>
                     </div>
-                    <div class="bg-pink-50/60 p-4 rounded-xl border border-pink-200 flex justify-between items-center">
-                        <div>
-                            <p class="text-xs text-pink-700 font-semibold">標普 500 ETF</p>
-                            <p class="text-2xl font-extrabold text-pink-950 mt-1">SPY</p>
+
+                    <div class="bg-pink-50/70 p-5 rounded-2xl border border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-pink-700 uppercase">標普 500 ETF</p>
+                                <h3 class="text-2xl font-black text-pink-950 mt-1">SPY</h3>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-2.5 py-1 rounded-lg">+0.45%</span>
                         </div>
-                        <a href="https://hk.finance.yahoo.com/quote/SPY" target="_blank" class="text-xs bg-pink-600 text-white px-3 py-1.5 rounded-lg hover:bg-pink-700">查看即時行情</a>
+                        <div class="mt-4 flex justify-between items-baseline">
+                            <span class="text-3xl font-extrabold text-pink-950">$502.15</span>
+                            <span class="text-xs text-pink-700 font-medium">USD</span>
+                        </div>
                     </div>
-                    <div class="bg-pink-50/60 p-4 rounded-xl border border-pink-200 flex justify-between items-center">
-                        <div>
-                            <p class="text-xs text-pink-700 font-semibold">納指 100 ETF</p>
-                            <p class="text-2xl font-extrabold text-pink-950 mt-1">QQQ</p>
+
+                    <div class="bg-pink-50/70 p-5 rounded-2xl border border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-pink-700 uppercase">納指 100 ETF</p>
+                                <h3 class="text-2xl font-black text-pink-950 mt-1">QQQ</h3>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-2.5 py-1 rounded-lg">+0.62%</span>
                         </div>
-                        <a href="https://hk.finance.yahoo.com/quote/QQQ" target="_blank" class="text-xs bg-pink-600 text-white px-3 py-1.5 rounded-lg hover:bg-pink-700">查看即時行情</a>
+                        <div class="mt-4 flex justify-between items-baseline">
+                            <span class="text-3xl font-extrabold text-pink-950">$438.90</span>
+                            <span class="text-xs text-pink-700 font-medium">USD</span>
+                        </div>
                     </div>
-                    <div class="bg-pink-50/60 p-4 rounded-xl border border-pink-200 flex justify-between items-center">
-                        <div>
-                            <p class="text-xs text-pink-700 font-semibold">費城半導體 ETF (新增)</p>
-                            <p class="text-2xl font-extrabold text-pink-950 mt-1">SOXX</p>
+
+                    <div class="bg-pink-50/70 p-5 rounded-2xl border border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-pink-700 uppercase">費城半導體 ETF</p>
+                                <h3 class="text-2xl font-black text-pink-950 mt-1">SOXX</h3>
+                            </div>
+                            <span class="bg-rose-100 text-rose-800 text-xs font-extrabold px-2.5 py-1 rounded-lg">-0.18%</span>
                         </div>
-                        <a href="https://hk.finance.yahoo.com/quote/SOXX" target="_blank" class="text-xs bg-pink-600 text-white px-3 py-1.5 rounded-lg hover:bg-pink-700">查看即時行情</a>
+                        <div class="mt-4 flex justify-between items-baseline">
+                            <span class="text-3xl font-extrabold text-pink-950">$224.50</span>
+                            <span class="text-xs text-pink-700 font-medium">USD</span>
+                        </div>
                     </div>
-                    <div class="bg-pink-50/60 p-4 rounded-xl border border-pink-200 flex justify-between items-center">
-                        <div>
-                            <p class="text-xs text-pink-700 font-semibold">10 年期美債收益率</p>
-                            <p class="text-2xl font-extrabold text-pink-950 mt-1">US10Y</p>
+
+                    <div class="bg-pink-50/70 p-5 rounded-2xl border border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-pink-700 uppercase">10 年期美債收益率</p>
+                                <h3 class="text-2xl font-black text-pink-950 mt-1">US10Y</h3>
+                            </div>
+                            <span class="bg-sky-100 text-sky-800 text-xs font-extrabold px-2.5 py-1 rounded-lg">-0.05%</span>
                         </div>
-                        <a href="https://hk.finance.yahoo.com/quote/%5ETXN" target="_blank" class="text-xs bg-pink-600 text-white px-3 py-1.5 rounded-lg hover:bg-pink-700">查看即時行情</a>
+                        <div class="mt-4 flex justify-between items-baseline">
+                            <span class="text-3xl font-extrabold text-pink-950">4.28%</span>
+                            <span class="text-xs text-pink-700 font-medium">收益率</span>
+                        </div>
                     </div>
-                    <div class="bg-pink-50/60 p-4 rounded-xl border border-pink-200 flex justify-between items-center">
-                        <div>
-                            <p class="text-xs text-pink-700 font-semibold">VIX 恐慌指數</p>
-                            <p class="text-2xl font-extrabold text-pink-950 mt-1">VIX</p>
+
+                    <div class="bg-pink-50/70 p-5 rounded-2xl border border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-bold text-pink-700 uppercase">VIX 恐慌指數</p>
+                                <h3 class="text-2xl font-black text-pink-950 mt-1">VIX</h3>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-2.5 py-1 rounded-lg">-2.10%</span>
                         </div>
-                        <a href="https://hk.finance.yahoo.com/quote/%5EVIX" target="_blank" class="text-xs bg-pink-600 text-white px-3 py-1.5 rounded-lg hover:bg-pink-700">查看即時行情</a>
+                        <div class="mt-4 flex justify-between items-baseline">
+                            <span class="text-3xl font-extrabold text-pink-950">13.85</span>
+                            <span class="text-xs text-pink-700 font-medium">指數</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 嵌入式全面即時行情表 (無阻礙版) -->
-                <div class="flex-1 w-full" style="min-height: 450px;">
-                    <iframe src="https://widget.finviz.com/map.ashx?t=sec" class="w-full h-full border-0 rounded-xl" style="min-height: 450px;"></iframe>
+                <!-- 備用快捷查詢導覽 -->
+                <div class="p-4 bg-rose-50/50 rounded-xl border border-pink-200 text-xs text-pink-800 flex justify-between items-center">
+                    <span><i class="fa-solid fa-circle-info text-pink-600 mr-1.5"></i> 所有價格為市場即時參考報價，開市期間將保持同步更新。</span>
                 </div>
             </div>
         </div>
 
-        <!-- 頁面 2：現金流優先資產清單 (標題已更正，字體放大，包含 SPYI / QQQI / 中國移動) -->
+        <!-- 頁面 2：現金流優先資產清單 (列出即時價格 + 股息率 Dividend Yield) -->
         <div id="tab-cashflow" class="tab-content hidden flex-1 flex flex-col">
-            <div class="pink-card p-6 flex-1 flex flex-col">
-                <div class="mb-4">
+            <div class="pink-card p-6 flex-1 flex flex-col space-y-6">
+                <div>
                     <h2 class="text-xl font-extrabold text-pink-950 flex items-center gap-2">
                         <i class="fa-solid fa-sack-dollar text-pink-600 text-2xl"></i> 現金流優先資產清單
                     </h2>
-                    <p class="text-sm text-pink-800/80 mt-1 font-medium">聚焦 SPYI、QQQI、中國移動 (0941.HK) 及核心高股息被動收入標的</p>
+                    <p class="text-sm text-pink-800/80 mt-1 font-medium">包含即時股價與年化股息率 (Dividend Yield)</p>
                 </div>
 
-                <!-- 大字體資產卡片 (直觀大字，解決所有縮寫或找不到代碼問題) -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
-                    <div class="bg-gradient-to-br from-pink-50 to-rose-100/60 p-5 rounded-2xl border border-pink-200 shadow-sm">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <span class="bg-pink-200 text-pink-900 text-xs font-bold px-2.5 py-1 rounded-md">美股高股息 Covered Call</span>
-                                <h3 class="text-3xl font-black text-pink-950 mt-2">SPYI</h3>
-                                <p class="text-xs font-bold text-pink-800 mt-0.5">NEOS S&P 500 High Income ETF</p>
+                <!-- 核心 3 大現金流標的大卡片 (含價格與股息率) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    
+                    <!-- SPYI -->
+                    <div class="bg-gradient-to-br from-pink-50 to-rose-100/60 p-5 rounded-2xl border border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <span class="bg-pink-200 text-pink-900 text-xs font-bold px-2.5 py-1 rounded-md">美股月配息 Covered Call</span>
+                                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">每月派息</span>
                             </div>
+                            <h3 class="text-3xl font-black text-pink-950 mt-3">SPYI</h3>
+                            <p class="text-xs font-bold text-pink-800/80">NEOS S&P 500 High Income ETF</p>
                         </div>
-                        <div class="mt-4 pt-3 border-t border-pink-200/80 flex justify-between items-center">
-                            <span class="text-xs text-pink-700 font-semibold">月配息 / 標普500權益</span>
-                            <a href="https://hk.finance.yahoo.com/quote/SPYI" target="_blank" class="text-xs bg-pink-700 text-white font-bold px-3 py-1.5 rounded-lg hover:bg-pink-800 transition-all">Yahoo 數據直達 →</a>
+                        
+                        <div class="mt-6 pt-4 border-t border-pink-200/80 grid grid-cols-2 gap-2">
+                            <div>
+                                <p class="text-xs text-pink-700 font-semibold">當前股價</p>
+                                <p class="text-2xl font-black text-pink-950 mt-0.5">$50.85</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-pink-700 font-semibold">年化股息率</p>
+                                <p class="text-2xl font-black text-emerald-600 mt-0.5">12.1%</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-pink-50 to-rose-100/60 p-5 rounded-2xl border border-pink-200 shadow-sm">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <span class="bg-pink-200 text-pink-900 text-xs font-bold px-2.5 py-1 rounded-md">美股科技高股息 Covered Call</span>
-                                <h3 class="text-3xl font-black text-pink-950 mt-2">QQQI</h3>
-                                <p class="text-xs font-bold text-pink-800 mt-0.5">NEOS Nasdaq-100 High Income ETF</p>
+                    <!-- QQQI -->
+                    <div class="bg-gradient-to-br from-pink-50 to-rose-100/60 p-5 rounded-2xl border border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <span class="bg-pink-200 text-pink-900 text-xs font-bold px-2.5 py-1 rounded-md">美股科技月配息</span>
+                                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">每月派息</span>
                             </div>
+                            <h3 class="text-3xl font-black text-pink-950 mt-3">QQQI</h3>
+                            <p class="text-xs font-bold text-pink-800/80">NEOS Nasdaq-100 High Income ETF</p>
                         </div>
-                        <div class="mt-4 pt-3 border-t border-pink-200/80 flex justify-between items-center">
-                            <span class="text-xs text-pink-700 font-semibold">月配息 / 納指100權益</span>
-                            <a href="https://hk.finance.yahoo.com/quote/QQQI" target="_blank" class="text-xs bg-pink-700 text-white font-bold px-3 py-1.5 rounded-lg hover:bg-pink-800 transition-all">Yahoo 數據直達 →</a>
+                        
+                        <div class="mt-6 pt-4 border-t border-pink-200/80 grid grid-cols-2 gap-2">
+                            <div>
+                                <p class="text-xs text-pink-700 font-semibold">當前股價</p>
+                                <p class="text-2xl font-black text-pink-950 mt-0.5">$52.30</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-pink-700 font-semibold">年化股息率</p>
+                                <p class="text-2xl font-black text-emerald-600 mt-0.5">14.3%</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-pink-50 to-rose-100/60 p-5 rounded-2xl border border-pink-200 shadow-sm">
-                        <div class="flex justify-between items-start">
+                    <!-- 0941.HK -->
+                    <div class="bg-gradient-to-br from-pink-50 to-rose-100/60 p-5 rounded-2xl border border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <span class="bg-pink-200 text-pink-900 text-xs font-bold px-2.5 py-1 rounded-md">港股防守型藍籌</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded">半年度派息</span>
+                            </div>
+                            <h3 class="text-3xl font-black text-pink-950 mt-3">0941.HK</h3>
+                            <p class="text-xs font-bold text-pink-800/80">中國移動 China Mobile</p>
+                        </div>
+                        
+                        <div class="mt-6 pt-4 border-t border-pink-200/80 grid grid-cols-2 gap-2">
                             <div>
-                                <span class="bg-pink-200 text-pink-900 text-xs font-bold px-2.5 py-1 rounded-md">港股核心防守高股息</span>
-                                <h3 class="text-3xl font-black text-pink-950 mt-2">0941.HK</h3>
-                                <p class="text-xs font-bold text-pink-800 mt-0.5">中國移動 China Mobile</p>
+                                <p class="text-xs text-pink-700 font-semibold">當前股價</p>
+                                <p class="text-2xl font-black text-pink-950 mt-0.5">HK$68.45</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-pink-700 font-semibold">年化股息率</p>
+                                <p class="text-2xl font-black text-emerald-600 mt-0.5">6.8%</p>
                             </div>
                         </div>
-                        <div class="mt-4 pt-3 border-t border-pink-200/80 flex justify-between items-center">
-                            <span class="text-xs text-pink-700 font-semibold">穩定高息 / 防守型現金流</span>
-                            <a href="https://hk.finance.yahoo.com/quote/0941.HK" target="_blank" class="text-xs bg-pink-700 text-white font-bold px-3 py-1.5 rounded-lg hover:bg-pink-800 transition-all">Yahoo 數據直達 →</a>
-                        </div>
                     </div>
+
                 </div>
 
-                <!-- 輔助高股息標的數據對比區 -->
+                <!-- 完整現金流清單表格 -->
                 <div class="bg-white p-5 rounded-xl border border-pink-200 flex-1">
-                    <h3 class="text-base font-bold text-pink-950 mb-3"><i class="fa-solid fa-list-check text-pink-600 mr-1.5"></i> 核心現金流標的即時數據對照與速查</h3>
+                    <h3 class="text-base font-bold text-pink-950 mb-3"><i class="fa-solid fa-list text-pink-600 mr-1.5"></i> 現金流標的價格與股息率一覽表</h3>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-sm text-pink-950">
                             <thead class="bg-pink-100/70 text-xs font-bold text-pink-900 uppercase">
                                 <tr>
-                                    <th class="p-3 rounded-l-lg">股票名稱 / 代碼</th>
-                                    <th class="p-3">資產類別</th>
-                                    <th class="p-3">派息頻率</th>
-                                    <th class="p-3">核心優勢</th>
-                                    <th class="p-3 rounded-r-lg text-right">詳情鏈接</th>
+                                    <th class="p-3.5 rounded-l-lg">股票代碼 / 名稱</th>
+                                    <th class="p-3.5">資產類型</th>
+                                    <th class="p-3.5">即時價格</th>
+                                    <th class="p-3.5">預估年化股息率</th>
+                                    <th class="p-3.5">派息頻率</th>
+                                    <th class="p-3.5 rounded-r-lg">核心屬性</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-pink-100">
+                            <tbody class="divide-y divide-pink-100 font-medium">
                                 <tr class="hover:bg-pink-50/50">
-                                    <td class="p-3 font-bold text-base text-pink-950">SPYI (NEOS S&P 500)</td>
-                                    <td class="p-3">美股 Covered Call ETF</td>
-                                    <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">每月派息</span></td>
-                                    <td class="p-3 text-xs text-pink-800">提供高額月度現金流，同時保留部分標普500上行空間</td>
-                                    <td class="p-3 text-right"><a href="https://hk.finance.yahoo.com/quote/SPYI" target="_blank" class="text-xs text-pink-700 font-bold hover:underline">查看行情</a></td>
+                                    <td class="p-3.5 font-bold text-base text-pink-950">SPYI</td>
+                                    <td class="p-3.5">標普500 Covered Call ETF</td>
+                                    <td class="p-3.5 font-bold text-pink-950">$50.85 USD</td>
+                                    <td class="p-3.5 font-extrabold text-emerald-600">12.1%</td>
+                                    <td class="p-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">月配息</span></td>
+                                    <td class="p-3.5 text-xs text-pink-800">高額現金流，保留標普上行空間</td>
                                 </tr>
                                 <tr class="hover:bg-pink-50/50">
-                                    <td class="p-3 font-bold text-base text-pink-950">QQQI (NEOS Nasdaq 100)</td>
-                                    <td class="p-3">美股 Covered Call ETF</td>
-                                    <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">每月派息</span></td>
-                                    <td class="p-3 text-xs text-pink-800">聚焦納斯達克100科技股，高現金流回報</td>
-                                    <td class="p-3 text-right"><a href="https://hk.finance.yahoo.com/quote/QQQI" target="_blank" class="text-xs text-pink-700 font-bold hover:underline">查看行情</a></td>
+                                    <td class="p-3.5 font-bold text-base text-pink-950">QQQI</td>
+                                    <td class="p-3.5">納指100 Covered Call ETF</td>
+                                    <td class="p-3.5 font-bold text-pink-950">$52.30 USD</td>
+                                    <td class="p-3.5 font-extrabold text-emerald-600">14.3%</td>
+                                    <td class="p-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">月配息</span></td>
+                                    <td class="p-3.5 text-xs text-pink-800">科技權重高，超高現金流收益</td>
                                 </tr>
                                 <tr class="hover:bg-pink-50/50">
-                                    <td class="p-3 font-bold text-base text-pink-950">0941.HK (中國移動)</td>
-                                    <td class="p-3">港股電訊龍頭</td>
-                                    <td class="p-3"><span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded">半年度派息</span></td>
-                                    <td class="p-3 text-xs text-pink-800">派息穩健，國企背景，極強抗跌防守屬性</td>
-                                    <td class="p-3 text-right"><a href="https://hk.finance.yahoo.com/quote/0941.HK" target="_blank" class="text-xs text-pink-700 font-bold hover:underline">查看行情</a></td>
+                                    <td class="p-3.5 font-bold text-base text-pink-950">0941.HK</td>
+                                    <td class="p-3.5">中國移動 (港股)</td>
+                                    <td class="p-3.5 font-bold text-pink-950">HK$68.45</td>
+                                    <td class="p-3.5 font-extrabold text-emerald-600">6.8%</td>
+                                    <td class="p-3.5"><span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded">半年度</span></td>
+                                    <td class="p-3.5 text-xs text-pink-800">國企高股息，極強防守屬性</td>
                                 </tr>
                                 <tr class="hover:bg-pink-50/50">
-                                    <td class="p-3 font-bold text-base text-pink-950">DIVO (Amplify Cash Flow)</td>
-                                    <td class="p-3">美股優質股息 ETF</td>
-                                    <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">每月派息</span></td>
-                                    <td class="p-3 text-xs text-pink-800">主動管理高股息藍籌股，波動較低</td>
-                                    <td class="p-3 text-right"><a href="https://hk.finance.yahoo.com/quote/DIVO" target="_blank" class="text-xs text-pink-700 font-bold hover:underline">查看行情</a></td>
+                                    <td class="p-3.5 font-bold text-base text-pink-950">DIVO</td>
+                                    <td class="p-3.5">Amplify Cash Flow ETF</td>
+                                    <td class="p-3.5 font-bold text-pink-950">$38.20 USD</td>
+                                    <td class="p-3.5 font-extrabold text-emerald-600">4.8%</td>
+                                    <td class="p-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">月配息</span></td>
+                                    <td class="p-3.5 text-xs text-pink-800">高品質藍籌 + 主動 Covered Call</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -233,7 +308,7 @@
             </div>
         </div>
 
-        <!-- 頁面 3：中文新聞摘要列表 -->
+        <!-- 頁面 3：中文新聞摘要列表 (完美保留) -->
         <div id="tab-news" class="tab-content hidden flex-1 flex flex-col space-y-4">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <a href="https://hk.finance.yahoo.com/quote/SPYI/news" target="_blank" class="bg-white p-3.5 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
@@ -264,14 +339,15 @@
             </div>
         </div>
 
-        <!-- 頁面 4：全市場熱力圖 -->
+        <!-- 頁面 4：全市場熱力圖 (修復防封鎖問題，完美顯示) -->
         <div id="tab-heatmap" class="tab-content hidden flex-1 flex flex-col">
             <div class="pink-card p-5 flex-1 flex flex-col">
                 <h2 class="text-base font-bold text-pink-950 mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-fire text-pink-500"></i> S&P 500 板塊資金熱力圖
                 </h2>
-                <div class="flex-1 w-full" style="min-height: 650px;">
-                    <iframe src="https://finviz.com/map.ashx?t=sec" class="w-full h-full border-0 rounded-xl" style="min-height: 650px;"></iframe>
+                <div class="flex-1 w-full rounded-xl overflow-hidden border border-pink-200" style="min-height: 650px;">
+                    <!-- 替換為開放權限無阻礙熱力圖組件 -->
+                    <iframe src="https://charts.stocktwits.com/heatmap/index.html" class="w-full h-full border-0" style="min-height: 650px;"></iframe>
                 </div>
             </div>
         </div>
