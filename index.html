@@ -132,21 +132,19 @@
                 </div>
             </div>
 
-            <!-- 美國主要國債收益率 (US Treasuries) -->
+            <!-- 美國主要國債收益率 (US Treasuries) - 已修正為穩定顯示的代碼 -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-landmark text-pink-600 mr-2"></i>美國主要國債收益率 (US Treasuries)</h2>
                 <p class="text-xs text-desc mb-3">涵蓋短中長端美國公債收益率即時表現</p>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
-                    <div class="dashboard-card p-2 h-[110px] bg-white"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US03Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div class="dashboard-card p-2 h-[110px] bg-white"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US02Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                    <div class="dashboard-card p-2 h-[110px] bg-white"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US05Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                     <div class="dashboard-card p-2 h-[110px] bg-white"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US10Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                     <div class="dashboard-card p-2 h-[110px] bg-white"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US30Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                 </div>
             </div>
 
-            <!-- 核心資產與商品行情列表 (已更新為 SPY, QQQ, SPYM/SPLG, QQQM, SOXX, SGOV, CLmain/USOIL) -->
+            <!-- 核心資產與商品行情列表 -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-list-check text-pink-600 mr-2"></i>核心資產與商品行情列表</h2>
                 <p class="text-xs text-desc mb-3">包含 SPY、QQQ、SPYM、QQQM、SOXX、SGOV 及 CLmain (WTI 原油)</p>
@@ -180,24 +178,12 @@
                 </div>
             </div>
 
-            <!-- 本週重點宏觀財經日曆 -->
+            <!-- 本週重點宏觀財經日曆 (已更換為 100% 中文即時日曆源) -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-calendar-days text-pink-600 mr-2"></i>本週重點宏觀財經日曆 (Economic Calendar)</h2>
                 <p class="text-xs text-desc mb-3">追蹤美國非農就業、CPI 等關鍵數據與央行決議事件</p>
-                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 bg-white" style="height: 400px;">
-                    <div class="tradingview-widget-container" style="height:100%;width:100%">
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-                        {
-                            "width": "100%",
-                            "height": "100%",
-                            "colorTheme": "light",
-                            "isTransparent": true,
-                            "locale": "zh_TW",
-                            "importanceFilter": "-1,0,1",
-                            "countryFilter": "us"
-                        }
-                        </script>
-                    </div>
+                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 bg-white p-2" style="height: 500px;">
+                    <iframe scrolling="no" allowtransparency="true" frameborder="0" src="https://www.investing.com/webmaster-tools/financial-calendar?theme=light&lang=bchinese" style="width:100%;height:100%;"></iframe>
                 </div>
             </div>
 
@@ -206,7 +192,6 @@
         <!-- 頁面 2：現金流資產與報價 -->
         <div id="tab-cashflow" class="tab-pane hidden flex-col space-y-6">
             
-            <!-- 現金流資產即時報價 6 個小方塊 -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-sack-dollar text-pink-600 mr-2"></i>現金流資產即時報價</h2>
                 <p class="text-xs text-desc mb-4">100% 成功連線，開市期間價格實時跳動</p>
@@ -221,7 +206,6 @@
                 </div>
             </div>
 
-            <!-- 現金流資產屬性對照表 -->
             <div class="dashboard-card p-6">
                 <h2 class="text-lg font-black text-black mb-1"><i class="fa-solid fa-table-cells text-pink-600 mr-2"></i>現金流資產屬性對照表</h2>
                 <p class="text-xs text-desc mb-5">詳細列出代碼、名稱、預估年化股息率與策略優勢</p>
@@ -257,7 +241,7 @@
                                 <td class="p-3.5 font-bold text-black">Defiance Nasdaq-100 Enhanced Options Income ETF</td>
                                 <td class="p-3.5 font-black text-pink-600">~50%+</td>
                                 <td class="p-3.5"><span class="bg-pink-100 text-pink-800 px-2 py-0.5 rounded font-bold">每月/高頻派息</span></td>
-                                <td class="p-3.5 text-desc">極深價內 (ITM) / ODTE 期權策略，追求極高現金流</td>
+                                <td class="p-3.5 text-desc">極深價內 (ITM) / 0DTE 期權策略，追求極高現金流</td>
                             </tr>
                             <tr class="hover:bg-pink-50/50">
                                 <td class="p-3.5 font-black text-pink-700">0941.HK</td>
@@ -287,7 +271,7 @@
 
         </div>
 
-        <!-- 頁面 3：中文新聞摘要 (已放大並盡量佔據版面空間) -->
+        <!-- 頁面 3：中文新聞摘要 -->
         <div id="tab-news" class="tab-pane hidden flex-col space-y-4">
             <div class="dashboard-card p-5 flex-1 flex flex-col" style="min-height: 80vh;">
                 <h2 class="text-base font-black text-black mb-3"><i class="fa-solid fa-rss text-pink-600 mr-2"></i>即時美股中文新聞摘要</h2>
