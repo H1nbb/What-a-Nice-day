@@ -422,11 +422,11 @@
                 </div>
             </div>
 
-            <!-- 新增：分階段長期複利與現金流計算器 -->
+            <!-- 分階段長期複利計算器 -->
             <div class="dashboard-card p-6">
                 <div class="mb-6 border-b-2 border-pink-200 pb-4">
-                    <h2 class="text-base font-black text-black"><i class="fa-solid fa-arrow-trend-up text-pink-600 mr-2"></i>三階段長期複利與現金流增長預測計劃</h2>
-                    <p class="text-xs text-desc">依序規劃 $5,000 階段 $\rightarrow$ $7,000 階段 $\rightarrow$ 現金流收穫階段之滾存表現</p>
+                    <h2 class="text-base font-black text-black"><i class="fa-solid fa-arrow-trend-up text-pink-600 mr-2"></i>三階段長期複利滾存計劃</h2>
+                    <p class="text-xs text-desc">依序規劃 $5,000 階段 $\rightarrow$ $7,000 階段 $\rightarrow$ 最終總資產結算</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -484,30 +484,30 @@
                         </div>
                     </div>
 
-                    <!-- 階段三：現金流階段 -->
+                    <!-- 階段三：總資產結算 -->
                     <div class="bg-white border-2 border-pink-200 p-4 rounded-2xl flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-3">
-                                <span class="bg-emerald-600 text-white text-xs font-black px-2.5 py-1 rounded-lg">階段三：現金流收穫期</span>
+                                <span class="bg-purple-600 text-white text-xs font-black px-2.5 py-1 rounded-lg">階段三：總資產結算期</span>
                             </div>
                             <div class="space-y-3 text-xs">
                                 <div>
-                                    <label class="block font-black text-black mb-1">目標資產配置 / 轉換</label>
-                                    <p class="text-[11px] text-desc font-bold">自動承接前兩階段累積的滾存總本金</p>
+                                    <label class="block font-black text-black mb-1">滾存延續年限 (年)</label>
+                                    <input type="number" id="stage3-years" value="5" class="custom-input w-full p-2 rounded-lg" oninput="calculateStagedCompound()">
                                 </div>
                                 <div>
-                                    <label class="block font-black text-black mb-1">現金流資產年化股息率 (%)</label>
-                                    <input type="number" id="stage3-yield" value="12" step="0.5" class="custom-input w-full p-2 rounded-lg" oninput="calculateStagedCompound()">
+                                    <label class="block font-black text-black mb-1">此階段年化報酬率 (%)</label>
+                                    <input type="number" id="stage3-rate" value="10" step="0.5" class="custom-input w-full p-2 rounded-lg" oninput="calculateStagedCompound()">
                                 </div>
                                 <div>
-                                    <label class="block font-black text-black mb-1">資產本金繼續滾存年限</label>
-                                    <input type="number" id="stage3-years" value="10" class="custom-input w-full p-2 rounded-lg" oninput="calculateStagedCompound()">
+                                    <label class="block font-black text-black mb-1">狀態說明</label>
+                                    <p class="text-[11px] text-desc font-bold">自動累積前兩階段總本金與複利滾存成果</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-4 pt-3 border-t border-emerald-100 bg-emerald-50 p-3 rounded-xl">
-                            <p class="text-[11px] text-emerald-800 font-bold">最終總資產 & 每月被動現金流：</p>
-                            <p id="stage3-result" class="text-sm font-black text-emerald-700">--</p>
+                        <div class="mt-4 pt-3 border-t border-purple-100 bg-purple-50 p-3 rounded-xl">
+                            <p class="text-[11px] text-purple-800 font-bold">最終結算總資產規模：</p>
+                            <p id="stage3-result" class="text-sm font-black text-purple-700">--</p>
                         </div>
                     </div>
                 </div>
@@ -515,12 +515,47 @@
                 <!-- 總結看板 -->
                 <div class="mt-6 bg-pink-900 text-white p-5 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4">
                     <div>
-                        <h4 class="text-xs font-black tracking-wider uppercase text-pink-300 mb-1"><i class="fa-solid fa-flag-checkered mr-1.5"></i> 三階段全週期目標總結</h4>
-                        <p id="grand-summary-text" class="text-sm font-bold text-white">規劃總時長 20 年，透過循序漸進的投入達成資產規模與現金流自由目標。</p>
+                        <h4 class="text-xs font-black tracking-wider uppercase text-pink-300 mb-1"><i class="fa-solid fa-flag-checkered mr-1.5"></i> 全週期資產累積總結</h4>
+                        <p id="grand-summary-text" class="text-sm font-bold text-white">循序漸進完成各階段投入，達成最終資產規模目標。</p>
                     </div>
                     <div class="text-right bg-pink-800/80 px-4 py-3 rounded-xl border border-pink-700">
-                        <span class="text-xs text-pink-300 block font-bold">最終實現每月被動收入：</span>
-                        <span id="grand-monthly-income" class="text-lg font-black text-emerald-400">--</span>
+                        <span class="text-xs text-pink-300 block font-bold">最終總資產結算：</span>
+                        <span id="grand-total-asset" class="text-lg font-black text-pink-200">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 新增：專屬現金流計算器 -->
+            <div class="dashboard-card p-6">
+                <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-pink-200 pb-4">
+                    <div>
+                        <h2 class="text-base font-black text-black"><i class="fa-solid fa-wallet text-emerald-600 mr-2"></i>多資產現金流與股息收入計算器</h2>
+                        <p class="text-xs text-desc">自由添加多種收息資產、填寫配置金額與股息率，精準計算被動現金流</p>
+                    </div>
+                    <button onclick="addIncomeAssetRow()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1.5 self-start">
+                        <i class="fa-solid fa-plus"></i> 新增收息資產
+                    </button>
+                </div>
+
+                <div class="mb-4">
+                    <div id="income-assets-container" class="space-y-3"></div>
+                </div>
+
+                <!-- 現金流結算面板 -->
+                <div class="bg-emerald-50 border-2 border-emerald-300 p-5 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <h4 class="text-xs font-black tracking-wider uppercase text-emerald-800 mb-1"><i class="fa-solid fa-circle-check mr-1.5"></i> 現金流結算總覽</h4>
+                        <p class="text-xs text-desc font-bold">依據上方各資產配置金額與股息率加權計算得出：</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="bg-white px-4 py-3 rounded-xl border border-emerald-200 text-right">
+                            <span class="text-xs text-gray-500 block font-bold">預估每年股息總額：</span>
+                            <span id="total-annual-income" class="text-base font-black text-emerald-700">--</span>
+                        </div>
+                        <div class="bg-emerald-600 text-white px-4 py-3 rounded-xl text-right shadow-sm">
+                            <span class="text-xs text-emerald-100 block font-bold">預估每月現金流：</span>
+                            <span id="total-monthly-income" class="text-lg font-black text-white">--</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -635,7 +670,7 @@
             }
             document.getElementById('stage1-result').innerText = '$' + fv1.toLocaleString('en-US', {maximumFractionDigits: 0});
 
-            // 階段二計算 ($7000 階段，從階段一結余繼續滾存)
+            // 階段二計算 ($7000 階段)
             let p2_amt = parseFloat(document.getElementById('stage2-amount').value) || 0;
             let p2_yrs = parseFloat(document.getElementById('stage2-years').value) || 0;
             let p2_rate = (parseFloat(document.getElementById('stage2-rate').value) || 0) / 100 / 12;
@@ -647,29 +682,89 @@
             }
             document.getElementById('stage2-result').innerText = '$' + fv2.toLocaleString('en-US', {maximumFractionDigits: 0});
 
-            // 階段三計算 (現金流收穫期：本金 fv2 不再每月額外投入，以收息資產繼續複利滾存或提取)
-            let p3_yield = (parseFloat(document.getElementById('stage3-yield').value) || 0) / 100;
+            // 階段三計算 (總資產結算期)
             let p3_yrs = parseFloat(document.getElementById('stage3-years').value) || 0;
-            let p3_rate = p3_yield / 12;
+            let p3_rate = (parseFloat(document.getElementById('stage3-rate').value) || 0) / 100 / 12;
             let p3_months = p3_yrs * 12;
 
             let fv3 = fv2;
-            // 假設現金流階段將總資產投入高息收息資產，每年滾存本金增長
             for(let i=0; i<p3_months; i++) {
                 fv3 = fv3 * (1 + p3_rate);
             }
 
-            let monthlyIncome = fv3 * (p3_yield / 12);
-
-            document.getElementById('stage3-result').innerText = '總資產: $' + fv3.toLocaleString('en-US', {maximumFractionDigits: 0}) + '\n月現金流: $' + monthlyIncome.toLocaleString('en-US', {maximumFractionDigits: 0});
-            document.getElementById('grand-monthly-income').innerText = '$' + monthlyIncome.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' / 月';
+            document.getElementById('stage3-result').innerText = '$' + fv3.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('grand-total-asset').innerText = '$' + fv3.toLocaleString('en-US', {maximumFractionDigits: 0});
 
             let totalYears = p1_yrs + p2_yrs + p3_yrs;
-            document.getElementById('grand-summary-text').innerText = `總規劃時長 ${totalYears} 年：完成 $5,000 與 $7,000 階段累積後，於階段三轉入高股息資產，最終滾存總資產達 $' + fv3.toLocaleString('en-US', {maximumFractionDigits: 0}) + '。`;
+            document.getElementById('grand-summary-text').innerText = `總規劃時長 ${totalYears} 年：依序完成 $5,000 與 $7,000 階段並進行總資產結算，最終資產規模達 $${fv3.toLocaleString('en-US', {maximumFractionDigits: 0})}。`;
+        }
+
+        // 現金流計算器相關邏輯
+        let incomeAssets = [
+            { name: "SPYI (標普高息)", amount: 500000, yield: 12 },
+            { name: "QQQI (納指高息)", amount: 500000, yield: 14 }
+        ];
+
+        function renderIncomeAssets() {
+            const container = document.getElementById('income-assets-container');
+            container.innerHTML = '';
+            incomeAssets.forEach((asset, index) => {
+                container.innerHTML += `
+                    <div class="flex flex-col sm:flex-row items-center gap-2 bg-white p-3 rounded-xl border-2 border-emerald-200">
+                        <input type="text" value="${asset.name}" oninput="updateIncomeName(${index}, this.value)" class="custom-input flex-1 p-2 rounded-lg text-xs w-full" placeholder="資產名稱">
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <span class="text-xs font-black text-gray-600 whitespace-nowrap">金額:</span>
+                            <input type="number" value="${asset.amount}" oninput="updateIncomeAmount(${index}, this.value)" class="custom-input w-32 p-2 rounded-lg text-xs" placeholder="配置金額">
+                        </div>
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <span class="text-xs font-black text-gray-600 whitespace-nowrap">股息率%:</span>
+                            <input type="number" value="${asset.yield}" step="0.1" oninput="updateIncomeYield(${index}, this.value)" class="custom-input w-24 p-2 rounded-lg text-xs" placeholder="股息率%">
+                        </div>
+                        <button onclick="removeIncomeAssetRow(${index})" class="text-red-500 hover:text-red-700 p-2 self-end sm:self-center"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+            calculateCashFlow();
+        }
+
+        function addIncomeAssetRow() {
+            incomeAssets.push({ name: "新收息資產", amount: 100000, yield: 10 });
+            renderIncomeAssets();
+        }
+
+        function removeIncomeAssetRow(index) {
+            incomeAssets.splice(index, 1);
+            renderIncomeAssets();
+        }
+
+        function updateIncomeName(index, val) {
+            incomeAssets[index].name = val;
+        }
+
+        function updateIncomeAmount(index, val) {
+            incomeAssets[index].amount = parseFloat(val) || 0;
+            calculateCashFlow();
+        }
+
+        function updateIncomeYield(index, val) {
+            incomeAssets[index].yield = parseFloat(val) || 0;
+            calculateCashFlow();
+        }
+
+        function calculateCashFlow() {
+            let totalAnnual = 0;
+            incomeAssets.forEach(asset => {
+                totalAnnual += asset.amount * (asset.yield / 100);
+            });
+            let totalMonthly = totalAnnual / 12;
+
+            document.getElementById('total-annual-income').innerText = '$' + totalAnnual.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('total-monthly-income').innerText = '$' + totalMonthly.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' / 月';
         }
 
         // 初始化
         renderStocks();
+        renderIncomeAssets();
     </script>
 </body>
 </html>
