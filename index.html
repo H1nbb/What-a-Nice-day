@@ -427,12 +427,12 @@
                 </div>
             </div>
 
-            <!-- 長期複利與資產增長預測計劃 (動態階段支援 1-5 階段) -->
+            <!-- 長期複利與資產增長預測計劃 (動態階段支援 1-5 階段，整合股票與加權收益率) -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
                         <h2 class="text-base font-black text-white"><i class="fa-solid fa-arrow-trend-up text-pink-500 mr-2"></i>長期複利與資產增長動態預測計劃</h2>
-                        <p class="text-xs text-desc">支援 1 至 5 個階段自由增減；可設定每月投入、或歸零（完全依靠前期累積本金複利滾存）</p>
+                        <p class="text-xs text-desc">支援 1 至 5 個階段自由增減；各階段可自訂股票組合與比率，自動計算加權回報率</p>
                     </div>
                     <div class="flex gap-2">
                         <button onclick="addPhase()" class="bg-pink-600 hover:bg-pink-700 text-white text-xs font-black px-3.5 py-2 rounded-xl shadow-sm transition-all flex items-center gap-1">
@@ -445,7 +445,7 @@
                 </div>
 
                 <!-- 動態階段容器 -->
-                <div id="phases-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div id="phases-container" class="flex flex-col space-y-6 mb-6">
                     <!-- 動態渲染 -->
                 </div>
 
@@ -453,7 +453,7 @@
                 <div class="bg-pink-700 text-white p-5 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4 shadow-md">
                     <div>
                         <div class="text-xs font-bold opacity-90 uppercase tracking-wider mb-1">長期複利總結與最終資產潛力</div>
-                        <div class="text-lg font-black">經過各階段的佈局與本金滾存，實現您的最終財務藍圖！</div>
+                        <div class="text-lg font-black">經過各階段的資產佈局與複利滾存，實現您的最終財務藍圖！</div>
                     </div>
                     <div class="bg-[#0f172a] text-white p-4 rounded-xl text-right min-w-[220px] border border-pink-500">
                         <div class="text-xs text-desc">最終總資產（所有階段總和）</div>
@@ -549,6 +549,24 @@
             document.getElementById('btn-' + tabId).classList.add('active');
         }
 
+        // --- 全局默認股息率資料庫 ---
+        const defaultDividendYields = {
+            "SPYI": 12.1,
+            "QQQI": 14.3,
+            "QQQY": 50.0,
+            "0941.HK": 6.8,
+            "DIVO": 4.8,
+            "JEPI": 7.5,
+            "SGOV": 5.0,
+            "SPY": 10.0,
+            "QQQ": 11.0
+        };
+
+        function getYieldForSymbol(symbol) {
+            const cleanSymbol = symbol.toUpperCase().trim();
+            return defaultDividendYields[cleanSymbol] !== undefined ? defaultDividendYields[cleanSymbol] : 8.0;
+        }
+
         // --- 多資產定投計算器邏輯 ---
         let stocks = [
             { name: "SPYI", weight: 40 },
@@ -586,7 +604,7 @@
         }
 
         function updateStock(index, field, value) {
-            stocks[index][field] = value;
+            stocks[index][field] = field === 'name' ? value.toUpperCase().trim() : value;
             calculateMultiDCA();
         }
 
@@ -631,47 +649,104 @@
             });
         }
 
-        // --- 動態多階段長期複利計算邏輯 (支援 1-5 階段) ---
+        // --- 動態多階段長期複利計算邏輯 (整合各階段股票、比率與加權收益率) ---
         let phases = [
-            { title: "起步累積期", desc: "透過核心資產建立底倉", monthly: 5000, years: 5, rate: 10 },
-            { title: "加速滾存期", desc: "提高投入，加速複利雪球滾動", monthly: 7000, years: 5, rate: 10 },
-            { title: "本金自主運作期", desc: "停止額外現金投入，完全依靠前期本金複利滾存", monthly: 0, years: 5, rate: 10 }
+            { 
+                title: "起步累積期", 
+                desc: "透過高息核心資產建立底倉", 
+                monthly: 5000, 
+                years: 5,
+                stocks: [
+                    { name: "SPYI", weight: 50 },
+                    { name: "QQQI", weight: 50 }
+                ]
+            },
+            { 
+                title: "加速滾存期", 
+                desc: "提高投入，加入高增長資產加速複利", 
+                monthly: 7000, 
+                years: 5,
+                stocks: [
+                    { name: "QQQI", weight: 60 },
+                    { name: "SPYI", weight: 40 }
+                ]
+            },
+            { 
+                title: "本金自主運作期", 
+                desc: "停止額外現金投入，完全依靠前期本金複利滾存", 
+                monthly: 0, 
+                years: 5,
+                stocks: [
+                    { name: "SPYI", weight: 70 },
+                    { name: "SGOV", weight: 30 }
+                ]
+            }
         ];
 
         function renderPhases() {
             const container = document.getElementById('phases-container');
             container.innerHTML = '';
             
-            phases.forEach((phase, index) => {
-                const phaseNum = index + 1;
-                container.innerHTML += `
-                    <div class="bg-[#1e293b] border-2 border-pink-500/40 p-5 rounded-2xl flex flex-col justify-between shadow-xs">
-                        <div>
-                            <div class="flex justify-between items-center mb-3">
-                                <span class="bg-pink-600 text-white text-xs font-black px-2.5 py-1 rounded-lg">階段 ${phaseNum}</span>
-                                <input type="text" value="${phase.title}" oninput="updatePhase(${index}, 'title', this.value)" class="custom-input px-2 py-1 rounded text-xs w-28 text-right font-bold">
+            phases.forEach((phase, pIndex) => {
+                const phaseNum = pIndex + 1;
+                
+                let stocksHtml = '';
+                phase.stocks.forEach((st, sIndex) => {
+                    const yieldVal = getYieldForSymbol(st.name);
+                    stocksHtml += `
+                        <div class="flex items-center gap-2 bg-[#0f172a] p-2 rounded-lg border border-pink-500/20 mb-2">
+                            <input type="text" value="${st.name}" oninput="updatePhaseStock(${pIndex}, ${sIndex}, 'name', this.value)" class="custom-input p-1.5 rounded text-xs w-1/3 text-center font-bold">
+                            <div class="flex items-center gap-1 w-1/3">
+                                <input type="number" value="${st.weight}" oninput="updatePhaseStock(${pIndex}, ${sIndex}, 'weight', Number(this.value))" class="custom-input p-1.5 rounded text-xs w-full text-center">
+                                <span class="text-xs text-white">%</span>
                             </div>
-                            <textarea oninput="updatePhase(${index}, 'desc', this.value)" class="custom-input w-full p-2 rounded-xl text-xs mb-3 resize-none" rows="2">${phase.desc}</textarea>
-                            
-                            <div class="space-y-3 mb-4 border-t border-gray-700 pt-3">
-                                <div>
-                                    <label class="block text-xs font-black text-white mb-1">每月投入金額 (可設為0)</label>
-                                    <input type="number" value="${phase.monthly}" oninput="updatePhase(${index}, 'monthly', Number(this.value))" class="custom-input w-full p-2 rounded-xl text-xs">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-black text-white mb-1">持續年限 (年)</label>
-                                    <input type="number" value="${phase.years}" oninput="updatePhase(${index}, 'years', Number(this.value))" class="custom-input w-full p-2 rounded-xl text-xs">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-black text-white mb-1">預估年化回報率 (%)</label>
-                                    <input type="number" value="${phase.rate}" step="0.5" oninput="updatePhase(${index}, 'rate', Number(this.value))" class="custom-input w-full p-2 rounded-xl text-xs">
-                                </div>
+                            <div class="w-1/3 text-xs text-pink-400 font-bold text-right pr-1">收益率:${yieldVal}%</div>
+                            <button onclick="removePhaseStock(${pIndex}, ${sIndex})" class="text-red-400 hover:text-red-300 px-1 text-xs"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML += `
+                    <div class="dashboard-card p-5 border-2 border-pink-500/40 bg-[#1e293b]">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4 border-b border-gray-700 pb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-pink-600 text-white text-xs font-black px-2.5 py-1 rounded-lg">階段 ${phaseNum}</span>
+                                <input type="text" value="${phase.title}" oninput="updatePhase(${pIndex}, 'title', this.value)" class="custom-input px-2 py-1 rounded text-xs font-bold w-36">
+                            </div>
+                            <div class="flex items-center gap-4 text-xs font-black">
+                                <span class="text-white">加權平均年化回報率：<span id="p${pIndex}-weighted-rate" class="text-pink-400 text-sm">0%</span></span>
                             </div>
                         </div>
 
-                        <div class="bg-[#0f172a] p-3 rounded-xl border border-pink-500/30 space-y-1">
-                            <div class="text-xs text-desc font-bold">階段結束總資產：<span id="p${index}-total" class="text-pink-400 font-black">$0</span></div>
-                            <div class="text-xs text-desc font-bold">預估月均被動現金流(以10%計)：<span id="p${index}-cf" class="text-emerald-400 font-black">$0</span></div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <div>
+                                <label class="block text-xs font-black text-white mb-1">階段描述</label>
+                                <input type="text" value="${phase.desc}" oninput="updatePhase(${pIndex}, 'desc', this.value)" class="custom-input w-full p-2 rounded-xl text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-black text-white mb-1">每月投入金額 (可設為0)</label>
+                                <input type="number" value="${phase.monthly}" oninput="updatePhase(${pIndex}, 'monthly', Number(this.value))" class="custom-input w-full p-2 rounded-xl text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-black text-white mb-1">持續年限 (年)</label>
+                                <input type="number" value="${phase.years}" oninput="updatePhase(${pIndex}, 'years', Number(this.value))" class="custom-input w-full p-2 rounded-xl text-xs">
+                            </div>
+                        </div>
+
+                        <!-- 該階段的股票資產配置明細 -->
+                        <div class="mb-4 bg-[#0f172a]/60 p-3 rounded-xl border border-pink-500/30">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-black text-white"><i class="fa-solid fa-pie-chart text-pink-500 mr-1"></i> 階段 ${phaseNum} 股票配置與比率</span>
+                                <button onclick="addPhaseStock(${pIndex})" class="bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold px-2.5 py-1 rounded-lg transition-all">
+                                    <i class="fa-solid fa-plus mr-1"></i>新增資產
+                                </button>
+                            </div>
+                            <div id="p${pIndex}-stocks-list">${stocksHtml}</div>
+                        </div>
+
+                        <div class="bg-[#0f172a] p-3.5 rounded-xl border border-pink-500/30 flex flex-col sm:flex-row justify-between items-center gap-2">
+                            <div class="text-xs text-desc font-bold">階段結束總資產：<span id="p${pIndex}-total" class="text-pink-400 font-black text-sm">$0</span></div>
+                            <div class="text-xs text-desc font-bold">預估月均被動現金流(依加權回報計)：<span id="p${pIndex}-cf" class="text-emerald-400 font-black text-sm">$0/月</span></div>
                         </div>
                     </div>
                 `;
@@ -684,7 +759,13 @@
                 alert('最多支援 5 個階段配置！');
                 return;
             }
-            phases.push({ title: "新階段", desc: "自由設定該階段的複利與現金流規則", monthly: 0, years: 5, rate: 10 });
+            phases.push({ 
+                title: "新階段", 
+                desc: "自由設定該階段的複利與資產配置規則", 
+                monthly: 0, 
+                years: 5,
+                stocks: [{ name: "SPYI", weight: 100 }]
+            });
             renderPhases();
         }
 
@@ -702,26 +783,55 @@
             calculatePhases();
         }
 
+        function addPhaseStock(pIndex) {
+            phases[pIndex].stocks.push({ name: "SPYI", weight: 0 });
+            renderPhases();
+        }
+
+        function removePhaseStock(pIndex, sIndex) {
+            phases[pIndex].stocks.splice(sIndex, 1);
+            renderPhases();
+        }
+
+        function updatePhaseStock(pIndex, sIndex, field, value) {
+            phases[pIndex].stocks[sIndex][field] = field === 'name' ? value.toUpperCase().trim() : value;
+            renderPhases();
+        }
+
         function calculatePhases() {
             let currentTotal = 0;
 
             phases.forEach((phase, index) => {
                 const monthly = phase.monthly || 0;
                 const years = phase.years || 0;
-                const rate = (phase.rate || 0) / 100;
                 const months = years * 12;
-                const monthlyRate = rate / 12;
 
+                // 計算該階段股票組合的加權平均年化回報率
+                let weightedRateSum = 0;
+                let totalWeight = phase.stocks.reduce((sum, st) => sum + (st.weight || 0), 0);
+
+                phase.stocks.forEach(st => {
+                    const stYield = getYieldForSymbol(st.name);
+                    const weightRatio = totalWeight > 0 ? (st.weight / totalWeight) : 0;
+                    weightedRateSum += stYield * weightRatio;
+                });
+
+                const annualRate = weightedRateSum / 100;
+                const monthlyRate = annualRate / 12;
+
+                // 複利滾存計算
                 for (let i = 0; i < months; i++) {
                     currentTotal = (currentTotal + monthly) * (1 + monthlyRate);
                 }
 
-                const annualCF = currentTotal * 0.10;
+                const annualCF = currentTotal * annualRate;
                 const monthlyCF = annualCF / 12;
 
+                const rateEl = document.getElementById(`p${index}-weighted-rate`);
                 const totalEl = document.getElementById(`p${index}-total`);
                 const cfEl = document.getElementById(`p${index}-cf`);
 
+                if (rateEl) rateEl.innerText = weightedRateSum.toFixed(2) + '%';
                 if (totalEl) totalEl.innerText = '$' + currentTotal.toLocaleString('en-US', {maximumFractionDigits: 0});
                 if (cfEl) cfEl.innerText = '$' + monthlyCF.toLocaleString('en-US', {maximumFractionDigits: 0}) + '/月';
             });
@@ -733,16 +843,6 @@
         }
 
         // --- 現金流收益計算器邏輯（含香港居民 30% 股息稅支援） ---
-        const defaultDividendYields = {
-            "SPYI": 12.1,
-            "QQQI": 14.3,
-            "QQQY": 50.0,
-            "0941.HK": 6.8,
-            "DIVO": 4.8,
-            "JEPI": 7.5,
-            "SGOV": 5.0
-        };
-
         let cfStocks = [
             { name: "SPYI", weight: 50 },
             { name: "QQQI", weight: 50 }
@@ -783,10 +883,6 @@
         function updateCashFlowStock(index, field, value) {
             cfStocks[index][field] = field === 'name' ? value.toUpperCase().trim() : value;
             calculateCashFlowCalc();
-        }
-
-        function getYieldForSymbol(symbol) {
-            return defaultDividendYields[symbol] !== undefined ? defaultDividendYields[symbol] : 5.0;
         }
 
         function calculateCashFlowCalc() {
