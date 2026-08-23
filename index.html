@@ -132,7 +132,7 @@
                 </div>
             </div>
 
-            <!-- 美國主要國債收益率 (US Treasuries) - 已修正為穩定顯示的代碼 -->
+            <!-- 美國主要國債收益率 (US Treasuries) -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-landmark text-pink-600 mr-2"></i>美國主要國債收益率 (US Treasuries)</h2>
                 <p class="text-xs text-desc mb-3">涵蓋短中長端美國公債收益率即時表現</p>
@@ -178,12 +178,32 @@
                 </div>
             </div>
 
-            <!-- 本週重點宏觀財經日曆 (已更換為 100% 中文即時日曆源) -->
-            <div class="dashboard-card p-5">
-                <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-calendar-days text-pink-600 mr-2"></i>本週重點宏觀財經日曆 (Economic Calendar)</h2>
-                <p class="text-xs text-desc mb-3">追蹤美國非農就業、CPI 等關鍵數據與央行決議事件</p>
-                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 bg-white p-2" style="height: 500px;">
-                    <iframe scrolling="no" allowtransparency="true" frameborder="0" src="https://www.investing.com/webmaster-tools/financial-calendar?theme=light&lang=bchinese" style="width:100%;height:100%;"></iframe>
+            <!-- 本週關鍵宏觀事件與數據精簡摘要 (取代手動查找日曆) -->
+            <div class="dashboard-card p-6">
+                <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-bolt text-pink-600 mr-2"></i>本週關鍵宏觀數據與事件追蹤</h2>
+                <p class="text-xs text-desc mb-4">免手動查找，精選影響美股大盤與利率走勢的核心指標</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-xl border-2 border-pink-200">
+                        <span class="bg-pink-100 text-pink-800 text-[10px] font-black px-2 py-0.5 rounded">就業市場</span>
+                        <h3 class="text-sm font-black text-black mt-2">非農就業報告 (NFP)</h3>
+                        <p class="text-xs text-desc mt-1">評估美國勞動市場冷卻程度與經濟衰退風險的核心指標。</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border-2 border-pink-200">
+                        <span class="bg-pink-100 text-pink-800 text-[10px] font-black px-2 py-0.5 rounded">通貨膨脹</span>
+                        <h3 class="text-sm font-black text-black mt-2">消費者物價指數 (CPI)</h3>
+                        <p class="text-xs text-desc mt-1">決定聯準會（Fed）貨幣政策轉向與降息路徑的關鍵數據。</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border-2 border-pink-200">
+                        <span class="bg-pink-100 text-pink-800 text-[10px] font-black px-2 py-0.5 rounded">貨幣政策</span>
+                        <h3 class="text-sm font-black text-black mt-2">聯準會利率決議 (FOMC)</h3>
+                        <p class="text-xs text-desc mt-1">公佈利率點陣圖及主席發言，直接主導股債市場多空方向。</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border-2 border-pink-200">
+                        <span class="bg-pink-100 text-pink-800 text-[10px] font-black px-2 py-0.5 rounded">實體經濟</span>
+                        <h3 class="text-sm font-black text-black mt-2">零售銷售與 GDP 修正值</h3>
+                        <p class="text-xs text-desc mt-1">觀察美國消費者支出動能與經濟是否維持軟著陸的重要參考。</p>
+                    </div>
                 </div>
             </div>
 
