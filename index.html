@@ -139,43 +139,14 @@
                 <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:USOIL", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
             </div>
 
-            <!-- 動態技術分析圖表（已修復標題聯動問題） -->
             <div class="dashboard-card p-5">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-3">
-                    <div>
-                        <h2 class="text-base font-black text-white">
-                            <i class="fa-solid fa-chart-candlestick text-pink-500 mr-2"></i><span id="chart-title-text">標普 500 (SPY)</span> 動態技術分析圖表
-                        </h2>
-                        <p class="text-xs text-desc">追蹤大盤、均線與技術形態走勢圖（支援右上角自行更換標的代碼）</p>
-                    </div>
-                </div>
+                <h2 class="text-base font-black text-white mb-1"><i class="fa-solid fa-chart-candlestick text-pink-500 mr-2"></i>標普 500 (SPY) 動態技術分析圖表</h2>
+                <p class="text-xs text-desc mb-3">追蹤美國大盤、均線與技術形態走勢圖</p>
                 <div class="w-full rounded-xl overflow-hidden border-2 border-pink-500/50" style="height: 400px;">
                     <div class="tradingview-widget-container" style="height:100%;width:100%">
                         <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
                         <script type="text/javascript">
-                        let tvWidget = null;
-                        function initTradingViewChart(symbolName, displayName) {
-                            document.getElementById('chart-title-text').innerText = displayName;
-                            const container = document.getElementById('tradingview_spy_chart');
-                            container.innerHTML = '';
-                            tvWidget = new TradingView.widget({
-                                "autosize": true,
-                                "symbol": symbolName,
-                                "interval": "D",
-                                "timezone": "Asia/Hong_Kong",
-                                "theme": "dark",
-                                "style": "1",
-                                "locale": "zh_TW",
-                                "toolbar_bg": "#1e293b",
-                                "enable_publishing": false,
-                                "allow_symbol_change": true,
-                                "container_id": "tradingview_spy_chart"
-                            });
-                        }
-                        // 頁面載入時初始化
-                        window.addEventListener('DOMContentLoaded', () => {
-                            initTradingViewChart("AMEX:SPY", "標普 500 (SPY)");
-                        });
+                        new TradingView.widget({ "autosize": true, "symbol": "AMEX:SPY", "interval": "D", "timezone": "Asia/Hong_Kong", "theme": "dark", "style": "1", "locale": "zh_TW", "toolbar_bg": "#1e293b", "enable_publishing": false, "allow_symbol_change": true, "container_id": "tradingview_spy_chart" });
                         </script>
                         <div id="tradingview_spy_chart" style="height:100%;width:100%"></div>
                     </div>
@@ -456,12 +427,12 @@
                 </div>
             </div>
 
-            <!-- 長期複利與資產增長動態預測計劃（已移除現金流誤導欄位） -->
+            <!-- 長期複利與資產增長動態預測計劃 -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
                         <h2 class="text-base font-black text-white"><i class="fa-solid fa-arrow-trend-up text-pink-500 mr-2"></i>長期複利與資產增長動態預測計劃</h2>
-                        <p class="text-xs text-desc">支援 1 至 5 個階段自由增減；各階段可自訂股票組合與比率，自動計算加權回報率與資產滾存</p>
+                        <p class="text-xs text-desc">支援 1 至 5 個階段自由增減；各階段可自訂股票組合與比率，自動計算加權回報率</p>
                     </div>
                     <div class="flex gap-2">
                         <button onclick="addPhase()" class="bg-pink-600 hover:bg-pink-700 text-white text-xs font-black px-3.5 py-2 rounded-xl shadow-sm transition-all flex items-center gap-1">
@@ -683,11 +654,11 @@
             });
         }
 
-        // --- 動態多階段長期複利計算邏輯（已移除現金流欄位） ---
+        // --- 動態多階段長期複利計算邏輯（已修復打字卡頓與跳框問題） ---
         let phases = [
             { 
                 title: "起步累積期", 
-                desc: "透過資產配置建立底倉", 
+                desc: "透過高息核心資產建立底倉", 
                 monthly: 5000, 
                 years: 5,
                 stocks: [
@@ -697,7 +668,7 @@
             },
             { 
                 title: "加速滾存期", 
-                desc: "提高投入，加入增長資產加速複利", 
+                desc: "提高投入，加入高增長資產加速複利", 
                 monthly: 7000, 
                 years: 5,
                 stocks: [
@@ -729,6 +700,7 @@
                     const yieldVal = getYieldForSymbol(st.name);
                     stocksHtml += `
                         <div class="flex items-center gap-2 bg-[#0f172a] p-2 rounded-lg border border-pink-500/20 mb-2">
+                            <!-- 改用 onchange 避免打字即時重建 DOM 導致焦點丟失 -->
                             <input type="text" value="${st.name}" onchange="updatePhaseStock(${pIndex}, ${sIndex}, 'name', this.value)" class="custom-input p-1.5 rounded text-xs w-1/3 text-center font-bold">
                             <div class="flex items-center gap-1 w-1/3">
                                 <input type="number" value="${st.weight}" onchange="updatePhaseStock(${pIndex}, ${sIndex}, 'weight', Number(this.value))" class="custom-input p-1.5 rounded text-xs w-full text-center">
@@ -745,6 +717,7 @@
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4 border-b border-gray-700 pb-3">
                             <div class="flex items-center gap-2">
                                 <span class="bg-pink-600 text-white text-xs font-black px-2.5 py-1 rounded-lg">階段 ${phaseNum}</span>
+                                <!-- 標題文字改用 onchange -->
                                 <input type="text" value="${phase.title}" onchange="updatePhase(${pIndex}, 'title', this.value)" class="custom-input px-2 py-1 rounded text-xs font-bold w-36">
                             </div>
                             <div class="flex items-center gap-4 text-xs font-black">
@@ -755,10 +728,12 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                             <div>
                                 <label class="block text-xs font-black text-white mb-1">階段描述</label>
+                                <!-- 描述文字改用 onchange -->
                                 <input type="text" value="${phase.desc}" onchange="updatePhase(${pIndex}, 'desc', this.value)" class="custom-input w-full p-2 rounded-xl text-xs">
                             </div>
                             <div>
                                 <label class="block text-xs font-black text-white mb-1">每月投入金額 (可設為0)</label>
+                                <!-- 金額數字用 updatePhaseValueOnly 局部更新，解決打字卡頓與跳框 -->
                                 <input type="number" value="${phase.monthly}" oninput="updatePhaseValueOnly(${pIndex}, 'monthly', Number(this.value))" class="custom-input w-full p-2 rounded-xl text-xs">
                             </div>
                             <div>
@@ -777,8 +752,9 @@
                             <div id="p${pIndex}-stocks-list">${stocksHtml}</div>
                         </div>
 
-                        <div class="bg-[#0f172a] p-3.5 rounded-xl border border-pink-500/30 flex justify-between items-center">
+                        <div class="bg-[#0f172a] p-3.5 rounded-xl border border-pink-500/30 flex flex-col sm:flex-row justify-between items-center gap-2">
                             <div class="text-xs text-desc font-bold">階段結束總資產：<span id="p${pIndex}-total" class="text-pink-400 font-black text-sm">$0</span></div>
+                            <div class="text-xs text-desc font-bold">預估月均被動現金流：<span id="p${pIndex}-cf" class="text-emerald-400 font-black text-sm">$0/月</span></div>
                         </div>
                     </div>
                 `;
@@ -810,6 +786,7 @@
             renderPhases();
         }
 
+        // 專門處理數值輸入即時更新，不重建整張表格，徹底解決打字卡頓問題
         function updatePhaseValueOnly(index, field, value) {
             phases[index][field] = value;
             calculatePhases();
@@ -859,11 +836,16 @@
                     currentTotal = (currentTotal + monthly) * (1 + monthlyRate);
                 }
 
+                const annualCF = currentTotal * annualRate;
+                const monthlyCF = annualCF / 12;
+
                 const rateEl = document.getElementById(`p${index}-weighted-rate`);
                 const totalEl = document.getElementById(`p${index}-total`);
+                const cfEl = document.getElementById(`p${index}-cf`);
 
                 if (rateEl) rateEl.innerText = weightedRateSum.toFixed(2) + '%';
                 if (totalEl) totalEl.innerText = '$' + currentTotal.toLocaleString('en-US', {maximumFractionDigits: 0});
+                if (cfEl) cfEl.innerText = '$' + monthlyCF.toLocaleString('en-US', {maximumFractionDigits: 0}) + '/月';
             });
 
             const summaryEl = document.getElementById('summary-total-asset');
