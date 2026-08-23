@@ -427,7 +427,7 @@
                 </div>
             </div>
 
-            <!-- 長期複利與資產增長預測計劃 (動態階段支援 1-5 階段，整合股票與加權收益率) -->
+            <!-- 長期複利與資產增長預測計劃 -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
@@ -445,9 +445,7 @@
                 </div>
 
                 <!-- 動態階段容器 -->
-                <div id="phases-container" class="flex flex-col space-y-6 mb-6">
-                    <!-- 動態渲染 -->
-                </div>
+                <div id="phases-container" class="flex flex-col space-y-6 mb-6"></div>
 
                 <!-- 總結預測看板 -->
                 <div class="bg-pink-700 text-white p-5 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4 shadow-md">
@@ -462,7 +460,7 @@
                 </div>
             </div>
 
-            <!-- 現金流計算器（基於總投入資產 + 股票百分比 + 自動抓取股息率 + 香港美股稅務調整） -->
+            <!-- 現金流計算器 -->
             <div class="dashboard-card p-6">
                 <div class="mb-6 border-b-2 border-gray-700 pb-4">
                     <h2 class="text-base font-black text-white"><i class="fa-solid fa-calculator text-pink-500 mr-2"></i>現金流收益專用計算器</h2>
@@ -483,7 +481,7 @@
                     </div>
                 </div>
 
-                <!-- 香港居民稅務設定（美股 30% 預扣稅開關） -->
+                <!-- 香港居民稅務設定 -->
                 <div class="mb-6 bg-[#0f172a] p-3.5 rounded-xl border-2 border-pink-500/50 flex items-center justify-between shadow-xs">
                     <div>
                         <div class="text-xs font-black text-white"><i class="fa-solid fa-file-invoice-dollar text-pink-500 mr-1"></i>香港居民美股稅務設定（30% 股息預扣稅）</div>
@@ -541,12 +539,18 @@
     </footer>
 
     <script>
+        // 優化後的 switchTab 函數，自動觸發 resize 解決 TradingView 圖表切換分頁空白問題
         function switchTab(tabId) {
             document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const targetTab = document.getElementById('tab-' + tabId);
+            targetTab.classList.remove('hidden');
             document.getElementById('btn-' + tabId).classList.add('active');
+
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+            }, 50);
         }
 
         // --- 全局默認股息率資料庫 ---
@@ -649,7 +653,7 @@
             });
         }
 
-        // --- 動態多階段長期複利計算邏輯 (整合各階段股票、比率與加權收益率) ---
+        // --- 動態多階段長期複利計算邏輯 ---
         let phases = [
             { 
                 title: "起步累積期", 
@@ -733,7 +737,6 @@
                             </div>
                         </div>
 
-                        <!-- 該階段的股票資產配置明細 -->
                         <div class="mb-4 bg-[#0f172a]/60 p-3 rounded-xl border border-pink-500/30">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-xs font-black text-white"><i class="fa-solid fa-pie-chart text-pink-500 mr-1"></i> 階段 ${phaseNum} 股票配置與比率</span>
@@ -746,7 +749,7 @@
 
                         <div class="bg-[#0f172a] p-3.5 rounded-xl border border-pink-500/30 flex flex-col sm:flex-row justify-between items-center gap-2">
                             <div class="text-xs text-desc font-bold">階段結束總資產：<span id="p${pIndex}-total" class="text-pink-400 font-black text-sm">$0</span></div>
-                            <div class="text-xs text-desc font-bold">預估月均被動現金流(依加權回報計)：<span id="p${pIndex}-cf" class="text-emerald-400 font-black text-sm">$0/月</span></div>
+                            <div class="text-xs text-desc font-bold">預估月均被動現金流：<span id="p${pIndex}-cf" class="text-emerald-400 font-black text-sm">$0/月</span></div>
                         </div>
                     </div>
                 `;
@@ -806,7 +809,6 @@
                 const years = phase.years || 0;
                 const months = years * 12;
 
-                // 計算該階段股票組合的加權平均年化回報率
                 let weightedRateSum = 0;
                 let totalWeight = phase.stocks.reduce((sum, st) => sum + (st.weight || 0), 0);
 
@@ -819,7 +821,6 @@
                 const annualRate = weightedRateSum / 100;
                 const monthlyRate = annualRate / 12;
 
-                // 複利滾存計算
                 for (let i = 0; i < months; i++) {
                     currentTotal = (currentTotal + monthly) * (1 + monthlyRate);
                 }
@@ -842,7 +843,7 @@
             }
         }
 
-        // --- 現金流收益計算器邏輯（含香港居民 30% 股息稅支援） ---
+        // --- 現金流收益計算器邏輯 ---
         let cfStocks = [
             { name: "SPYI", weight: 50 },
             { name: "QQQI", weight: 50 }
@@ -888,7 +889,7 @@
         function calculateCashFlowCalc() {
             const totalAsset = parseFloat(document.getElementById('cf-total-asset').value) || 0;
             const currency = document.getElementById('cf-currency').value;
-            const applyUsTax = document.getElementById('apply-us-tax').checked; // 是否勾選扣除美股 30% 稅
+            const applyUsTax = document.getElementById('apply-us-tax').checked;
 
             let totalWeight = cfStocks.reduce((sum, s) => sum + s.weight, 0);
             document.getElementById('cf-total-weight-display').innerText = totalWeight + '%';
@@ -904,13 +905,12 @@
                 const assetAmount = totalAsset * (stock.weight / 100);
                 const stockYield = getYieldForSymbol(stock.name);
                 
-                // 判斷是否為美股資產（代碼不包含 .HK 則視為美股並扣除 30% 預扣稅）
                 let isUsAsset = !stock.name.toUpperCase().includes('.HK');
                 let effectiveYield = stockYield;
                 let taxNote = "";
 
                 if (applyUsTax && isUsAsset) {
-                    effectiveYield = stockYield * (1 - 0.30); // 扣除 30% 稅
+                    effectiveYield = stockYield * (1 - 0.30);
                     taxNote = ` <span class="text-red-400 font-bold">(已扣30%美股稅)</span>`;
                 } else if (!isUsAsset) {
                     taxNote = ` <span class="text-gray-400 font-bold">(港股免美稅)</span>`;
