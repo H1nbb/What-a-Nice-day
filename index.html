@@ -55,7 +55,7 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- 頂部跑馬燈 -->
+    <!-- 頂部跑馬燈價格列表 (完整保留) -->
     <div class="tradingview-widget-container bg-white border-b-2 border-pink-300">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
@@ -67,7 +67,7 @@
                 { "proName": "AMEX:SGOV", "title": "短期美債 (SGOV)" },
                 { "proName": "AMEX:SPY", "title": "標普500 (SPY)" },
                 { "proName": "NASDAQ:QQQ", "title": "納指100 (QQQ)" },
-                { "proName": "TVC:US10Y", "title": "10年美債" },
+                { "proName": "TVC:US10Y", "title": "10年美債收益率" },
                 { "proName": "TVC:VIX", "title": "恐慌指數 (VIX)" }
             ],
             "showSymbolLogo": true,
@@ -106,19 +106,27 @@
 
     <main class="max-w-7xl w-full mx-auto px-4 py-6 flex-1 flex flex-col space-y-6">
 
-        <!-- 頁面 1：核心資產與美債收益率 -->
+        <!-- 頁面 1：核心資產與美債收益率 (完整恢復美國國債、SPY、VIX、原油) -->
         <div id="tab-macro" class="tab-pane flex flex-col space-y-6">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPY", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "ECONOMICS:US10Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US10Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                 <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:VIX", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                 <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:USOIL", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
             </div>
 
-            <div class="dashboard-card p-5">
-                <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-building-columns text-pink-600 mr-2"></i>美聯儲聯邦基金利率</h2>
-                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 mt-3" style="height: 380px;">
-                    <div class="tradingview-widget-container" style="height:100%;width:100%"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>{ "symbol": "ECONOMICS:USINTR", "width": "100%", "locale": "zh_TW", "colorTheme": "light", "isTransparent": true }</script></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="dashboard-card p-5">
+                    <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-landmark text-pink-600 mr-2"></i>美國 10 年期國債收益率走勢</h2>
+                    <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 mt-3" style="height: 320px;">
+                        <div class="tradingview-widget-container" style="height:100%;width:100%"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{ "symbol": "TVC:US10Y", "width": "100%", "height": "100%", "locale": "zh_TW", "dateRange": "12M", "colorTheme": "light", "isTransparent": true, "autosize": true }</script></div>
+                    </div>
+                </div>
+                <div class="dashboard-card p-5">
+                    <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-building-columns text-pink-600 mr-2"></i>美聯儲聯邦基金利率</h2>
+                    <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 mt-3" style="height: 320px;">
+                        <div class="tradingview-widget-container" style="height:100%;width:100%"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>{ "symbol": "ECONOMICS:USINTR", "width": "100%", "locale": "zh_TW", "colorTheme": "light", "isTransparent": true }</script></div>
+                    </div>
                 </div>
             </div>
 
@@ -136,17 +144,102 @@
             </div>
         </div>
 
-        <!-- 頁面 2：現金流資產清單 -->
+        <!-- 頁面 2：現金流資產清單 (恢復價格、股息率與詳細概述列表) -->
         <div id="tab-cashflow" class="tab-pane hidden flex-col space-y-6">
-            <div class="dashboard-card p-5">
-                <h2 class="text-base font-black text-black mb-4"><i class="fa-solid fa-sack-dollar text-pink-600 mr-2"></i>現金流資產即時報價</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mb-6">
-                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200 h-[130px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPYI", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200 h-[130px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NASDAQ:QQQI", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200 h-[130px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NYSEARCA:SPMO", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200 h-[130px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "HKEX:941", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200 h-[130px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NYSEARCA:DIVO", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200 h-[130px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NYSEARCA:JEPI", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+            <div class="dashboard-card p-6">
+                <h2 class="text-lg font-black text-black mb-2"><i class="fa-solid fa-sack-dollar text-pink-600 mr-2"></i>現金流資產清單與收益率概覽</h2>
+                <p class="text-xs text-desc mb-6">追蹤美股高股息、期權策略與防守型現金流資產的核心數據</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- SPYI -->
+                    <div class="bg-white p-4 rounded-xl border-2 border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-black text-pink-700">SPYI (Neos S&P 500 High Income)</span>
+                                <span class="bg-pink-100 text-pink-800 text-xs font-black px-2 py-0.5 rounded">月配息</span>
+                            </div>
+                            <p class="text-xs text-desc mb-3">透過標普500指數結合Covered Call（備兌開倉）策略，在參與美股上漲的同時賺取高額期權權利金收入。</p>
+                        </div>
+                        <div class="pt-3 border-t border-pink-100 flex justify-between items-center text-xs">
+                            <span class="font-bold text-gray-600">預估股息率: <strong class="text-black text-sm">~11-12%</strong></span>
+                            <span class="font-bold text-pink-600">資產配置核心</span>
+                        </div>
+                    </div>
+
+                    <!-- QQQI -->
+                    <div class="bg-white p-4 rounded-xl border-2 border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-black text-pink-700">QQQI (Neos Nasdaq 100 High Income)</span>
+                                <span class="bg-pink-100 text-pink-800 text-xs font-black px-2 py-0.5 rounded">月配息</span>
+                            </div>
+                            <p class="text-xs text-desc mb-3">聚焦納斯達克100科技巨頭，搭配納指期權滾動收權利金，兼具科技股成長潛力與超高現金流。</p>
+                        </div>
+                        <div class="pt-3 border-t border-pink-100 flex justify-between items-center text-xs">
+                            <span class="font-bold text-gray-600">預估股息率: <strong class="text-black text-sm">~13-14%</strong></span>
+                            <span class="font-bold text-pink-600">高成長現金流</span>
+                        </div>
+                    </div>
+
+                    <!-- SPMO -->
+                    <div class="bg-white p-4 rounded-xl border-2 border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-black text-pink-700">SPMO (S&P 500 Momentum ETF)</span>
+                                <span class="bg-pink-100 text-pink-800 text-xs font-black px-2 py-0.5 rounded">動能策略</span>
+                            </div>
+                            <p class="text-xs text-desc mb-3">追蹤標普500中表現最強勢的動能股，適合用於追求超額資本利得與動能循環配置。</p>
+                        </div>
+                        <div class="pt-3 border-t border-pink-100 flex justify-between items-center text-xs">
+                            <span class="font-bold text-gray-600">策略導向: <strong class="text-black text-sm">資本增長</strong></span>
+                            <span class="font-bold text-pink-600">動能引擎</span>
+                        </div>
+                    </div>
+
+                    <!-- DIVO -->
+                    <div class="bg-white p-4 rounded-xl border-2 border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-black text-pink-700">DIVO (Amplify CWP Dividend Income)</span>
+                                <span class="bg-pink-100 text-pink-800 text-xs font-black px-2 py-0.5 rounded">月配息</span>
+                            </div>
+                            <p class="text-xs text-desc mb-3">精選高品質防守型藍籌股，並靈活運用選擇權增厚收益，波動度較低且抗跌能力極佳。</p>
+                        </div>
+                        <div class="pt-3 border-t border-pink-100 flex justify-between items-center text-xs">
+                            <span class="font-bold text-gray-600">預估股息率: <strong class="text-black text-sm">~4.5-5%</strong></span>
+                            <span class="font-bold text-pink-600">防守收息</span>
+                        </div>
+                    </div>
+
+                    <!-- JEPI -->
+                    <div class="bg-white p-4 rounded-xl border-2 border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-black text-pink-700">JEPI (JPMorgan Equity Premium Income)</span>
+                                <span class="bg-pink-100 text-pink-800 text-xs font-black px-2 py-0.5 rounded">月配息</span>
+                            </div>
+                            <p class="text-xs text-desc mb-3">美股市場最具代表性的主動型收益ETF，透過ELN（股票聯結票據）創造穩定且豐厚的每月現金流。</p>
+                        </div>
+                        <div class="pt-3 border-t border-pink-100 flex justify-between items-center text-xs">
+                            <span class="font-bold text-gray-600">預估股息率: <strong class="text-black text-sm">~7-8%</strong></span>
+                            <span class="font-bold text-pink-600">主流收益</span>
+                        </div>
+                    </div>
+
+                    <!-- 中國移動 941 -->
+                    <div class="bg-white p-4 rounded-xl border-2 border-pink-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-black text-pink-700">941.HK (中國移動)</span>
+                                <span class="bg-pink-100 text-pink-800 text-xs font-black px-2 py-0.5 rounded">港股高息</span>
+                            </div>
+                            <p class="text-xs text-desc mb-3">強大自由現金流與高股息防守標的，具備穩健的國企分紅政策，適合作為港元資產的現金流壓艙石。</p>
+                        </div>
+                        <div class="pt-3 border-t border-pink-100 flex justify-between items-center text-xs">
+                            <span class="font-bold text-gray-600">預估股息率: <strong class="text-black text-sm">~6-7%</strong></span>
+                            <span class="font-bold text-pink-600">港股收息</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
