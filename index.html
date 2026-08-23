@@ -69,7 +69,7 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- 頂部跑馬燈價格列表[cite: 2] -->
+    <!-- 頂部跑馬燈價格列表 -->
     <div class="tradingview-widget-container bg-[#1e293b] border-b-2 border-pink-500">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
@@ -94,7 +94,7 @@
         </script>
     </div>
 
-    <!-- Header[cite: 2] -->
+    <!-- Header -->
     <header class="bg-[#1e293b]/95 backdrop-blur-md py-3 px-4 md:px-6 border-b-2 border-pink-500 sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-3 w-full md:w-auto">
@@ -127,7 +127,7 @@
 
     <main class="max-w-7xl w-full mx-auto px-4 py-6 flex-1 flex flex-col space-y-6">
 
-        <!-- 頁面 1：核心資產與美債[cite: 2] -->
+        <!-- 頁面 1：核心資產與美債 -->
         <div id="tab-macro" class="tab-pane flex flex-col space-y-6">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                 <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPY", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
@@ -138,12 +138,12 @@
                 <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:USOIL", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
             </div>
 
-            <!-- 動態技術分析圖表[cite: 2] -->
+            <!-- 動態技術分析圖表 -->
             <div class="dashboard-card p-5">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-3">
                     <div>
                         <h2 class="text-base font-black text-white">
-                            <i class="fa-solid fa-chart-candlestick text-pink-500 mr-2"></i><span id="chart-title-text">標普 500 (SPY)</span> 動態技術分析圖表
+                            <i class="fa-solid fa-chart-candlestick text-pink-500 mr-2"></i><span id="chart-title-text">動態技術分析圖表</span>
                         </h2>
                         <p class="text-xs text-desc">追蹤大盤、均線與技術形態走勢圖（支援右上角自行更換標的代碼）</p>
                     </div>
@@ -172,7 +172,7 @@
                             });
                         }
                         window.addEventListener('DOMContentLoaded', () => {
-                            initTradingViewChart("AMEX:SPY", "標普 500 (SPY)");
+                            initTradingViewChart("AMEX:SPY", "動態技術分析圖表");
                         });
                         </script>
                         <div id="tradingview_spy_chart" style="height:100%;width:100%"></div>
@@ -302,7 +302,7 @@
             </div>
         </div>
 
-        <!-- 頁面 2：現金流資產與報價[cite: 2] -->
+        <!-- 頁面 2：現金流資產與報價 -->
         <div id="tab-cashflow" class="tab-pane hidden flex-col space-y-6">
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-white mb-1"><i class="fa-solid fa-sack-dollar text-pink-500 mr-2"></i>現金流資產即時報價</h2>
@@ -380,7 +380,7 @@
             </div>
         </div>
 
-        <!-- 頁面 3：中文新聞摘要[cite: 2] -->
+        <!-- 頁面 3：中文新聞摘要 -->
         <div id="tab-news" class="tab-pane hidden flex-col space-y-4">
             <div class="dashboard-card p-5 flex-1 flex flex-col" style="min-height: 80vh;">
                 <h2 class="text-base font-black text-white mb-3"><i class="fa-solid fa-rss text-pink-500 mr-2"></i>即時美股中文新聞摘要</h2>
@@ -390,7 +390,7 @@
             </div>
         </div>
 
-        <!-- 頁面 4：全市場熱力圖[cite: 2] -->
+        <!-- 頁面 4：全市場熱力圖 -->
         <div id="tab-heatmap" class="tab-pane hidden flex-col">
             <div class="dashboard-card p-5 flex-1 flex flex-col">
                 <h2 class="text-base font-black text-white mb-3"><i class="fa-solid fa-fire text-amber-400 mr-2"></i>S&P 500 板塊資金熱力圖</h2>
@@ -400,10 +400,10 @@
             </div>
         </div>
 
-        <!-- 頁面 5：多標的定投、幣種轉換與動態階段複利計算器[cite: 2] -->
+        <!-- 頁面 5：多標的定投、幣種轉換與動態階段複利計算器 -->
         <div id="tab-calc" class="tab-pane hidden flex-col space-y-6">
             
-            <!-- 定投計算器[cite: 2] -->
+            <!-- 定投計算器 -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
@@ -454,7 +454,7 @@
                 </div>
             </div>
 
-            <!-- 長期複利與資產增長動態預測計劃[cite: 2] -->
+            <!-- 長期複利與資產增長動態預測計劃 -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
@@ -485,7 +485,7 @@
                 </div>
             </div>
 
-            <!-- 現金流計算器[cite: 2] -->
+            <!-- 現金流計算器 -->
             <div class="dashboard-card p-6">
                 <div class="mb-6 border-b-2 border-gray-700 pb-4">
                     <h2 class="text-base font-black text-white"><i class="fa-solid fa-calculator text-pink-500 mr-2"></i>現金流收益專用計算器</h2>
