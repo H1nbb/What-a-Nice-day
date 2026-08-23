@@ -149,8 +149,8 @@
             <!-- 核心資產與商品行情列表 -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-list-check text-pink-600 mr-2"></i>核心資產與商品行情列表</h2>
-                <p class="text-xs text-desc mb-3">包含 SGOV 短期美債、SPY、QQQ、SQQQ、USOIL 及 VIX 恐慌指數</p>
-                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 p-2 bg-white" style="height: 320px;">
+                <p class="text-xs text-desc mb-3">包含 SPY、QQQ、SQQQ、USOIL 及 VIX 恐慌指數</p>
+                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 p-2 bg-white" style="height: 300px;">
                     <div class="tradingview-widget-container" style="height:100%;width:100%">
                         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
                         {
@@ -160,7 +160,6 @@
                                 {
                                     "name": "Core Assets",
                                     "symbols": [
-                                        { "name": "AMEX:SGOV", "title": "短期美債 ETF (SGOV)" },
                                         { "name": "AMEX:SPY", "title": "標普 500 ETF (SPY)" },
                                         { "name": "NASDAQ:QQQ", "title": "納指 100 ETF (QQQ)" },
                                         { "name": "NASDAQ:SQQQ", "title": "做空納指 3X ETF (SQQQ)" },
@@ -286,12 +285,12 @@
 
         </div>
 
-        <!-- 頁面 3：中文新聞摘要 -->
+        <!-- 頁面 3：中文新聞摘要 (已放大並盡量佔據版面空間) -->
         <div id="tab-news" class="tab-pane hidden flex-col space-y-4">
-            <div class="dashboard-card p-5 flex-1 flex flex-col" style="min-height: 550px;">
+            <div class="dashboard-card p-5 flex-1 flex flex-col" style="min-height: 80vh;">
                 <h2 class="text-base font-black text-black mb-3"><i class="fa-solid fa-rss text-pink-600 mr-2"></i>即時美股中文新聞摘要</h2>
-                <div class="flex-1 w-full overflow-hidden rounded-xl border-2 border-pink-200">
-                    <iframe src="https://wallstreetcn.com/live/global" class="w-full h-full border-0" style="min-height: 500px;"></iframe>
+                <div class="flex-1 w-full overflow-hidden rounded-xl border-2 border-pink-200 flex flex-col" style="min-height: 750px;">
+                    <iframe src="https://wallstreetcn.com/live/global" class="w-full h-full border-0 flex-1" style="min-height: 750px;"></iframe>
                 </div>
             </div>
         </div>
