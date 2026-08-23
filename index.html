@@ -427,7 +427,7 @@
                 </div>
             </div>
 
-            <!-- 長期複利與資產增長預測計劃 -->
+            <!-- 長期複利與資產增長動態預測計劃 -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
@@ -563,7 +563,8 @@
             "JEPI": 7.5,
             "SGOV": 5.0,
             "SPY": 10.0,
-            "QQQ": 11.0
+            "QQQ": 11.0,
+            "SPMO": 0.7
         };
 
         function getYieldForSymbol(symbol) {
@@ -653,7 +654,7 @@
             });
         }
 
-        // --- 動態多階段長期複利計算邏輯 ---
+        // --- 動態多階段長期複利計算邏輯（已修復打字卡頓與跳框問題） ---
         let phases = [
             { 
                 title: "起步累積期", 
@@ -699,9 +700,10 @@
                     const yieldVal = getYieldForSymbol(st.name);
                     stocksHtml += `
                         <div class="flex items-center gap-2 bg-[#0f172a] p-2 rounded-lg border border-pink-500/20 mb-2">
-                            <input type="text" value="${st.name}" oninput="updatePhaseStock(${pIndex}, ${sIndex}, 'name', this.value)" class="custom-input p-1.5 rounded text-xs w-1/3 text-center font-bold">
+                            <!-- 改用 onchange 避免打字即時重建 DOM 導致焦點丟失 -->
+                            <input type="text" value="${st.name}" onchange="updatePhaseStock(${pIndex}, ${sIndex}, 'name', this.value)" class="custom-input p-1.5 rounded text-xs w-1/3 text-center font-bold">
                             <div class="flex items-center gap-1 w-1/3">
-                                <input type="number" value="${st.weight}" oninput="updatePhaseStock(${pIndex}, ${sIndex}, 'weight', Number(this.value))" class="custom-input p-1.5 rounded text-xs w-full text-center">
+                                <input type="number" value="${st.weight}" onchange="updatePhaseStock(${pIndex}, ${sIndex}, 'weight', Number(this.value))" class="custom-input p-1.5 rounded text-xs w-full text-center">
                                 <span class="text-xs text-white">%</span>
                             </div>
                             <div class="w-1/3 text-xs text-pink-400 font-bold text-right pr-1">收益率:${yieldVal}%</div>
@@ -715,7 +717,8 @@
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4 border-b border-gray-700 pb-3">
                             <div class="flex items-center gap-2">
                                 <span class="bg-pink-600 text-white text-xs font-black px-2.5 py-1 rounded-lg">階段 ${phaseNum}</span>
-                                <input type="text" value="${phase.title}" oninput="updatePhase(${pIndex}, 'title', this.value)" class="custom-input px-2 py-1 rounded text-xs font-bold w-36">
+                                <!-- 標題文字改用 onchange -->
+                                <input type="text" value="${phase.title}" onchange="updatePhase(${pIndex}, 'title', this.value)" class="custom-input px-2 py-1 rounded text-xs font-bold w-36">
                             </div>
                             <div class="flex items-center gap-4 text-xs font-black">
                                 <span class="text-white">加權平均年化回報率：<span id="p${pIndex}-weighted-rate" class="text-pink-400 text-sm">0%</span></span>
@@ -725,15 +728,17 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                             <div>
                                 <label class="block text-xs font-black text-white mb-1">階段描述</label>
-                                <input type="text" value="${phase.desc}" oninput="updatePhase(${pIndex}, 'desc', this.value)" class="custom-input w-full p-2 rounded-xl text-xs">
+                                <!-- 描述文字改用 onchange -->
+                                <input type="text" value="${phase.desc}" onchange="updatePhase(${pIndex}, 'desc', this.value)" class="custom-input w-full p-2 rounded-xl text-xs">
                             </div>
                             <div>
                                 <label class="block text-xs font-black text-white mb-1">每月投入金額 (可設為0)</label>
-                                <input type="number" value="${phase.monthly}" oninput="updatePhase(${pIndex}, 'monthly', Number(this.value))" class="custom-input w-full p-2 rounded-xl text-xs">
+                                <!-- 金額數字用 updatePhaseValueOnly 局部更新，解決打字卡頓與跳框 -->
+                                <input type="number" value="${phase.monthly}" oninput="updatePhaseValueOnly(${pIndex}, 'monthly', Number(this.value))" class="custom-input w-full p-2 rounded-xl text-xs">
                             </div>
                             <div>
                                 <label class="block text-xs font-black text-white mb-1">持續年限 (年)</label>
-                                <input type="number" value="${phase.years}" oninput="updatePhase(${pIndex}, 'years', Number(this.value))" class="custom-input w-full p-2 rounded-xl text-xs">
+                                <input type="number" value="${phase.years}" oninput="updatePhaseValueOnly(${pIndex}, 'years', Number(this.value))" class="custom-input w-full p-2 rounded-xl text-xs">
                             </div>
                         </div>
 
@@ -781,9 +786,15 @@
             renderPhases();
         }
 
-        function updatePhase(index, field, value) {
+        // 專門處理數值輸入即時更新，不重建整張表格，徹底解決打字卡頓問題
+        function updatePhaseValueOnly(index, field, value) {
             phases[index][field] = value;
             calculatePhases();
+        }
+
+        function updatePhase(index, field, value) {
+            phases[index][field] = value;
+            renderPhases();
         }
 
         function addPhaseStock(pIndex) {
