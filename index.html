@@ -51,6 +51,20 @@
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @keyframes pulse-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .live-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            animation: pulse-green 2s infinite;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -87,7 +101,14 @@
                     <i class="fa-solid fa-chart-line text-lg"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg font-black text-black">美股量化 & 現金流 Dashboard</h1>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-lg font-black text-black">美股量化 & 現金流 Dashboard</h1>
+                        <!-- 綠色即時更新燈號 -->
+                        <div class="flex items-center gap-1.5 bg-emerald-50 border border-emerald-300 px-2.5 py-0.5 rounded-full shadow-xs">
+                            <span class="live-dot"></span>
+                            <span class="text-xs font-black text-emerald-700">實時更新中</span>
+                        </div>
+                    </div>
                     <p class="text-xs text-desc">多資產定投 • 雙幣轉換 • 即時總覽</p>
                 </div>
             </div>
@@ -178,25 +199,57 @@
                 </div>
             </div>
 
-            <!-- 自動更新的 TradingView 財經事件日曆 -->
+            <!-- 專注三大核心宏觀事件（非農、CPI、FOMC）精簡看板 -->
             <div class="dashboard-card p-5">
-                <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-calendar-days text-pink-600 mr-2"></i>全球與美國宏觀經濟事件日曆（自動聯網更新）</h2>
-                <p class="text-xs text-desc mb-3">即時顯示非農、CPI、FOMC 利率決議等所有重要財經日程</p>
-                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 bg-white" style="height: 500px;">
-                    <div class="tradingview-widget-container" style="height:100%;width:100%">
-                        <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-                        {
-                            "colorTheme": "light",
-                            "isTransparent": false,
-                            "width": "100%",
-                            "height": "100%",
-                            "locale": "zh_TW",
-                            "importanceFilter": "-1,0,1",
-                            "currencyFilter": "USD"
-                        }
-                        </script>
+                <div class="flex justify-between items-center mb-3">
+                    <div>
+                        <h2 class="text-base font-black text-black"><i class="fa-solid fa-calendar-star text-pink-600 mr-2"></i>美國核心總經關鍵事件（非農 • CPI • FOMC）</h2>
+                        <p class="text-xs text-desc">專注追蹤影響市場波動最大的三大宏觀指標</p>
                     </div>
+                    <span class="text-xs bg-pink-100 text-pink-800 font-bold px-2.5 py-1 rounded-lg">中文精簡版</span>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl border-2 border-pink-200">
+                    <table class="w-full text-left border-collapse bg-white">
+                        <thead>
+                            <tr class="bg-gray-900 text-white text-xs font-black">
+                                <th class="p-3.5">事件類型</th>
+                                <th class="p-3.5">中文說明</th>
+                                <th class="p-3.5">公布頻率</th>
+                                <th class="p-3.5">市場影響力</th>
+                                <th class="p-3.5">備註提示</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-pink-100 text-xs font-medium text-gray-700">
+                            <tr class="hover:bg-pink-50/50">
+                                <td class="p-3.5 font-black text-pink-700 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-bolt text-amber-500"></i> FOMC 利率決議
+                                </td>
+                                <td class="p-3.5 font-bold text-black">聯準會貨幣政策會議與利率聲明</td>
+                                <td class="p-3.5">約每 6 週一次（年辦 8 次）</td>
+                                <td class="p-3.5"><span class="bg-red-100 text-red-800 px-2 py-0.5 rounded font-black">極高 (★★★★★)</span></td>
+                                <td class="p-3.5 text-desc">決定全年大盤牛熊轉折與資金成本</td>
+                            </tr>
+                            <tr class="hover:bg-pink-50/50">
+                                <td class="p-3.5 font-black text-pink-700 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-fire text-orange-500"></i> 美國 CPI 數據
+                                </td>
+                                <td class="p-3.5 font-bold text-black">消費者物價指數（通膨數據）</td>
+                                <td class="p-3.5">每月中旬（通常為 10-14 號）</td>
+                                <td class="p-3.5"><span class="bg-red-100 text-red-800 px-2 py-0.5 rounded font-black">極高 (★★★★★)</span></td>
+                                <td class="p-3.5 text-desc">直接左右聯準會下一次是否降息/升息</td>
+                            </tr>
+                            <tr class="hover:bg-pink-50/50">
+                                <td class="p-3.5 font-black text-pink-700 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-users-line text-blue-500"></i> 非農就業報告 (NFP)
+                                </td>
+                                <td class="p-3.5 font-bold text-black">非農就業人口與失業率</td>
+                                <td class="p-3.5">每月第一個星期五</td>
+                                <td class="p-3.5"><span class="bg-red-100 text-red-800 px-2 py-0.5 rounded font-black">極高 (★★★★★)</span></td>
+                                <td class="p-3.5 text-desc">美國勞動力市場健康指標，引發美股劇烈波動</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
