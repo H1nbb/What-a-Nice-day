@@ -14,7 +14,7 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- 頂部跑馬燈：TradingView 官方動態實時 Ticker Tape -->
+    <!-- 頂部跑馬燈：修正美債與 VIX 代碼 -->
     <div class="tradingview-widget-container bg-pink-900 border-b border-pink-700">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
@@ -24,8 +24,8 @@
                 { "proName": "NASDAQ:QQQ", "title": "納指100 (QQQ)" },
                 { "proName": "NASDAQ:SOXX", "title": "半導體 (SOXX)" },
                 { "proName": "TVC:USOIL", "title": "WTI原油" },
-                { "proName": "TVC:US10Y", "title": "10年美債" },
-                { "proName": "CBOE:VIX", "title": "恐慌指數 (VIX)" }
+                { "proName": "US10Y", "title": "10年美債" },
+                { "proName": "TVC:VIX", "title": "恐慌指數 (VIX)" }
             ],
             "showSymbolLogo": true,
             "colorTheme": "light",
@@ -94,45 +94,43 @@
                 </div>
             </div>
 
-            <!-- 第一頁下方：跑馬燈核心數據的實時跳動列表 -->
+            <!-- 第一頁下方：跑馬燈核心數據的實時動態列表 -->
             <div class="pink-card p-6">
                 <div class="flex justify-between items-center mb-4">
                     <div>
                         <h2 class="text-xl font-bold text-pink-950 flex items-center gap-2">
-                            <i class="fa-solid fa-list-ol text-pink-600"></i> 核心資產即時行情列表 (開市即時跳動)
+                            <i class="fa-solid fa-list-check text-pink-600"></i> 跑馬燈資產即時行情動態列表
                         </h2>
-                        <p class="text-xs text-pink-800/80 mt-1">包含跑馬燈所有資產的即時價格、漲跌額與當日走勢，點擊可看詳細圖表</p>
+                        <p class="text-xs text-pink-800/80 mt-1">包含 SPY、QQQ、SOXX、原油、10年美債與 VIX 的即時價格與漲跌額</p>
                     </div>
-                    <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">TradingView 數據源</span>
+                    <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">開市即時跳動</span>
                 </div>
 
-                <div class="tradingview-widget-container" style="height: 520px;">
+                <!-- 採用 Screener/Market Quotes 穩定清單 -->
+                <div class="tradingview-widget-container" style="height: 480px;">
                     <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
                     {
-                        "colorTheme": "light",
-                        "dateRange": "1D",
-                        "showChart": true,
-                        "locale": "zh_TW",
                         "width": "100%",
                         "height": "100%",
-                        "largeChartUrl": "",
-                        "isTransparent": true,
-                        "showSymbolLogo": true,
-                        "showFloatingTooltip": false,
-                        "tabs": [
+                        "symbolsGroups": [
                             {
-                                "title": "核心大盤與商品",
+                                "name": "核心資產監測",
+                                "originalName": "Indices",
                                 "symbols": [
-                                    { "s": "AMEX:SPY", "d": "標普 500 ETF (SPY)" },
-                                    { "s": "NASDAQ:QQQ", "d": "納指 100 ETF (QQQ)" },
-                                    { "s": "NASDAQ:SOXX", "d": "費城半導體 ETF (SOXX)" },
-                                    { "s": "TVC:USOIL", "d": "WTI 原油期貨 (USOIL)" },
-                                    { "s": "TVC:US10Y", "d": "10 年期美國國債收益率" },
-                                    { "s": "CBOE:VIX", "d": "VIX 恐慌指數" }
+                                    { "name": "AMEX:SPY", "displayName": "標普 500 ETF (SPY)" },
+                                    { "name": "NASDAQ:QQQ", "displayName": "納指 100 ETF (QQQ)" },
+                                    { "name": "NASDAQ:SOXX", "displayName": "費城半導體 ETF (SOXX)" },
+                                    { "name": "TVC:USOIL", "displayName": "WTI 原油期貨 (USOIL)" },
+                                    { "name": "US10Y", "displayName": "10 年期美國國債收益率" },
+                                    { "name": "TVC:VIX", "displayName": "VIX 恐慌指數" }
                                 ]
                             }
-                        ]
+                        ],
+                        "showSymbolLogo": true,
+                        "colorTheme": "light",
+                        "isTransparent": true,
+                        "locale": "zh_TW"
                     }
                     </script>
                 </div>
@@ -140,17 +138,16 @@
 
         </div>
 
-        <!-- 頁面 2：現金流資產清單 (修復顯示問題，採用高相容性單元報價組件) -->
+        <!-- 頁面 2：現金流資產清單 -->
         <div id="tab-cashflow" class="tab-content hidden flex-1 flex flex-col space-y-6">
             <div class="pink-card p-6">
                 <div class="mb-4">
                     <h2 class="text-xl font-black text-pink-950 flex items-center gap-2">
-                        <i class="fa-solid fa-sack-dollar text-pink-600"></i> 現金流資產即時報價 (高相容動態卡片)
+                        <i class="fa-solid fa-sack-dollar text-pink-600"></i> 現金流資產即時報價
                     </h2>
                     <p class="text-xs text-pink-800/80 font-semibold mt-1">100% 成功連線，開市期間價格實時動態跳動</p>
                 </div>
 
-                <!-- 單元動態報價，解決跨市場數據無法載入的問題 -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
                     <div class="bg-pink-50/60 p-2 rounded-xl border border-pink-200">
                         <div class="tradingview-widget-container" style="height: 125px;">
@@ -189,7 +186,6 @@
                     </div>
                 </div>
 
-                <!-- 股息屬性對照表 -->
                 <div class="bg-white p-4 rounded-xl border border-pink-200">
                     <h3 class="text-sm font-bold text-pink-950 mb-3"><i class="fa-solid fa-table text-pink-600 mr-1.5"></i> 現金流資產屬性對照表</h3>
                     <div class="overflow-x-auto">
@@ -277,35 +273,17 @@
             </div>
         </div>
 
-        <!-- 頁面 4：全市場熱力圖 -->
+        <!-- 頁面 4：全市場熱力圖 (使用 iframe 強制 100% 全屏高度加載) -->
         <div id="tab-heatmap" class="tab-content hidden flex-1 flex flex-col">
-            <div class="pink-card p-5 flex-1 flex flex-col" style="min-height: 750px;">
+            <div class="pink-card p-5 flex-1 flex flex-col">
                 <div class="flex justify-between items-center mb-3">
                     <h2 class="text-base font-bold text-pink-950 flex items-center gap-2">
                         <i class="fa-solid fa-fire text-pink-500"></i> S&P 500 板塊資金熱力圖 (開市動態更新)
                     </h2>
                     <span class="text-xs text-pink-700 font-semibold">點擊板塊可放大看個別成分股</span>
                 </div>
-                <div class="tradingview-widget-container flex-1 rounded-xl overflow-hidden border border-pink-200" style="height: 680px; width: 100%;">
-                    <div class="tradingview-widget-container__widget" style="height: 100%; width: 100%;"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-                    {
-                        "exchanges": [],
-                        "dataSource": "SPX500",
-                        "grouping": "sector",
-                        "blockSize": "market_cap_basic",
-                        "blockColor": "change",
-                        "locale": "zh_TW",
-                        "symbolUrl": "",
-                        "colorTheme": "light",
-                        "hasTopBar": true,
-                        "isDataSetEnabled": false,
-                        "isZoomEnabled": true,
-                        "hasSymbolTooltip": true,
-                        "width": "100%",
-                        "height": "100%"
-                    }
-                    </script>
+                <div class="w-full rounded-xl overflow-hidden border border-pink-200" style="height: 650px;">
+                    <iframe src="https://s.tradingview.com/embed-widget/stock-heatmap/?locale=zh_TW#%7B%22exchanges%22%3A%5B%5D%2C%22dataSource%22%3A%22SPX500%22%2C%22grouping%22%3A%22sector%22%2C%22blockSize%22%3A%22market_cap_basic%22%2C%22blockColor%22%3A%22change%22%2C%22symbolUrl%22%3A%22%22%2C%22colorTheme%22%3A%22light%22%2C%22hasTopBar%22%3Atrue%2C%22isDataSetEnabled%22%3Afalse%2C%22isZoomEnabled%22%3Atrue%2C%22hasSymbolTooltip%22%3Atrue%7D" class="w-full h-full border-0"></iframe>
                 </div>
             </div>
         </div>
