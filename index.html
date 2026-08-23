@@ -132,7 +132,7 @@
                 </div>
             </div>
 
-            <!-- 美國主要國債收益率 (US Treasuries) - 改用小方塊保證 100% 顯示 -->
+            <!-- 美國主要國債收益率 (US Treasuries) -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-landmark text-pink-600 mr-2"></i>美國主要國債收益率 (US Treasuries)</h2>
                 <p class="text-xs text-desc mb-3">涵蓋短中長端美國公債收益率即時表現</p>
@@ -217,33 +217,6 @@
                     <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "HKEX:0941", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                     <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:DIVO", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                     <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:JEPI", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                </div>
-            </div>
-
-            <!-- 純指數 (SPY) vs 高股息現金流 (SPYI) 走勢動態對比 -->
-            <div class="dashboard-card p-5">
-                <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-code-compare text-pink-600 mr-2"></i>純指數 (SPY) vs 高股息現金流 (SPYI) 走勢動態對比</h2>
-                <p class="text-xs text-desc mb-3">比較傳統大盤指數與 Covered Call 策略 ETF 的長期回報與波動差異</p>
-                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200" style="height: 420px;">
-                    <div class="tradingview-widget-container" style="height:100%;width:100%">
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                        {
-                            "autosize": true,
-                            "symbol": "AMEX:SPY",
-                            "interval": "D",
-                            "timezone": "Asia/Hong_Kong",
-                            "theme": "light",
-                            "style": "1",
-                            "locale": "zh_TW",
-                            "allow_symbol_change": true,
-                            "calendar": false,
-                            "support_host": "https://www.tradingview.com",
-                            "comparisons": [
-                                { "symbol": "AMEX:SPYI", "color": "#db2777" }
-                            ]
-                        }
-                        </script>
-                    </div>
                 </div>
             </div>
 
