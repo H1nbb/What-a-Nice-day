@@ -452,21 +452,20 @@
                         <div class="text-lg font-black">經過各階段的佈局與本金滾存，實現您的最終財務藍圖！</div>
                     </div>
                     <div class="bg-white text-black p-4 rounded-xl text-right min-w-[220px]">
-                        <!-- 修正 1：標題改為最終總資產 -->
                         <div class="text-xs text-desc">最終總資產（所有階段總和）</div>
                         <div id="summary-total-asset" class="text-xl font-black text-emerald-600">$0</div>
                     </div>
                 </div>
             </div>
 
-            <!-- 現金流計算器（基於總投入資產 + 股票百分比 + 自動抓取股息率） -->
+            <!-- 現金流計算器（基於總投入資產 + 股票百分比 + 自動抓取股息率 + 香港美股稅務調整） -->
             <div class="dashboard-card p-6">
                 <div class="mb-6 border-b-2 border-pink-200 pb-4">
                     <h2 class="text-base font-black text-black"><i class="fa-solid fa-calculator text-pink-600 mr-2"></i>現金流收益專用計算器</h2>
                     <p class="text-xs text-desc">輸入總投入資產與各股票百分比，系統自動對應股息率計算預估現金流</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                         <label class="block text-xs font-black text-black mb-1">總投入資產金額</label>
                         <input type="number" id="cf-total-asset" value="100000" class="custom-input w-full p-2.5 rounded-xl text-sm" oninput="calculateCashFlowCalc()">
@@ -478,6 +477,18 @@
                             <option value="USD">美元 (USD)</option>
                         </select>
                     </div>
+                </div>
+
+                <!-- 香港居民稅務設定（美股 30% 預扣稅開關） -->
+                <div class="mb-6 bg-white p-3.5 rounded-xl border-2 border-pink-200 flex items-center justify-between shadow-xs">
+                    <div>
+                        <div class="text-xs font-black text-black"><i class="fa-solid fa-file-invoice-dollar text-pink-600 mr-1"></i>香港居民美股稅務設定（30% 股息預扣稅）</div>
+                        <div class="text-xs text-desc">自動為美股及美股 ETF 扣除 30% 美國 IRS 預扣稅（代碼含 .HK 之港股除外）</div>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="apply-us-tax" checked onchange="calculateCashFlowCalc()" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
+                    </label>
                 </div>
 
                 <div class="mb-4">
@@ -497,15 +508,15 @@
 
                 <div class="bg-pink-50 border-2 border-pink-200 p-5 rounded-2xl">
                     <h3 class="text-xs font-black text-black mb-3 uppercase tracking-wider">
-                        <i class="fa-solid fa-sack-dollar mr-1.5 text-pink-600"></i> 現金流預估收益結果
+                        <i class="fa-solid fa-sack-dollar mr-1.5 text-pink-600"></i> 現金流預估收益結果（稅後）
                     </h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                         <div class="bg-white p-3 rounded-xl border border-pink-200">
-                            <div class="text-xs text-desc">預估平均年化股息率</div>
+                            <div class="text-xs text-desc">預估平均實際年化股息率（稅後）</div>
                             <div id="cf-avg-yield" class="text-lg font-black text-pink-600">0.0%</div>
                         </div>
                         <div class="bg-white p-3 rounded-xl border border-pink-200">
-                            <div class="text-xs text-desc">預估全年總現金流回報</div>
+                            <div class="text-xs text-desc">預估全年總現金流回報（稅後）</div>
                             <div id="cf-total-annual" class="text-lg font-black text-emerald-600">$0</div>
                         </div>
                     </div>
@@ -697,7 +708,7 @@
                     currentTotal = (currentTotal + monthly) * (1 + monthlyRate);
                 }
 
-                const annualCF = currentTotal * 0.10; // 預設以 10% 產出現金流估算
+                const annualCF = currentTotal * 0.10;
                 const monthlyCF = annualCF / 12;
 
                 const totalEl = document.getElementById(`p${index}-total`);
@@ -707,14 +718,13 @@
                 if (cfEl) cfEl.innerText = '$' + monthlyCF.toLocaleString('en-US', {maximumFractionDigits: 0}) + '/月';
             });
 
-            // 修正 2：計算邏輯改為顯示最終累積的總資產 (currentTotal)
             const summaryEl = document.getElementById('summary-total-asset');
             if (summaryEl) {
                 summaryEl.innerText = '$' + currentTotal.toLocaleString('en-US', {maximumFractionDigits: 0});
             }
         }
 
-        // --- 現金流收益計算器邏輯 ---
+        // --- 現金流收益計算器邏輯（含香港居民 30% 股息稅支援） ---
         const defaultDividendYields = {
             "SPYI": 12.1,
             "QQQI": 14.3,
@@ -774,6 +784,7 @@
         function calculateCashFlowCalc() {
             const totalAsset = parseFloat(document.getElementById('cf-total-asset').value) || 0;
             const currency = document.getElementById('cf-currency').value;
+            const applyUsTax = document.getElementById('apply-us-tax').checked; // 是否勾選扣除美股 30% 稅
 
             let totalWeight = cfStocks.reduce((sum, s) => sum + s.weight, 0);
             document.getElementById('cf-total-weight-display').innerText = totalWeight + '%';
@@ -788,16 +799,30 @@
             cfStocks.forEach(stock => {
                 const assetAmount = totalAsset * (stock.weight / 100);
                 const stockYield = getYieldForSymbol(stock.name);
-                const annualIncome = assetAmount * (stockYield / 100);
+                
+                // 判斷是否為美股資產（代碼不包含 .HK 則視為美股並扣除 30% 預扣稅）
+                let isUsAsset = !stock.name.toUpperCase().includes('.HK');
+                let effectiveYield = stockYield;
+                let taxNote = "";
 
-                weightedYieldSum += stockYield * (stock.weight / 100);
+                if (applyUsTax && isUsAsset) {
+                    effectiveYield = stockYield * (1 - 0.30); // 扣除 30% 稅
+                    taxNote = ` <span class="text-red-500 font-bold">(已扣30%美股稅)</span>`;
+                } else if (!isUsAsset) {
+                    taxNote = ` <span class="text-gray-400 font-bold">(港股免美稅)</span>`;
+                }
+
+                const annualIncome = assetAmount * (effectiveYield / 100);
+
+                weightedYieldSum += effectiveYield * (stock.weight / 100);
                 totalAnnualCashFlow += annualIncome;
 
                 resultsGrid.innerHTML += `
                     <div class="bg-white p-3.5 rounded-xl border border-pink-200">
                         <div class="font-black text-pink-700 text-xs mb-1">${stock.name || '未命名'} (${stock.weight}%)</div>
                         <div class="text-xs text-desc">配置金額: $${assetAmount.toFixed(2)}</div>
-                        <div class="text-xs font-bold text-emerald-700">預估年現金流: $${annualIncome.toFixed(2)}</div>
+                        <div class="text-xs text-desc">原始股息率: ${stockYield}%${taxNote}</div>
+                        <div class="text-xs font-bold text-emerald-700 mt-1">稅後預估年現金流: $${annualIncome.toFixed(2)}</div>
                     </div>
                 `;
             });
