@@ -423,57 +423,115 @@
                 </div>
             </div>
 
-            <!-- 三階段長期複利與第三階段「最終資產」 -->
+            <!-- 三階段長期複利與現金流增長預測計劃 (完整互動編排) -->
             <div class="dashboard-card p-6">
                 <div class="mb-6 border-b-2 border-pink-200 pb-4">
                     <h2 class="text-base font-black text-black"><i class="fa-solid fa-arrow-trend-up text-pink-600 mr-2"></i>三階段長期複利與現金流增長預測計劃</h2>
-                    <p class="text-xs text-desc">依序規劃 $5,000 階段 $\rightarrow$ $7,000 階段 $\rightarrow$ 最終資產之滾存表現</p>
+                    <p class="text-xs text-desc">依序規劃 階段一（起步累積） $\rightarrow$ 階段二（加速滾存） $\rightarrow$ 階段三（收穫收成）之滾存與被動現金流表現</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     <!-- 階段一 -->
-                    <div class="bg-white border-2 border-pink-200 p-4 rounded-2xl flex flex-col justify-between">
+                    <div class="bg-white border-2 border-pink-200 p-5 rounded-2xl flex flex-col justify-between shadow-xs">
                         <div>
-                            <div class="flex justify-between items-center mb-2">
+                            <div class="flex justify-between items-center mb-3">
                                 <span class="bg-pink-600 text-white text-xs font-black px-2.5 py-1 rounded-lg">階段一</span>
                                 <span class="text-xs font-bold text-desc">起步累積期</span>
                             </div>
                             <h3 class="text-sm font-black text-black mb-2">月投 $5,000 規模</h3>
                             <p class="text-xs text-desc mb-4">透過核心資產（SPY/QQQ）與高息資產建立底倉，養成穩定現金流與定投習慣。</p>
+                            
+                            <div class="space-y-3 mb-4 border-t border-pink-100 pt-3">
+                                <div>
+                                    <label class="block text-xs font-black text-black mb-1">每月投入金額</label>
+                                    <input type="number" id="p1-monthly" value="5000" class="custom-input w-full p-2 rounded-xl text-xs" oninput="calculatePhases()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-black mb-1">持續年限 (年)</label>
+                                    <input type="number" id="p1-years" value="5" class="custom-input w-full p-2 rounded-xl text-xs" oninput="calculatePhases()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-black mb-1">預估年化回報率 (%)</label>
+                                    <input type="number" id="p1-rate" value="10" step="0.5" class="custom-input w-full p-2 rounded-xl text-xs" oninput="calculatePhases()">
+                                </div>
+                            </div>
                         </div>
-                        <div class="bg-pink-50 p-3 rounded-xl border border-pink-200 text-xs font-bold text-pink-900">
-                            目標：建立首桶金與基礎被動現金流
+
+                        <div class="bg-pink-50 p-3 rounded-xl border border-pink-200 space-y-1">
+                            <div class="text-xs text-desc font-bold">階段結束總資產：<span id="p1-total" class="text-pink-700 font-black">$0</span></div>
+                            <div class="text-xs text-desc font-bold">預估月均被動現金流：<span id="p1-cf" class="text-emerald-700 font-black">$0</span></div>
                         </div>
                     </div>
 
                     <!-- 階段二 -->
-                    <div class="bg-white border-2 border-pink-200 p-4 rounded-2xl flex flex-col justify-between">
+                    <div class="bg-white border-2 border-pink-200 p-5 rounded-2xl flex flex-col justify-between shadow-xs">
                         <div>
-                            <div class="flex justify-between items-center mb-2">
+                            <div class="flex justify-between items-center mb-3">
                                 <span class="bg-pink-600 text-white text-xs font-black px-2.5 py-1 rounded-lg">階段二</span>
                                 <span class="text-xs font-bold text-desc">加速滾存期</span>
                             </div>
                             <h3 class="text-sm font-black text-black mb-2">月投提升至 $7,000</h3>
                             <p class="text-xs text-desc mb-4">隨著本金提升，將每月派息進行再投資（Dividend Reinvestment），加速複利雪球滾動。</p>
+                            
+                            <div class="space-y-3 mb-4 border-t border-pink-100 pt-3">
+                                <div>
+                                    <label class="block text-xs font-black text-black mb-1">每月投入金額</label>
+                                    <input type="number" id="p2-monthly" value="7000" class="custom-input w-full p-2 rounded-xl text-xs" oninput="calculatePhases()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-black mb-1">持續年限 (年)</label>
+                                    <input type="number" id="p2-years" value="5" class="custom-input w-full p-2 rounded-xl text-xs" oninput="calculatePhases()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-black text-black mb-1">預估年化回報率 (%)</label>
+                                    <input type="number" id="p2-rate" value="10" step="0.5" class="custom-input w-full p-2 rounded-xl text-xs" oninput="calculatePhases()">
+                                </div>
+                            </div>
                         </div>
-                        <div class="bg-pink-50 p-3 rounded-xl border border-pink-200 text-xs font-bold text-pink-900">
-                            目標：複利效應顯現，資產增速加快
+
+                        <div class="bg-pink-50 p-3 rounded-xl border border-pink-200 space-y-1">
+                            <div class="text-xs text-desc font-bold">階段結束總資產：<span id="p2-total" class="text-pink-700 font-black">$0</span></div>
+                            <div class="text-xs text-desc font-bold">預估月均被動現金流：<span id="p2-cf" class="text-emerald-700 font-black">$0</span></div>
                         </div>
                     </div>
 
-                    <!-- 階段三：最終資產 -->
-                    <div class="bg-white border-2 border-pink-200 p-4 rounded-2xl flex flex-col justify-between">
+                    <!-- 階段三：最終資產與收成期 -->
+                    <div class="bg-white border-2 border-pink-200 p-5 rounded-2xl flex flex-col justify-between shadow-xs">
                         <div>
-                            <div class="flex justify-between items-center mb-2">
+                            <div class="flex justify-between items-center mb-3">
                                 <span class="bg-pink-600 text-white text-xs font-black px-2.5 py-1 rounded-lg">階段三</span>
                                 <span class="text-xs font-bold text-desc">收穫收成期</span>
                             </div>
                             <h3 class="text-sm font-black text-black mb-2">最終資產目標達成</h3>
                             <p class="text-xs text-desc mb-4">達成最終資產規模後，資產配置轉向全現金流導向，提供源源不絕的日常被動收入。</p>
+                            
+                            <div class="space-y-3 mb-4 border-t border-pink-100 pt-3">
+                                <div>
+                                    <label class="block text-xs font-black text-black mb-1">目標被動現金流導向年化率 (%)</label>
+                                    <input type="number" id="p3-yield-rate" value="8" step="0.5" class="custom-input w-full p-2 rounded-xl text-xs" oninput="calculatePhases()">
+                                </div>
+                                <div class="p-2 bg-pink-50/60 rounded-xl text-xs text-desc">
+                                    💡 系統會自動累計前兩階段滾存下來的總本金與複利成果作為三階段的起始本金！
+                                </div>
+                            </div>
                         </div>
-                        <div class="bg-pink-50 p-3 rounded-xl border border-pink-200 text-xs font-bold text-pink-900">
-                            目標：實現財務自由與終極現金流支撐
+
+                        <div class="bg-pink-50 p-3 rounded-xl border border-pink-200 space-y-1">
+                            <div class="text-xs text-desc font-bold">最終總資產規模：<span id="p3-total" class="text-pink-700 font-black">$0</span></div>
+                            <div class="text-xs text-desc font-bold">最終月均被動現金流：<span id="p3-cf" class="text-emerald-700 font-black">$0</span></div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- 總結預測看板 -->
+                <div class="bg-pink-600 text-white p-5 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <div class="text-xs font-bold opacity-90 uppercase tracking-wider mb-1">長期複利與現金流總結</div>
+                        <div class="text-lg font-black">經過三階段的耕耘與滾存，你將實現完整的財務自由目標！</div>
+                    </div>
+                    <div class="bg-white text-black p-4 rounded-xl text-right min-w-[220px]">
+                        <div class="text-xs text-desc">最終達成被動年收入</div>
+                        <div id="summary-annual-cf" class="text-xl font-black text-emerald-600">$0</div>
                     </div>
                 </div>
             </div>
@@ -631,6 +689,55 @@
             });
         }
 
+        // --- 三階段長期複利計算邏輯 ---
+        function calculatePhases() {
+            // 階段一
+            const p1Monthly = parseFloat(document.getElementById('p1-monthly').value) || 0;
+            const p1Years = parseFloat(document.getElementById('p1-years').value) || 0;
+            const p1Rate = (parseFloat(document.getElementById('p1-rate').value) || 0) / 100;
+            
+            let p1Total = 0;
+            const p1Months = p1Years * 12;
+            const p1MonthlyRate = p1Rate / 12;
+            for(let i=0; i<p1Months; i++) {
+                p1Total = (p1Total + p1Monthly) * (1 + p1MonthlyRate);
+            }
+            // 假設階段一結束後轉向平均 10% 股息率的高息資產產生現金流
+            const p1AnnualCF = p1Total * 0.10;
+            const p1MonthlyCF = p1AnnualCF / 12;
+
+            document.getElementById('p1-total').innerText = '$' + p1Total.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('p1-cf').innerText = '$' + p1MonthlyCF.toLocaleString('en-US', {maximumFractionDigits: 0}) + '/月';
+
+            // 階段二 (以階段一總資產作為期初本金，加上每月定投滾存)
+            const p2Monthly = parseFloat(document.getElementById('p2-monthly').value) || 0;
+            const p2Years = parseFloat(document.getElementById('p2-years').value) || 0;
+            const p2Rate = (parseFloat(document.getElementById('p2-rate').value) || 0) / 100;
+
+            let p2Total = p1Total;
+            const p2Months = p2Years * 12;
+            const p2MonthlyRate = p2Rate / 12;
+            for(let i=0; i<p2Months; i++) {
+                p2Total = (p2Total + p2Monthly) * (1 + p2MonthlyRate);
+            }
+            const p2AnnualCF = p2Total * 0.10;
+            const p2MonthlyCF = p2AnnualCF / 12;
+
+            document.getElementById('p2-total').innerText = '$' + p2Total.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('p2-cf').innerText = '$' + p2MonthlyCF.toLocaleString('en-US', {maximumFractionDigits: 0}) + '/月';
+
+            // 階段三 (收穫收成期：以階段二滾存下來的最終資產，全倉轉入收成現金流)
+            const p3YieldRate = (parseFloat(document.getElementById('p3-yield-rate').value) || 0) / 100;
+            let p3Total = p2Total;
+            const p3AnnualCF = p3Total * p3YieldRate;
+            const p3MonthlyCF = p3AnnualCF / 12;
+
+            document.getElementById('p3-total').innerText = '$' + p3Total.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('p3-cf').innerText = '$' + p3MonthlyCF.toLocaleString('en-US', {maximumFractionDigits: 0}) + '/月';
+
+            document.getElementById('summary-annual-cf').innerText = '$' + p3AnnualCF.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' / 年';
+        }
+
         // --- 現金流收益計算器邏輯 ---
         const defaultDividendYields = {
             "SPYI": 12.1,
@@ -710,24 +817,23 @@
                 weightedYieldSum += stockYield * (stock.weight / 100);
                 totalAnnualCashFlow += annualIncome;
 
-                const symbolPrefix = currency === 'HKD' ? '$' : '$';
-
                 resultsGrid.innerHTML += `
                     <div class="bg-white p-3.5 rounded-xl border border-pink-200">
                         <div class="font-black text-pink-700 text-xs mb-1">${stock.name || '未命名'} (${stock.weight}%)</div>
-                        <div class="text-xs text-desc">配置金額: ${symbolPrefix}${assetAmount.toFixed(2)}</div>
-                        <div class="text-xs font-bold text-emerald-700">預估年現金流: ${symbolPrefix}${annualIncome.toFixed(2)}</div>
+                        <div class="text-xs text-desc">配置金額: $${assetAmount.toFixed(2)}</div>
+                        <div class="text-xs font-bold text-emerald-700">預估年現金流: $${annualIncome.toFixed(2)}</div>
                     </div>
                 `;
             });
 
             document.getElementById('cf-avg-yield').innerText = (totalWeight > 0 ? (weightedYieldSum / (totalWeight > 0 ? totalWeight/100 : 1)).toFixed(2) : 0) + '%';
-            document.getElementById('cf-total-annual').innerText = (currency === 'HKD' ? '$' : '$') + totalAnnualCashFlow.toFixed(2);
+            document.getElementById('cf-total-annual').innerText = '$' + totalAnnualCashFlow.toFixed(2);
         }
 
         // 初始化載入
         renderStocks();
         renderCashFlowStocks();
+        calculatePhases();
     </script>
 </body>
 </html>
