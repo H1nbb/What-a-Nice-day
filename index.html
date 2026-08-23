@@ -14,7 +14,7 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- 頂部跑馬燈 (完整保留) -->
+    <!-- 頂部跑馬燈 -->
     <div class="tradingview-widget-container bg-pink-900 border-b border-pink-700">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
@@ -37,7 +37,7 @@
         </script>
     </div>
 
-    <!-- Header (完整保留) -->
+    <!-- Header -->
     <header class="bg-gradient-to-r from-pink-400 via-rose-300 to-pink-300 text-white py-3.5 px-6 shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-3">
@@ -64,7 +64,7 @@
         <!-- 頁面 1：核心資產與美債收益率 -->
         <div id="tab-macro" class="tab-content flex-1 flex flex-col space-y-6">
             
-            <!-- 頂部 4 個統計卡片 (完整保留) -->
+            <!-- 頂部 4 個統計卡片 -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div class="pink-card p-4 flex items-center justify-between">
                     <div>
@@ -96,7 +96,7 @@
                 </div>
             </div>
 
-            <!-- 新增模組 1：大盤動態 K 線圖表 (SPY / QQQ 交互式圖表) -->
+            <!-- 1. 大盤動態 K 線圖表 -->
             <div class="pink-card p-6">
                 <div class="flex justify-between items-center mb-4">
                     <div>
@@ -130,7 +130,7 @@
                 </div>
             </div>
 
-            <!-- 原有美債收益率列表 (完整保留) -->
+            <!-- 2. 美債收益率列表 (全平鋪不滾動) -->
             <div class="pink-card p-6">
                 <div class="flex justify-between items-center mb-4">
                     <div>
@@ -142,7 +142,7 @@
                     <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">即時監測</span>
                 </div>
 
-                <div class="w-full rounded-xl overflow-hidden border border-pink-200" style="height: 300px;">
+                <div class="w-full rounded-xl overflow-hidden border border-pink-200" style="height: 380px;">
                     <div class="tradingview-widget-container" style="height: 100%;">
                         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
                         {
@@ -174,8 +174,8 @@
                 </div>
             </div>
 
-            <!-- 原有核心大盤與商品行情列表 (完整保留) -->
-            <div class="pink-card p-6 flex-1 flex flex-col" style="min-height: 420px;">
+            <!-- 3. 核心大盤與商品行情列表 (高度調整為 450px，完全平鋪無須滾動) -->
+            <div class="pink-card p-6">
                 <div class="flex justify-between items-center mb-4">
                     <div>
                         <h2 class="text-xl font-bold text-pink-950 flex items-center gap-2">
@@ -186,7 +186,7 @@
                     <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">開市即時跳動</span>
                 </div>
 
-                <div class="w-full flex-1 rounded-xl overflow-hidden border border-pink-200" style="min-height: 340px;">
+                <div class="w-full rounded-xl overflow-hidden border border-pink-200" style="height: 450px;">
                     <div class="tradingview-widget-container" style="height: 100%;">
                         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
                         {
@@ -219,7 +219,7 @@
                 </div>
             </div>
 
-            <!-- 新增模組 2：關鍵宏觀財經日曆 (Economic Calendar) -->
+            <!-- 4. 關鍵宏觀財經日曆 (中文修復版) -->
             <div class="pink-card p-6">
                 <div class="flex justify-between items-center mb-4">
                     <div>
@@ -230,7 +230,7 @@
                     </div>
                     <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">動態更新</span>
                 </div>
-                <div class="w-full rounded-xl overflow-hidden border border-pink-200" style="height: 400px;">
+                <div class="w-full rounded-xl overflow-hidden border border-pink-200" style="height: 450px;">
                     <div class="tradingview-widget-container" style="height: 100%;">
                         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
                         {
@@ -249,7 +249,7 @@
 
         </div>
 
-        <!-- 頁面 2：現金流資產清單 (完整保留) -->
+        <!-- 頁面 2：現金流資產清單 -->
         <div id="tab-cashflow" class="tab-content hidden flex-1 flex flex-col space-y-6">
             <div class="pink-card p-6">
                 <div class="mb-4">
@@ -367,7 +367,7 @@
             </div>
         </div>
 
-        <!-- 頁面 3：中文新聞摘要 (完整保留) -->
+        <!-- 頁面 3：中文新聞摘要 -->
         <div id="tab-news" class="tab-content hidden flex-1 flex flex-col space-y-4">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <a href="https://hk.finance.yahoo.com/quote/SPYI/news" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
@@ -398,7 +398,7 @@
             </div>
         </div>
 
-        <!-- 頁面 4：全市場熱力圖 (完整保留) -->
+        <!-- 頁面 4：全市場熱力圖 -->
         <div id="tab-heatmap" class="tab-content hidden flex-1 flex flex-col">
             <div class="pink-card p-5 flex-1 flex flex-col">
                 <div class="flex justify-between items-center mb-3">
