@@ -3,176 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>早晨！美股咖啡晨報 Dashboard</title>
+    <title>柔粉美股現金流 & 晨報 Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f0f7ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        .ice-card { background: #ffffff; border: 1px solid #d0e3ff; border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 102, 255, 0.05); }
-        .glow-blue { box-shadow: 0 0 15px rgba(59, 130, 246, 0.15); }
+        body { background-color: #fdf2f8; color: #831843; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .pink-card { background: #ffffff; border: 1px solid #fbcfe8; border-radius: 16px; box-shadow: 0 4px 15px rgba(244, 114, 182, 0.08); }
     </style>
 </head>
-<body class="text-slate-800 pb-12">
+<body class="pb-12">
 
-    <!-- Header -->
-    <header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-6 px-6 shadow-md mb-8">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <!-- Header 頂部導航 -->
+    <header class="bg-gradient-to-r from-pink-400 via-rose-300 to-pink-300 text-white py-5 px-6 shadow-sm mb-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="bg-white/20 p-3 rounded-2xl backdrop-blur-md">
-                    <i class="fa-solid to-coffee text-2xl text-amber-300">☕</i>
+                <div class="bg-white/30 p-2.5 rounded-2xl backdrop-blur-md">
+                    <i class="fa-solid fa-piggy-bank text-2xl text-pink-700"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-bold tracking-wide">早晨！美股咖啡晨報</h1>
-                    <p class="text-blue-100 text-sm">即時捕捉全球動態 • 專屬持股雷達</p>
+                    <h1 class="text-xl font-bold tracking-wide text-pink-950">美股現金流 & 晨報 Dashboard</h1>
+                    <p class="text-xs text-pink-900/80">Baby Pink 護眼模式 • SPYI / QQQI 高股息即時動態</p>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
-                <span class="bg-emerald-500/20 text-emerald-100 border border-emerald-400/30 text-xs px-3 py-1.5 rounded-full flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    系統穩定運作中 (Zero-Error Mode)
+            <div>
+                <span class="bg-white/40 text-pink-900 font-semibold border border-pink-300/50 text-xs px-3 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-md">
+                    <span class="w-2 h-2 rounded-full bg-pink-600 animate-pulse"></span>
+                    API 即時連線中
                 </span>
             </div>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 space-y-8">
+    <main class="max-w-7xl mx-auto px-4 space-y-6">
 
-        <!-- SECTION 1: 即時國際新聞 -->
-        <section class="ice-card p-6">
-            <div class="flex justify-between items-center mb-6 border-b border-blue-100 pb-4">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-bolt text-blue-600 text-xl"></i>
-                    <h2 class="text-xl font-bold text-slate-800">1. 國際即時新聞與突發事件</h2>
+        <!-- 1. 頂部即時滾動跑馬燈（包含核心指數與 SPYI/QQQI） -->
+        <div class="pink-card overflow-hidden p-2">
+            <div class="tradingview-widget-container">
+              <div class="tradingview-widget-container__widget"></div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+              {
+              "symbols": [
+                { "proName": "NEO:SPYI", "title": "SPYI (高股息)" },
+                { "proName": "NEO:QQQI", "title": "QQQI (科技高股息)" },
+                { "proName": "AMEX:DIVO", "title": "DIVO" },
+                { "proName": "AMEX:JEPI", "title": "JEPI" },
+                { "proName": "FOREXCOM:SPXUSD", "title": "標普 500" },
+                { "proName": "TVC:US10Y", "title": "10年美債" },
+                { "proName": "TVC:VIX", "title": "VIX 恐慌" }
+              ],
+              "showSymbolLogo": true,
+              "isTransparent": true,
+              "displayMode": "adaptive",
+              "colorTheme": "light",
+              "locale": "zh_TW"
+            }
+              </script>
+            </div>
+        </div>
+
+        <!-- 2. 現金流高股息 ETF 專屬監控板塊 (SPYI / QQQI / DIVO / JEPI) -->
+        <div class="pink-card p-5">
+            <div class="flex justify-between items-center mb-4 border-b border-pink-100 pb-3">
+                <h2 class="text-base font-bold text-pink-950 flex items-center gap-2">
+                    <i class="fa-solid fa-sack-dollar text-pink-500"></i> 即時現金流 & 股息 ETF 動態雷達 (SPYI / QQQI / DIVO)
+                </h2>
+                <span class="text-xs bg-pink-100 text-pink-700 px-2.5 py-1 rounded-md font-medium">交易所 Live 數據</span>
+            </div>
+            <div class="tradingview-widget-container" style="height: 380px;">
+              <div class="tradingview-widget-container__widget"></div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+              {
+              "width": "100%",
+              "height": "100%",
+              "defaultColumn": "overview",
+              "defaultScreen": "general",
+              "market": "america",
+              "showToolbar": false,
+              "colorTheme": "light",
+              "locale": "zh_TW",
+              "symbols": {
+                "tickers": [
+                  "NEO:SPYI",
+                  "NEO:QQQI",
+                  "AMEX:DIVO",
+                  "AMEX:JEPI",
+                  "AMEX:JEPQ",
+                  "AMEX:VTV"
+                ]
+              }
+            }
+              </script>
+            </div>
+        </div>
+
+        <!-- 3. 大盤 K 線圖與【可點擊閱讀】即時新聞流 -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- 左側：標普 SPY 即時走勢 -->
+            <div class="lg:col-span-2 pink-card p-5">
+                <h2 class="text-base font-bold text-pink-950 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-area text-pink-500"></i> SPY / 大盤即時技術走勢
+                </h2>
+                <div class="tradingview-widget-container" style="height: 360px;">
+                  <div id="tradingview_chart" style="height: 100%;"></div>
+                  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                  <script type="text/javascript">
+                  new TradingView.widget({
+                  "autosize": true,
+                  "symbol": "AMEX:SPY",
+                  "interval": "D",
+                  "timezone": "Asia/Hong_Kong",
+                  "theme": "light",
+                  "style": "1",
+                  "locale": "zh_TW",
+                  "toolbar_bg": "#f1f3f6",
+                  "enable_publishing": false,
+                  "allow_symbol_change": true,
+                  "container_id": "tradingview_chart"
+                });
+                  </script>
                 </div>
-                <span class="text-xs bg-blue-100 text-blue-700 font-semibold px-2.5 py-1 rounded-md">Live Feed</span>
             </div>
 
-            <div class="space-y-4">
-                <!-- News Item 1 -->
-                <div class="p-4 bg-blue-50/50 hover:bg-blue-50 transition border border-blue-100 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2">
-                            <span class="bg-red-100 text-red-600 text-xs font-bold px-2 py-0.5 rounded">突發 / 美聯儲</span>
-                            <span class="text-xs text-slate-400">10 分鐘前</span>
-                        </div>
-                        <h3 class="font-semibold text-slate-800 text-base">美聯儲發言人釋放鴿派訊號，市場預計年內降息機率上升</h3>
-                        <p class="text-sm text-slate-600">鮑威爾重申通脹數據放緩符合預期，債券收益率應聲下跌，科技股期貨盤前走高。</p>
-                    </div>
-                    <div class="flex items-center gap-2 shrink-0">
-                        <span class="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-lg font-bold">利好 QQQM / SPYM</span>
-                    </div>
-                </div>
-
-                <!-- News Item 2 -->
-                <div class="p-4 bg-blue-50/50 hover:bg-blue-50 transition border border-blue-100 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2">
-                            <span class="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-0.5 rounded">半導體 / AI</span>
-                            <span class="text-xs text-slate-400">25 分鐘前</span>
-                        </div>
-                        <h3 class="font-semibold text-slate-800 text-base">大型科技企業加大晶片資本支出，AI 產業鏈需求持續強勁</h3>
-                        <p class="text-sm text-slate-600">雲端巨頭公佈最新資本開支預算，半導體板塊早盤獲資金進駐。</p>
-                    </div>
-                    <div class="flex items-center gap-2 shrink-0">
-                        <span class="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-lg font-bold">利好 QQQM</span>
-                    </div>
-                </div>
-
-                <!-- News Item 3 -->
-                <div class="p-4 bg-blue-50/50 hover:bg-blue-50 transition border border-blue-100 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2">
-                            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded">宏觀 / 債務</span>
-                            <span class="text-xs text-slate-400">1 小時前</span>
-                        </div>
-                        <h3 class="font-semibold text-slate-800 text-base">美國 10 年期國債收益率高位震盪，高股息價值股表現抗跌</h3>
-                        <p class="text-sm text-slate-600">資金部分流向現金流強勁的防守型企業，防守型 ETF 表現平穩。</p>
-                    </div>
-                    <div class="flex items-center gap-2 shrink-0">
-                        <span class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-lg font-bold">利好 DIVO / VTV</span>
-                    </div>
+            <!-- 右側：即時美股新聞（可直接點擊看原文與詳細出處） -->
+            <div class="pink-card p-5">
+                <h2 class="text-base font-bold text-pink-950 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-newspaper text-pink-500"></i> 即時美股頭條新聞（點擊可睇原文）
+                </h2>
+                <div class="tradingview-widget-container" style="height: 360px;">
+                  <div class="tradingview-widget-container__widget"></div>
+                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                  {
+                  "feedMode": "market",
+                  "market": "stock",
+                  "colorTheme": "light",
+                  "isTransparent": true,
+                  "displayMode": "regular",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "zh_TW"
+                }
+                  </script>
                 </div>
             </div>
-        </section>
 
-        <!-- SECTION 2: 宏觀指數雷達 -->
-        <section class="ice-card p-6">
-            <div class="flex justify-between items-center mb-6 border-b border-blue-100 pb-4">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-chart-line text-blue-600 text-xl"></i>
-                    <h2 class="text-xl font-bold text-slate-800">2. 宏觀經濟與市場雷達</h2>
-                </div>
-                <span class="text-xs text-slate-500">每日更新</span>
+        </div>
+
+        <!-- 4. S&P 500 板塊熱力圖 -->
+        <div class="pink-card p-5">
+            <h2 class="text-base font-bold text-pink-950 mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-border-all text-pink-500"></i> S&P 500 板塊資金熱力圖
+            </h2>
+            <div class="tradingview-widget-container" style="height: 420px;">
+              <div class="tradingview-widget-container__widget"></div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+              {
+              "exchanges": [],
+              "dataSource": "SPX500",
+              "grouping": "sector",
+              "blockSize": "market_cap_basic",
+              "blockColor": "change",
+              "locale": "zh_TW",
+              "symbolUrl": "",
+              "colorTheme": "light",
+              "hasTopBar": false,
+              "isDataSetEnabled": false,
+              "isZoomEnabled": true,
+              "hasSymbolTooltip": true,
+              "width": "100%",
+              "height": "100%"
+            }
+              </script>
             </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <p class="text-xs text-slate-500 font-medium mb-1">美 10 年期國債收益率</p>
-                    <p class="text-2xl font-bold text-slate-800">4.25%</p>
-                    <span class="text-xs text-emerald-600 font-semibold">↓ -0.05% (利率回落)</span>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <p class="text-xs text-slate-500 font-medium mb-1">VIX 恐慌指數</p>
-                    <p class="text-2xl font-bold text-slate-800">14.2</p>
-                    <span class="text-xs text-emerald-600 font-semibold">↓ -0.8 (市場情緒平穩)</span>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <p class="text-xs text-slate-500 font-medium mb-1">美聯儲年內降息機率</p>
-                    <p class="text-2xl font-bold text-blue-600">78.5%</p>
-                    <span class="text-xs text-blue-600 font-semibold">↑ 市場預期增強</span>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <p class="text-xs text-slate-500 font-medium mb-1">美元指數 DXY</p>
-                    <p class="text-2xl font-bold text-slate-800">103.8</p>
-                    <span class="text-xs text-slate-500 font-semibold">→ 橫盤震盪</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 3: 專屬持股追蹤 -->
-        <section class="ice-card p-6">
-            <div class="flex justify-between items-center mb-6 border-b border-blue-100 pb-4">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-layer-group text-blue-600 text-xl"></i>
-                    <h2 class="text-xl font-bold text-slate-800">3. 個人專屬持股態勢</h2>
-                </div>
-                <span class="text-xs text-blue-600 font-semibold">連動定投 / 現金流組合</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="p-4 border border-blue-200 bg-blue-50/30 rounded-xl space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-lg text-blue-900">QQQM</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold">看好 (Bullish)</span>
-                    </div>
-                    <p class="text-xs text-slate-500">納斯達克 100 • 核心進攻</p>
-                    <p class="text-sm text-slate-700">受惠 AI 資本支出增加與降息預期，科技巨頭動能強勁。</p>
-                </div>
-
-                <div class="p-4 border border-blue-200 bg-blue-50/30 rounded-xl space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-lg text-blue-900">SPYM</span>
-                        <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold">穩健 (Positive)</span>
-                    </div>
-                    <p class="text-xs text-slate-500">S&P 500 • 長線底座</p>
-                    <p class="text-sm text-slate-700">大盤整體估值平穩，九月定投扣款日特價籌碼累積中。</p>
-                </div>
-
-                <div class="p-4 border border-blue-200 bg-blue-50/30 rounded-xl space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-lg text-blue-900">DIVO / VTV</span>
-                        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-bold">防守中性</span>
-                    </div>
-                    <p class="text-xs text-slate-500">高股息 + 價值底座</p>
-                    <p class="text-sm text-slate-700">優質藍籌提供穩定月月派息與抗跌保護，適合低波動配置。</p>
-                </div>
-            </div>
-        </section>
+        </div>
 
     </main>
 
-    <footer class="text-center text-xs text-slate-400 mt-12">
-        <p>© 美股咖啡晨報 Dashboard • 專為個人投資與晨間儀式感打造</p>
+    <footer class="text-center text-xs text-pink-400 mt-8">
+        <p>© 柔粉美股晨報 & 現金流 Dashboard • Powered by TradingView Live API</p>
     </footer>
 
 </body>
