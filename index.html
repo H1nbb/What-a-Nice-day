@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>早晨！美股咖啡晨報 Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f0f7ff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .ice-card { background: #ffffff; border: 1px solid #d0e3ff; border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 102, 255, 0.05); }
+        .glow-blue { box-shadow: 0 0 15px rgba(59, 130, 246, 0.15); }
+    </style>
+</head>
+<body class="text-slate-800 pb-12">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-6 px-6 shadow-md mb-8">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-white/20 p-3 rounded-2xl backdrop-blur-md">
+                    <i class="fa-solid to-coffee text-2xl text-amber-300">☕</i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-wide">早晨！美股咖啡晨報</h1>
+                    <p class="text-blue-100 text-sm">即時捕捉全球動態 • 專屬持股雷達</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="bg-emerald-500/20 text-emerald-100 border border-emerald-400/30 text-xs px-3 py-1.5 rounded-full flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    系統穩定運作中 (Zero-Error Mode)
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 space-y-8">
+
+        <!-- SECTION 1: 即時國際新聞 -->
+        <section class="ice-card p-6">
+            <div class="flex justify-between items-center mb-6 border-b border-blue-100 pb-4">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-blue-600 text-xl"></i>
+                    <h2 class="text-xl font-bold text-slate-800">1. 國際即時新聞與突發事件</h2>
+                </div>
+                <span class="text-xs bg-blue-100 text-blue-700 font-semibold px-2.5 py-1 rounded-md">Live Feed</span>
+            </div>
+
+            <div class="space-y-4">
+                <!-- News Item 1 -->
+                <div class="p-4 bg-blue-50/50 hover:bg-blue-50 transition border border-blue-100 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-red-100 text-red-600 text-xs font-bold px-2 py-0.5 rounded">突發 / 美聯儲</span>
+                            <span class="text-xs text-slate-400">10 分鐘前</span>
+                        </div>
+                        <h3 class="font-semibold text-slate-800 text-base">美聯儲發言人釋放鴿派訊號，市場預計年內降息機率上升</h3>
+                        <p class="text-sm text-slate-600">鮑威爾重申通脹數據放緩符合預期，債券收益率應聲下跌，科技股期貨盤前走高。</p>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <span class="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-lg font-bold">利好 QQQM / SPYM</span>
+                    </div>
+                </div>
+
+                <!-- News Item 2 -->
+                <div class="p-4 bg-blue-50/50 hover:bg-blue-50 transition border border-blue-100 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-0.5 rounded">半導體 / AI</span>
+                            <span class="text-xs text-slate-400">25 分鐘前</span>
+                        </div>
+                        <h3 class="font-semibold text-slate-800 text-base">大型科技企業加大晶片資本支出，AI 產業鏈需求持續強勁</h3>
+                        <p class="text-sm text-slate-600">雲端巨頭公佈最新資本開支預算，半導體板塊早盤獲資金進駐。</p>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <span class="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-lg font-bold">利好 QQQM</span>
+                    </div>
+                </div>
+
+                <!-- News Item 3 -->
+                <div class="p-4 bg-blue-50/50 hover:bg-blue-50 transition border border-blue-100 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded">宏觀 / 債務</span>
+                            <span class="text-xs text-slate-400">1 小時前</span>
+                        </div>
+                        <h3 class="font-semibold text-slate-800 text-base">美國 10 年期國債收益率高位震盪，高股息價值股表現抗跌</h3>
+                        <p class="text-sm text-slate-600">資金部分流向現金流強勁的防守型企業，防守型 ETF 表現平穩。</p>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <span class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-lg font-bold">利好 DIVO / VTV</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: 宏觀指數雷達 -->
+        <section class="ice-card p-6">
+            <div class="flex justify-between items-center mb-6 border-b border-blue-100 pb-4">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-chart-line text-blue-600 text-xl"></i>
+                    <h2 class="text-xl font-bold text-slate-800">2. 宏觀經濟與市場雷達</h2>
+                </div>
+                <span class="text-xs text-slate-500">每日更新</span>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <p class="text-xs text-slate-500 font-medium mb-1">美 10 年期國債收益率</p>
+                    <p class="text-2xl font-bold text-slate-800">4.25%</p>
+                    <span class="text-xs text-emerald-600 font-semibold">↓ -0.05% (利率回落)</span>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <p class="text-xs text-slate-500 font-medium mb-1">VIX 恐慌指數</p>
+                    <p class="text-2xl font-bold text-slate-800">14.2</p>
+                    <span class="text-xs text-emerald-600 font-semibold">↓ -0.8 (市場情緒平穩)</span>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <p class="text-xs text-slate-500 font-medium mb-1">美聯儲年內降息機率</p>
+                    <p class="text-2xl font-bold text-blue-600">78.5%</p>
+                    <span class="text-xs text-blue-600 font-semibold">↑ 市場預期增強</span>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <p class="text-xs text-slate-500 font-medium mb-1">美元指數 DXY</p>
+                    <p class="text-2xl font-bold text-slate-800">103.8</p>
+                    <span class="text-xs text-slate-500 font-semibold">→ 橫盤震盪</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: 專屬持股追蹤 -->
+        <section class="ice-card p-6">
+            <div class="flex justify-between items-center mb-6 border-b border-blue-100 pb-4">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-blue-600 text-xl"></i>
+                    <h2 class="text-xl font-bold text-slate-800">3. 個人專屬持股態勢</h2>
+                </div>
+                <span class="text-xs text-blue-600 font-semibold">連動定投 / 現金流組合</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 border border-blue-200 bg-blue-50/30 rounded-xl space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-lg text-blue-900">QQQM</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold">看好 (Bullish)</span>
+                    </div>
+                    <p class="text-xs text-slate-500">納斯達克 100 • 核心進攻</p>
+                    <p class="text-sm text-slate-700">受惠 AI 資本支出增加與降息預期，科技巨頭動能強勁。</p>
+                </div>
+
+                <div class="p-4 border border-blue-200 bg-blue-50/30 rounded-xl space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-lg text-blue-900">SPYM</span>
+                        <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold">穩健 (Positive)</span>
+                    </div>
+                    <p class="text-xs text-slate-500">S&P 500 • 長線底座</p>
+                    <p class="text-sm text-slate-700">大盤整體估值平穩，九月定投扣款日特價籌碼累積中。</p>
+                </div>
+
+                <div class="p-4 border border-blue-200 bg-blue-50/30 rounded-xl space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-lg text-blue-900">DIVO / VTV</span>
+                        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-bold">防守中性</span>
+                    </div>
+                    <p class="text-xs text-slate-500">高股息 + 價值底座</p>
+                    <p class="text-sm text-slate-700">優質藍籌提供穩定月月派息與抗跌保護，適合低波動配置。</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center text-xs text-slate-400 mt-12">
+        <p>© 美股咖啡晨報 Dashboard • 專為個人投資與晨間儀式感打造</p>
+    </footer>
+
+</body>
+</html>
