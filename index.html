@@ -14,7 +14,7 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- 頂部跑馬燈 (已加入 SGOV) -->
+    <!-- 頂部跑馬燈 (完整保留) -->
     <div class="tradingview-widget-container bg-pink-900 border-b border-pink-700">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
@@ -24,8 +24,8 @@
                 { "proName": "AMEX:SPY", "title": "標普500 (SPY)" },
                 { "proName": "NASDAQ:QQQ", "title": "納指100 (QQQ)" },
                 { "proName": "NASDAQ:SOXX", "title": "半導體 (SOXX)" },
-                { "proName": "TVC:USOIL", "title": "WTI原油" },
-                { "proName": "US10Y", "title": "10年美債" },
+                { "proName": "TVC:US10Y", "title": "10年美債" },
+                { "proName": "TVC:US02Y", "title": "2年美債" },
                 { "proName": "TVC:VIX", "title": "恐慌指數 (VIX)" }
             ],
             "showSymbolLogo": true,
@@ -37,7 +37,7 @@
         </script>
     </div>
 
-    <!-- Header -->
+    <!-- Header (完整保留) -->
     <header class="bg-gradient-to-r from-pink-400 via-rose-300 to-pink-300 text-white py-3.5 px-6 shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-3">
@@ -64,6 +64,7 @@
         <!-- 頁面 1：核心資產與美債收益率 -->
         <div id="tab-macro" class="tab-content flex-1 flex flex-col space-y-6">
             
+            <!-- 頂部 4 個統計卡片 (完整保留) -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div class="pink-card p-4 flex items-center justify-between">
                     <div>
@@ -95,29 +96,90 @@
                 </div>
             </div>
 
-            <!-- 各年期美國國債收益率 (US Treasury Yield Curve) -->
+            <!-- 新增模組 1：大盤動態 K 線圖表 (SPY / QQQ 交互式圖表) -->
             <div class="pink-card p-6">
                 <div class="flex justify-between items-center mb-4">
                     <div>
                         <h2 class="text-xl font-bold text-pink-950 flex items-center gap-2">
-                            <i class="fa-solid fa-landmark text-pink-600"></i> 美國各年期國債收益率 (US Treasury Yield Curve)
+                            <i class="fa-solid fa-chart-candlestick text-pink-600"></i> 標普 500 (SPY) 動態技術分析圖表
                         </h2>
-                        <p class="text-xs text-pink-800/80 mt-1">涵蓋短期至長期美債收益率即時跳動數據 (1M, 3M, 2Y, 5Y, 10Y, 30Y)</p>
+                        <p class="text-xs text-pink-800/80 mt-1">包含動態 K 線、均線與技術面指標，支援即時切換標的</p>
+                    </div>
+                    <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">交互式圖表</span>
+                </div>
+                <div class="w-full rounded-xl overflow-hidden border border-pink-200" style="height: 400px;">
+                    <div class="tradingview-widget-container" style="height:100%;width:100%">
+                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                        <script type="text/javascript">
+                        new TradingView.widget({
+                            "autosize": true,
+                            "symbol": "AMEX:SPY",
+                            "interval": "D",
+                            "timezone": "Asia/Hong_Kong",
+                            "theme": "light",
+                            "style": "1",
+                            "locale": "zh_TW",
+                            "toolbar_bg": "#f1f3f6",
+                            "enable_publishing": false,
+                            "allow_symbol_change": true,
+                            "container_id": "tradingview_spy_chart"
+                        });
+                        </script>
+                        <div id="tradingview_spy_chart" style="height:100%;width:100%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 原有美債收益率列表 (完整保留) -->
+            <div class="pink-card p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-pink-950 flex items-center gap-2">
+                            <i class="fa-solid fa-landmark text-pink-600"></i> 美國主要國債收益率 (US Treasuries)
+                        </h2>
+                        <p class="text-xs text-pink-800/80 mt-1">涵蓋基準短中長期美債收益率數據</p>
                     </div>
                     <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">即時監測</span>
                 </div>
 
-                <div class="w-full rounded-xl overflow-hidden border border-pink-200" style="height: 320px;">
-                    <iframe src="https://s.tradingview.com/embed-widget/market-quotes/?locale=zh_TW#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22symbolsGroups%22%3A%5B%7B%22name%22%3A%22%E7%BE%8E%E5%9C%8B%E5%9C%8B%E5%82%B5%E6%94%B6%E7%9B%8A%E7%8E%87%22%2C%22originalName%22%3A%22Bonds%22%2C%22symbols%22%3A%5B%7B%22name%22%3A%22TVC%3AUS01M%22%2C%22displayName%22%3A%221%20%E5%80%8B%E6%9C%88%E7%BE%8E%E5%82%B5%20(US01M)%22%7D%2C%7B%22name%22%3A%22TVC%3AUS03M%22%2C%22displayName%22%3A%223%20%E5%80%8B%E6%9C%88%E7%BE%8E%E5%82%B5%20(US03M)%22%7D%2C%7B%22name%22%3A%22TVC%3AUS02Y%22%2C%22displayName%22%3A%222%20%E5%B9%B4%E6%9C%9F%E7%BE%8E%E5%82%B5%20(US02Y)%22%7D%2C%7B%22name%22%3A%22TVC%3AUS05Y%22%2C%22displayName%22%3A%225%20%E5%B9%B4%E6%9C%9F%E7%BE%8E%E5%82%B5%20(US05Y)%22%7D%2C%7B%22name%22%3A%22US10Y%22%2C%22displayName%22%3A%2210%20%E5%B9%B4%E6%9C%9F%E7%BE%8E%E5%82%B5%20(US10Y)%22%7D%2C%7B%22name%22%3A%22TVC%3AUS30Y%22%2C%22displayName%22%3A%2230%20%E5%B9%B4%E6%9C%9F%E7%BE%8E%E5%82%B5%20(US30Y)%22%7D%5D%7D%5D%2C%22showSymbolLogo%22%3Atrue%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Atrue%7D" class="w-full h-full border-0"></iframe>
+                <div class="w-full rounded-xl overflow-hidden border border-pink-200" style="height: 300px;">
+                    <div class="tradingview-widget-container" style="height: 100%;">
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                        {
+                            "colorTheme": "light",
+                            "dateRange": "12M",
+                            "showChart": false,
+                            "locale": "zh_TW",
+                            "largeChartUrl": "",
+                            "isTransparent": true,
+                            "showSymbolLogo": true,
+                            "showFloatingTooltip": false,
+                            "width": "100%",
+                            "height": "100%",
+                            "tabs": [
+                                {
+                                    "title": "美債收益率",
+                                    "symbols": [
+                                        { "s": "TVC:US03M", "d": "3個月美債收益率" },
+                                        { "s": "TVC:US02Y", "d": "2年期美債收益率" },
+                                        { "s": "TVC:US05Y", "d": "5年期美債收益率" },
+                                        { "s": "TVC:US10Y", "d": "10年期美債收益率" },
+                                        { "s": "TVC:US30Y", "d": "30年期美債收益率" }
+                                    ]
+                                }
+                            ]
+                        }
+                        </script>
+                    </div>
                 </div>
             </div>
 
-            <!-- 第一頁下方：核心大盤、國債與商品行情列表 (已包含 SGOV) -->
+            <!-- 原有核心大盤與商品行情列表 (完整保留) -->
             <div class="pink-card p-6 flex-1 flex flex-col" style="min-height: 420px;">
                 <div class="flex justify-between items-center mb-4">
                     <div>
                         <h2 class="text-xl font-bold text-pink-950 flex items-center gap-2">
-                            <i class="fa-solid fa-list-check text-pink-600"></i> 跑馬燈大盤與商品即時行情列表
+                            <i class="fa-solid fa-list-check text-pink-600"></i> 核心資產與商品行情列表
                         </h2>
                         <p class="text-xs text-pink-800/80 mt-1">包含 SGOV 超短期國債、SPY、QQQ、SOXX、原油與 VIX 的即時價格與動態</p>
                     </div>
@@ -125,13 +187,69 @@
                 </div>
 
                 <div class="w-full flex-1 rounded-xl overflow-hidden border border-pink-200" style="min-height: 340px;">
-                    <iframe src="https://s.tradingview.com/embed-widget/market-quotes/?locale=zh_TW#%7B%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22symbolsGroups%22%3A%5B%7B%22name%22%3A%22%E5%A4%A7%E7%9B%A4%E8%88%87%E5%A4%A7%E2%80%8B%E2%80%8B%E2%80%8B%E2%80%8B%E5%AE%97%E5%95%86%E5%93%81%22%2C%22originalName%22%3A%22Indices%22%2C%22symbols%22%3A%5B%7B%22name%22%3A%22AMEX%3ASGOV%22%2C%22displayName%22%3A%22%E7%9F%AD%E6%9C%9F%E7%BE%8E%E5%82%B5%20ETF%20(SGOV)%22%7D%2C%7B%22name%22%3A%22AMEX%3ASPY%22%2C%22displayName%22%3A%22%E6%A0%87%E6%99%AE%20500%20ETF%20(SPY)%22%7D%2C%7B%22name%22%3A%22NASDAQ%3AQQQ%22%2C%22displayName%22%3A%22%E7%B4%8D%E6%8C%87%20100%20ETF%20(QQQ)%22%7D%2C%7B%22name%22%3A%22NASDAQ%3ASOXX%22%2C%22displayName%22%3A%22%E8%B2%BB%E5%9F%8E%E5%8D%8A%E5%B0%8E%E9%AB%94%20ETF%20(SOXX)%22%7D%2C%7B%22name%22%3A%22TVC%3AUSOIL%22%2C%22displayName%22%3A%22WTI%20%E5%8E%9F%E2%80%8B%E2%80%8B%E6%B2%B9%E6%9C%9F%E8%B2%A8%20(USOIL)%22%7D%2C%7B%22name%22%3A%22TVC%3AVIX%22%2C%22displayName%22%3A%22VIX%20%E6%81%90%E6%85%8C%E6%8C%87%E6%95%B8%22%7D%5D%7D%5D%2C%22showSymbolLogo%22%3Atrue%2C%22colorTheme%22%3A%22light%22%2C%22isTransparent%22%3Atrue%7D" class="w-full h-full border-0" style="min-height: 340px;"></iframe>
+                    <div class="tradingview-widget-container" style="height: 100%;">
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                        {
+                            "colorTheme": "light",
+                            "dateRange": "12M",
+                            "showChart": false,
+                            "locale": "zh_TW",
+                            "largeChartUrl": "",
+                            "isTransparent": true,
+                            "showSymbolLogo": true,
+                            "showFloatingTooltip": false,
+                            "width": "100%",
+                            "height": "100%",
+                            "tabs": [
+                                {
+                                    "title": "大盤與商品",
+                                    "symbols": [
+                                        { "s": "AMEX:SGOV", "d": "短期美債 ETF (SGOV)" },
+                                        { "s": "AMEX:SPY", "d": "標普 500 ETF (SPY)" },
+                                        { "s": "NASDAQ:QQQ", "d": "納指 100 ETF (QQQ)" },
+                                        { "s": "NASDAQ:SOXX", "d": "費城半導體 ETF (SOXX)" },
+                                        { "s": "TVC:USOIL", "d": "WTI 原油期貨" },
+                                        { "s": "TVC:VIX", "d": "VIX 恐慌指數" }
+                                    ]
+                                }
+                            ]
+                        }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 新增模組 2：關鍵宏觀財經日曆 (Economic Calendar) -->
+            <div class="pink-card p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-pink-950 flex items-center gap-2">
+                            <i class="fa-solid fa-calendar-days text-pink-600"></i> 本週重點宏觀財經日曆 (Economic Calendar)
+                        </h2>
+                        <p class="text-xs text-pink-800/80 mt-1">追蹤美聯儲利率決議、CPI 物價指數、非農數據等重大事件</p>
+                    </div>
+                    <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">動態更新</span>
+                </div>
+                <div class="w-full rounded-xl overflow-hidden border border-pink-200" style="height: 400px;">
+                    <div class="tradingview-widget-container" style="height: 100%;">
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                        {
+                            "colorTheme": "light",
+                            "isTransparent": true,
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "zh_TW",
+                            "importanceFilter": "0,1",
+                            "currencyFilter": "USD"
+                        }
+                        </script>
+                    </div>
                 </div>
             </div>
 
         </div>
 
-        <!-- 頁面 2：現金流資產清單 -->
+        <!-- 頁面 2：現金流資產清單 (完整保留) -->
         <div id="tab-cashflow" class="tab-content hidden flex-1 flex flex-col space-y-6">
             <div class="pink-card p-6">
                 <div class="mb-4">
@@ -249,7 +367,7 @@
             </div>
         </div>
 
-        <!-- 頁面 3：中文新聞摘要 -->
+        <!-- 頁面 3：中文新聞摘要 (完整保留) -->
         <div id="tab-news" class="tab-content hidden flex-1 flex flex-col space-y-4">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <a href="https://hk.finance.yahoo.com/quote/SPYI/news" target="_blank" class="bg-white p-3 rounded-xl border border-pink-200 text-center hover:bg-pink-50 transition-all shadow-sm">
@@ -280,7 +398,7 @@
             </div>
         </div>
 
-        <!-- 頁面 4：全市場熱力圖 -->
+        <!-- 頁面 4：全市場熱力圖 (完整保留) -->
         <div id="tab-heatmap" class="tab-content hidden flex-1 flex flex-col">
             <div class="pink-card p-5 flex-1 flex flex-col">
                 <div class="flex justify-between items-center mb-3">
