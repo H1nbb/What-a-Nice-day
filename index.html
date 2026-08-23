@@ -106,7 +106,7 @@
 
     <main class="max-w-7xl w-full mx-auto px-4 py-6 flex-1 flex flex-col space-y-6">
 
-        <!-- 頁面 1：核心資產與美債 (對齊第一張截圖) -->
+        <!-- 頁面 1：核心資產與美債 -->
         <div id="tab-macro" class="tab-pane flex flex-col space-y-6">
             
             <!-- 頂部 4 個小報價方塊 -->
@@ -132,7 +132,7 @@
                 </div>
             </div>
 
-            <!-- 美國主要國債收益率 (US Treasuries) -->
+            <!-- 美國主要國債收益率 (US Treasuries) - 已修正數據源 -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-landmark text-pink-600 mr-2"></i>美國主要國債收益率 (US Treasuries)</h2>
                 <p class="text-xs text-desc mb-3">涵蓋短中長端美國公債收益率表現</p>
@@ -146,11 +146,11 @@
                                 {
                                     "name": "US Treasuries",
                                     "symbols": [
-                                        { "name": "ECONOMICS:US03MY", "title": "US03M (3個月期美債收益率)" },
-                                        { "name": "ECONOMICS:US02YY", "title": "US02Y (2年期美債收益率)" },
-                                        { "name": "ECONOMICS:US05YY", "title": "US05Y (5年期美債收益率)" },
-                                        { "name": "ECONOMICS:US10YY", "title": "US10Y (10年期美債收益率)" },
-                                        { "name": "ECONOMICS:US30YY", "title": "US30Y (30年期美債收益率)" }
+                                        { "name": "TVC:US03MY", "title": "US03M (3個月期美債收益率)" },
+                                        { "name": "TVC:US02Y", "title": "US02Y (2年期美債收益率)" },
+                                        { "name": "TVC:US05Y", "title": "US05Y (5年期美債收益率)" },
+                                        { "name": "TVC:US10Y", "title": "US10Y (10年期美債收益率)" },
+                                        { "name": "TVC:US30Y", "title": "US30Y (30年期美債收益率)" }
                                     ]
                                 }
                             ],
@@ -220,7 +220,7 @@
 
         </div>
 
-        <!-- 頁面 2：現金流資產與報價 (對齊第二張截圖) -->
+        <!-- 頁面 2：現金流資產與報價 -->
         <div id="tab-cashflow" class="tab-pane hidden flex-col space-y-6">
             
             <!-- 現金流資產即時報價 6 個小方塊 -->
