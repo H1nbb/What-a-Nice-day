@@ -838,3 +838,6 @@
     </script>
 </body>
 </html>
+function getYieldForSymbol(symbol) {
+    return defaultDividendYields[symbol] !== undefined ? defaultDividendYields[symbol] : 5.0;
+}
