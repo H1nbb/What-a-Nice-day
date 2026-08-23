@@ -8,11 +8,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fce7f3; /* 粉紅色背景 */
-            --card-bg: #ffffff;  /* 純白卡片確保高對比 */
+            --bg-color: #fce7f3;
+            --card-bg: #ffffff;
             --card-border: #f472b6;
-            --text-primary: #000000; /* 純黑字體，絕對清晰 */
-            --text-secondary: #374151; /* 深灰色副標題 */
+            --text-primary: #000000;
+            --text-secondary: #374151;
             --tab-active: #db2777;
             --tab-active-text: #ffffff;
             --input-bg: #ffffff;
@@ -55,7 +55,7 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- 頂部跑馬燈 (強制置頂) -->
+    <!-- 頂部跑馬燈 -->
     <div class="tradingview-widget-container bg-white border-b-2 border-pink-300">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
@@ -107,12 +107,12 @@
     <main class="max-w-7xl w-full mx-auto px-4 py-6 flex-1 flex flex-col space-y-6">
 
         <!-- 頁面 1：核心資產與美債收益率 -->
-        <div id="tab-macro" class="tab-content flex-1 flex flex-col space-y-6">
+        <div id="tab-macro" class="tab-pane flex flex-col space-y-6">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-                <div class="dashboard-card p-2"><div class="tradingview-widget-container" style="height: 110px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPY", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                <div class="dashboard-card p-2"><div class="tradingview-widget-container" style="height: 110px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US10Y", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                <div class="dashboard-card p-2"><div class="tradingview-widget-container" style="height: 110px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:VIX", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                <div class="dashboard-card p-2"><div class="tradingview-widget-container" style="height: 110px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:USOIL", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPY", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "ECONOMICS:US10Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:VIX", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                <div class="dashboard-card p-2 h-[120px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:USOIL", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
             </div>
 
             <div class="dashboard-card p-5">
@@ -137,22 +137,22 @@
         </div>
 
         <!-- 頁面 2：現金流資產清單 -->
-        <div id="tab-cashflow" class="tab-content hidden flex-1 flex flex-col space-y-6">
+        <div id="tab-cashflow" class="tab-pane hidden flex-col space-y-6">
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-4"><i class="fa-solid fa-sack-dollar text-pink-600 mr-2"></i>現金流資產即時報價</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mb-6">
-                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200"><div class="tradingview-widget-container" style="height: 125px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPYI", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200"><div class="tradingview-widget-container" style="height: 125px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NASDAQ:QQQI", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200"><div class="tradingview-widget-container" style="height: 125px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NYSEARCA:SPMO", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200"><div class="tradingview-widget-container" style="height: 125px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "HKEX:941", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200"><div class="tradingview-widget-container" style="height: 125px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NYSEARCA:DIVO", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200"><div class="tradingview-widget-container" style="height: 125px;"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NYSEARCA:JEPI", "width": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200 h-[130px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPYI", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200 h-[130px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NASDAQ:QQQI", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200 h-[130px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NYSEARCA:SPMO", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200 h-[130px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "HKEX:941", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200 h-[130px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NYSEARCA:DIVO", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="bg-gray-50 p-2 rounded-xl border-2 border-pink-200 h-[130px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NYSEARCA:JEPI", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                 </div>
             </div>
         </div>
 
         <!-- 頁面 3：中文新聞摘要 -->
-        <div id="tab-news" class="tab-content hidden flex-1 flex flex-col space-y-4">
+        <div id="tab-news" class="tab-pane hidden flex-col space-y-4">
             <div class="dashboard-card p-5 flex-1 flex flex-col" style="min-height: 550px;">
                 <h2 class="text-base font-black text-black mb-3"><i class="fa-solid fa-rss text-pink-600 mr-2"></i>即時美股中文新聞摘要</h2>
                 <div class="flex-1 w-full overflow-hidden rounded-xl border-2 border-pink-200">
@@ -162,7 +162,7 @@
         </div>
 
         <!-- 頁面 4：全市場熱力圖 -->
-        <div id="tab-heatmap" class="tab-content hidden flex-1 flex flex-col">
+        <div id="tab-heatmap" class="tab-pane hidden flex-col">
             <div class="dashboard-card p-5 flex-1 flex flex-col">
                 <h2 class="text-base font-black text-black mb-3"><i class="fa-solid fa-fire text-amber-500 mr-2"></i>S&P 500 板塊資金熱力圖</h2>
                 <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200" style="height: 650px;">
@@ -172,9 +172,8 @@
         </div>
 
         <!-- 頁面 5：多標的定投、幣種轉換與複利計算器 -->
-        <div id="tab-calc" class="tab-content hidden flex-1 flex flex-col space-y-6">
+        <div id="tab-calc" class="tab-pane hidden flex-col space-y-6">
             
-            <!-- 多標的定投計算器 -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-pink-200 pb-4">
                     <div>
@@ -225,7 +224,6 @@
                 </div>
             </div>
 
-            <!-- 長期複利與現金流增長預測 (已加入雙幣轉換) -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-pink-200 pb-4">
                     <div>
@@ -280,7 +278,7 @@
         ];
 
         function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(el => {
+            document.querySelectorAll('.tab-pane').forEach(el => {
                 el.classList.add('hidden');
                 el.classList.remove('flex');
             });
@@ -333,7 +331,7 @@
             stocks[index].weight = parseFloat(val) || 0;
             const container = document.getElementById('stocks-container');
             const numInput = container.children[index]?.querySelector('input[type="number"]');
-            if(numInput && document.activeElement !== numInput) numInput.value = newVal;
+            if(numInput && document.activeElement !== numInput) numInput.value = val;
             calculateMultiDCA();
         }
 
@@ -423,7 +421,6 @@
             const principal = monthly * months;
             const monthlyPassiveIncome = (totalFutureValue * annualRate) / 12;
 
-            // 假設複利輸入是以港幣為單位進行折算顯示
             document.getElementById('compound-principal-hkd').innerText = `$${Math.round(principal).toLocaleString()} HKD`;
             document.getElementById('compound-principal-usd').innerText = `≈ $${Math.round(principal / fxRate).toLocaleString()} USD`;
             
