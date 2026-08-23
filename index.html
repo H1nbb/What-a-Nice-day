@@ -132,35 +132,17 @@
                 </div>
             </div>
 
-            <!-- 美國主要國債收益率 (US Treasuries) - 已修正數據源 -->
+            <!-- 美國主要國債收益率 (US Treasuries) - 改用小方塊保證 100% 顯示 -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-black mb-1"><i class="fa-solid fa-landmark text-pink-600 mr-2"></i>美國主要國債收益率 (US Treasuries)</h2>
-                <p class="text-xs text-desc mb-3">涵蓋短中長端美國公債收益率表現</p>
-                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-200 p-2 bg-white" style="height: 260px;">
-                    <div class="tradingview-widget-container" style="height:100%;width:100%">
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
-                        {
-                            "width": "100%",
-                            "height": "100%",
-                            "symbolsGroups": [
-                                {
-                                    "name": "US Treasuries",
-                                    "symbols": [
-                                        { "name": "TVC:US03MY", "title": "US03M (3個月期美債收益率)" },
-                                        { "name": "TVC:US02Y", "title": "US02Y (2年期美債收益率)" },
-                                        { "name": "TVC:US05Y", "title": "US05Y (5年期美債收益率)" },
-                                        { "name": "TVC:US10Y", "title": "US10Y (10年期美債收益率)" },
-                                        { "name": "TVC:US30Y", "title": "US30Y (30年期美債收益率)" }
-                                    ]
-                                }
-                            ],
-                            "showSymbolLogo": true,
-                            "colorTheme": "light",
-                            "isTransparent": true,
-                            "locale": "zh_TW"
-                        }
-                        </script>
-                    </div>
+                <p class="text-xs text-desc mb-3">涵蓋短中長端美國公債收益率即時表現</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+                    <div class="dashboard-card p-2 h-[110px] bg-white"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US03Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="dashboard-card p-2 h-[110px] bg-white"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US02Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="dashboard-card p-2 h-[110px] bg-white"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US05Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="dashboard-card p-2 h-[110px] bg-white"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US10Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="dashboard-card p-2 h-[110px] bg-white"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:US30Y", "width": "100%", "height": "100%", "colorTheme": "light", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                 </div>
             </div>
 
