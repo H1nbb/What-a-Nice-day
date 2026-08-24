@@ -6,19 +6,18 @@
     <title>美股量化 & 現金流 Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- 引入 Chart.js 用於繪製升級後的動態資產曲線與蒙地卡羅模擬 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --bg-color: #121824;          /* 護眼深色背景 (柔和深灰藍) */
-            --card-bg: #1e293b;           /* 卡片深色背景 */
-            --card-border: #db2777;       /* 亮粉紅邊框保持特色 */
-            --text-primary: #f8fafc;      /* 主文字：極亮白，極易讀 */
-            --text-secondary: #cbd5e1;    /* 次要文字：柔和淺灰 */
+            --bg-color: #121824;          
+            --card-bg: #1e293b;           
+            --card-border: #db2777;       
+            --text-primary: #f8fafc;      
+            --text-secondary: #cbd5e1;    
             --tab-active: #db2777;        
             --tab-active-text: #ffffff;
-            --input-bg: #0f172a;          /* 輸入框深色背景 */
-            --input-border: #475569;      /* 輸入框邊框 */
+            --input-bg: #0f172a;          
+            --input-border: #475569;      
         }
 
         html, body { 
@@ -71,7 +70,6 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- 頂部跑馬燈價格列表 -->
     <div class="tradingview-widget-container bg-[#1e293b] border-b-2 border-pink-500">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
@@ -96,7 +94,6 @@
         </script>
     </div>
 
-    <!-- Header -->
     <header class="bg-[#1e293b]/95 backdrop-blur-md py-3 px-4 md:px-6 border-b-2 border-pink-500 sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-3 w-full md:w-auto">
@@ -140,7 +137,6 @@
                 <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "TVC:USOIL", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
             </div>
 
-            <!-- 動態技術分析圖表 -->
             <div class="dashboard-card p-5">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-3">
                     <div>
@@ -319,6 +315,7 @@
                 </div>
             </div>
 
+            <!-- 復原：現金流資產屬性對照表 -->
             <div class="dashboard-card p-6">
                 <h2 class="text-lg font-black text-white mb-1"><i class="fa-solid fa-table-cells text-pink-500 mr-2"></i>現金流資產屬性對照表</h2>
                 <p class="text-xs text-desc mb-5">詳細列出代碼、名稱、預估年化股息率與策略優勢</p>
@@ -405,7 +402,6 @@
         <!-- 頁面 5：多標的定投、幣種轉換與動態階段複利計算器 -->
         <div id="tab-calc" class="tab-pane hidden flex-col space-y-6">
             
-            <!-- 定投計算器 -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
@@ -456,15 +452,14 @@
                 </div>
             </div>
 
-            <!-- 長期複利與資產增長動態預測計劃（已升級 5 大新功能：逆向目標、通膨、本金複利拆解、重大現金流、蒙地卡羅） -->
+            <!-- 長期複利計劃（收益率改為手動輸入） -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
                         <h2 class="text-base font-black text-white"><i class="fa-solid fa-arrow-trend-up text-pink-500 mr-2"></i>長期複利與資產增長動態預測計劃（進階量化戰情室）</h2>
-                        <p class="text-xs text-desc">支援 1 至 5 個階段自由增減；整合逆向規劃、通膨調整、本金複利拆解、現金流事件與蒙地卡羅情境模擬</p>
+                        <p class="text-xs text-desc">支援 1 至 5 個階段自由增減；各資產收益率支援手動輸入</p>
                     </div>
                     <div class="flex flex-wrap gap-2">
-                        <!-- 功能 1 按鈕：逆向目標規劃器 Modal 觸發 -->
                         <button onclick="openReverseCalcModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black px-3.5 py-2 rounded-xl shadow-sm transition-all flex items-center gap-1">
                             <i class="fa-solid fa-bullseye"></i> 逆向目標規劃
                         </button>
@@ -477,14 +472,13 @@
                     </div>
                 </div>
 
-                <!-- 功能 2, 5 的全域參數列：通膨率、蒙地卡羅情境切換 -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6 bg-[#0f172a] p-4 rounded-xl border border-pink-500/40">
                     <div>
-                        <label class="block text-xs font-black text-white mb-1"><i class="fa-solid fa-percent text-pink-400 mr-1"></i>預估年化通膨率 (%) [功能2]</label>
+                        <label class="block text-xs font-black text-white mb-1"><i class="fa-solid fa-percent text-pink-400 mr-1"></i>預估年化通膨率 (%)</label>
                         <input type="number" id="global-inflation-rate" value="2.5" step="0.1" class="custom-input w-full p-2 rounded-xl text-xs" oninput="calculatePhases()">
                     </div>
                     <div>
-                        <label class="block text-xs font-black text-white mb-1"><i class="fa-solid fa-dice text-amber-400 mr-1"></i>蒙地卡羅情境模擬 [功能5]</label>
+                        <label class="block text-xs font-black text-white mb-1"><i class="fa-solid fa-dice text-amber-400 mr-1"></i>蒙地卡羅情境模擬</label>
                         <select id="monte-carlo-mode" class="custom-input w-full p-2 rounded-xl text-xs" onchange="calculatePhases()">
                             <option value="normal" selected>正常基准回報 (0% 偏移)</option>
                             <option value="bull">🟢 樂觀情境：牛市加碼 (+3% 回報)</option>
@@ -492,14 +486,13 @@
                         </select>
                     </div>
                     <div class="flex items-end">
-                        <div class="text-xs text-desc pb-1">💡 曲線將即時反映通膨實際購買力虛線與波動極限</div>
+                        <div class="text-xs text-desc pb-1">💡 股票收益率現可直接於下方各階段手動修改</div>
                     </div>
                 </div>
 
-                <!-- 功能 4 控制列：重大現金流事件清單 -->
                 <div class="mb-6 bg-[#0f172a] p-4 rounded-xl border border-pink-500/40">
                     <div class="flex justify-between items-center mb-3">
-                        <span class="text-xs font-black text-white"><i class="fa-solid fa-money-bill-transfer text-pink-400 mr-1"></i> 重大現金流事件設定 [功能4]（如買房頭期款、大額獎金）</span>
+                        <span class="text-xs font-black text-white"><i class="fa-solid fa-money-bill-transfer text-pink-400 mr-1"></i> 重大現金流事件設定（如買房頭期款、大額獎金）</span>
                         <button onclick="addCashFlowEvent()" class="bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-all">
                             <i class="fa-solid fa-plus mr-1"></i>新增事件
                         </button>
@@ -509,7 +502,6 @@
 
                 <div id="phases-container" class="flex flex-col space-y-6 mb-6"></div>
 
-                <!-- 功能 3 呈現：本金與複利拆解卡片 -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div class="dashboard-card p-4 bg-[#0f172a] border border-pink-500/50">
                         <div class="text-xs text-desc mb-1">💰 總投入本金金額</div>
@@ -525,10 +517,9 @@
                     </div>
                 </div>
 
-                <!-- 圖表區：支援名目資產 vs 通膨實際購買力虛線 -->
                 <div class="dashboard-card p-5 bg-[#0f172a] mb-6">
                     <h3 class="text-xs font-black text-white mb-3 uppercase tracking-wider">
-                        <i class="fa-solid fa-chart-line mr-1.5 text-pink-500"></i> 長期資產增長曲線與通膨購買力對比圖 [功能2]
+                        <i class="fa-solid fa-chart-line mr-1.5 text-pink-500"></i> 長期資產增長曲線與通膨購買力對比圖
                     </h3>
                     <div style="height: 350px; width: 100%;">
                         <canvas id="assetGrowthChart"></canvas>
@@ -547,11 +538,11 @@
                 </div>
             </div>
 
-            <!-- 現金流計算器 -->
+            <!-- 現金流計算器（收益率改為手動輸入） -->
             <div class="dashboard-card p-6">
                 <div class="mb-6 border-b-2 border-gray-700 pb-4">
                     <h2 class="text-base font-black text-white"><i class="fa-solid fa-calculator text-pink-500 mr-2"></i>現金流收益專用計算器</h2>
-                    <p class="text-xs text-desc">輸入總投入資產與各股票百分比，系統自動對應股息率計算預估現金流</p>
+                    <p class="text-xs text-desc">各股票收益率支援手動輸入，自動依配重與 30% 稅率計算預估現金流</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -581,7 +572,7 @@
 
                 <div class="mb-4">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-black text-white">各股票配置比例與自動股息率對照</span>
+                        <span class="text-xs font-black text-white">各股票配置比例與手動股息率設定</span>
                         <button onclick="addCashFlowRow()" class="bg-pink-600 hover:bg-pink-700 text-white text-xs font-black px-3 py-1.5 rounded-xl transition-all">
                             <i class="fa-solid fa-plus mr-1"></i>新增股票
                         </button>
@@ -620,11 +611,10 @@
 
     </main>
 
-    <!-- 功能 1：逆向目標規劃器 Modal 視窗 -->
     <div id="reverse-calc-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="dashboard-card bg-[#1e293b] p-6 max-w-lg w-full border-2 border-pink-500 shadow-2xl">
             <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
-                <h3 class="text-base font-black text-white"><i class="fa-solid fa-bullseye text-pink-500 mr-2"></i>逆向目標規劃器 [功能1]</h3>
+                <h3 class="text-base font-black text-white"><i class="fa-solid fa-bullseye text-pink-500 mr-2"></i>逆向目標規劃器</h3>
                 <button onclick="closeReverseCalcModal()" class="text-gray-400 hover:text-white text-lg font-bold">&times;</button>
             </div>
             <p class="text-xs text-desc mb-4">輸入您想要的退休或財務自由目標金額與預計達成年限，系統將自動精算您每個月該存多少錢。</p>
@@ -674,7 +664,7 @@
             }, 50);
         }
 
-        const defaultDividendYields = {
+        const defaultYieldsMap = {
             "SPYI": 12.1,
             "QQQI": 14.3,
             "QQQY": 50.0,
@@ -683,13 +673,12 @@
             "JEPI": 7.5,
             "SGOV": 5.0,
             "SPY": 10.0,
-            "QQQ": 11.0,
-            "SPMO": 0.7
+            "QQQ": 11.0
         };
 
-        function getYieldForSymbol(symbol) {
-            const cleanSymbol = symbol.toUpperCase().trim();
-            return defaultDividendYields[cleanSymbol] !== undefined ? defaultDividendYields[cleanSymbol] : 8.0;
+        function getDefaultYield(symbol) {
+            const clean = symbol.toUpperCase().trim();
+            return defaultYieldsMap[clean] !== undefined ? defaultYieldsMap[clean] : 8.0;
         }
 
         let stocks = [
@@ -780,8 +769,8 @@
                 monthly: 5000, 
                 years: 5,
                 stocks: [
-                    { name: "SPYI", weight: 50 },
-                    { name: "QQQI", weight: 50 }
+                    { name: "SPYI", weight: 50, rate: 12.1 },
+                    { name: "QQQI", weight: 50, rate: 14.3 }
                 ]
             },
             { 
@@ -790,8 +779,8 @@
                 monthly: 7000, 
                 years: 5,
                 stocks: [
-                    { name: "QQQI", weight: 60 },
-                    { name: "SPYI", weight: 40 }
+                    { name: "QQQI", weight: 60, rate: 14.3 },
+                    { name: "SPYI", weight: 40, rate: 12.1 }
                 ]
             },
             { 
@@ -800,13 +789,12 @@
                 monthly: 0, 
                 years: 5,
                 stocks: [
-                    { name: "SPYI", weight: 70 },
-                    { name: "SGOV", weight: 30 }
+                    { name: "SPYI", weight: 70, rate: 12.1 },
+                    { name: "SGOV", weight: 30, rate: 5.0 }
                 ]
             }
         ];
 
-        // 功能 4：重大現金流事件清單
         let cashFlowEvents = [
             { year: 3, amount: -150000, desc: "買房頭期款大額支出" },
             { year: 7, amount: 50000, desc: "領到公司分紅獎金" }
@@ -856,15 +844,19 @@
                 
                 let stocksHtml = '';
                 phase.stocks.forEach((st, sIndex) => {
-                    const yieldVal = getYieldForSymbol(st.name);
+                    if (st.rate === undefined) st.rate = getDefaultYield(st.name);
                     stocksHtml += `
                         <div class="flex items-center gap-2 bg-[#0f172a] p-2 rounded-lg border border-pink-500/20 mb-2">
-                            <input type="text" value="${st.name}" onchange="updatePhaseStock(${pIndex}, ${sIndex}, 'name', this.value)" class="custom-input p-1.5 rounded text-xs w-1/3 text-center font-bold">
-                            <div class="flex items-center gap-1 w-1/3">
+                            <input type="text" value="${st.name}" onchange="updatePhaseStock(${pIndex}, ${sIndex}, 'name', this.value)" class="custom-input p-1.5 rounded text-xs w-1/4 text-center font-bold" placeholder="代碼">
+                            <div class="flex items-center gap-1 w-1/4">
                                 <input type="number" value="${st.weight}" onchange="updatePhaseStock(${pIndex}, ${sIndex}, 'weight', Number(this.value))" class="custom-input p-1.5 rounded text-xs w-full text-center">
                                 <span class="text-xs text-white">%</span>
                             </div>
-                            <div class="w-1/3 text-xs text-pink-400 font-bold text-right pr-1">收益率:${yieldVal}%</div>
+                            <div class="flex items-center gap-1 w-1/3">
+                                <span class="text-xs text-desc">回報:</span>
+                                <input type="number" step="0.1" value="${st.rate}" onchange="updatePhaseStock(${pIndex}, ${sIndex}, 'rate', Number(this.value))" class="custom-input p-1.5 rounded text-xs w-full text-center text-pink-400">
+                                <span class="text-xs text-white">%</span>
+                            </div>
                             <button onclick="removePhaseStock(${pIndex}, ${sIndex})" class="text-red-400 hover:text-red-300 px-1 text-xs"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     `;
@@ -899,7 +891,7 @@
 
                         <div class="mb-4 bg-[#0f172a]/60 p-3 rounded-xl border border-pink-500/30">
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-xs font-black text-white"><i class="fa-solid fa-pie-chart text-pink-500 mr-1"></i> 階段 ${phaseNum} 股票配置與比率</span>
+                                <span class="text-xs font-black text-white"><i class="fa-solid fa-pie-chart text-pink-500 mr-1"></i> 階段 ${phaseNum} 股票配置與手動收益率</span>
                                 <button onclick="addPhaseStock(${pIndex})" class="bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold px-2.5 py-1 rounded-lg transition-all">
                                     <i class="fa-solid fa-plus mr-1"></i>新增資產
                                 </button>
@@ -926,7 +918,7 @@
                 desc: "自由設定該階段的複利與資產配置規則", 
                 monthly: 0, 
                 years: 5,
-                stocks: [{ name: "SPYI", weight: 100 }]
+                stocks: [{ name: "SPYI", weight: 100, rate: 12.1 }]
             });
             renderPhases();
         }
@@ -951,7 +943,7 @@
         }
 
         function addPhaseStock(pIndex) {
-            phases[pIndex].stocks.push({ name: "SPYI", weight: 0 });
+            phases[pIndex].stocks.push({ name: "SPYI", weight: 0, rate: 12.1 });
             renderPhases();
         }
 
@@ -962,10 +954,9 @@
 
         function updatePhaseStock(pIndex, sIndex, field, value) {
             phases[pIndex].stocks[sIndex][field] = field === 'name' ? value.toUpperCase().trim() : value;
-            renderPhases();
+            calculatePhases();
         }
 
-        // Chart.js 實例
         let growthChart = null;
 
         function calculatePhases() {
@@ -975,8 +966,8 @@
             let inflationRate = (parseFloat(document.getElementById('global-inflation-rate').value) || 0) / 100;
             let mcMode = document.getElementById('monte-carlo-mode').value;
             let mcOffset = 0;
-            if (mcMode === 'bull') mcOffset = 0.03;  // +3% 牛市
-            if (mcMode === 'bear') mcOffset = -0.03; // -3% 熊市
+            if (mcMode === 'bull') mcOffset = 0.03;  
+            if (mcMode === 'bear') mcOffset = -0.03; 
 
             let chartLabels = ["第 0 年"];
             let chartNominalData = [0];
@@ -986,15 +977,14 @@
             phases.forEach((phase, index) => {
                 const monthly = phase.monthly || 0;
                 const years = phase.years || 0;
-                const months = years * 12;
 
                 let weightedRateSum = 0;
                 let totalWeight = phase.stocks.reduce((sum, st) => sum + (st.weight || 0), 0);
 
                 phase.stocks.forEach(st => {
-                    const stYield = getYieldForSymbol(st.name);
+                    if (st.rate === undefined) st.rate = getDefaultYield(st.name);
                     const weightRatio = totalWeight > 0 ? (st.weight / totalWeight) : 0;
-                    weightedRateSum += stYield * weightRatio;
+                    weightedRateSum += st.rate * weightRatio;
                 });
 
                 let annualRate = (weightedRateSum / 100) + mcOffset;
@@ -1005,17 +995,15 @@
 
                 for (let y = 1; y <= years; y++) {
                     absoluteYearCount++;
-                    // 模擬 1 年內的 12 個月複利
                     for (let m = 0; m < 12; m++) {
                         currentTotal = (currentTotal + monthly) * (1 + monthlyRate);
                         totalPrincipal += monthly;
                     }
 
-                    // 檢查是否有發生重大現金流事件 [功能4]
                     cashFlowEvents.forEach(ev => {
                         if (ev.year === absoluteYearCount) {
                             currentTotal += ev.amount;
-                            if (ev.amount > 0) totalPrincipal += ev.amount; // 視為額外投入或獎金本金
+                            if (ev.amount > 0) totalPrincipal += ev.amount;
                         }
                     });
 
@@ -1024,7 +1012,6 @@
                     chartLabels.push(`第 ${absoluteYearCount} 年`);
                     chartNominalData.push(Math.round(currentTotal));
 
-                    // 計算扣除通膨後的實際購買力 [功能2]
                     let realVal = currentTotal / Math.pow(1 + inflationRate, absoluteYearCount);
                     chartRealData.push(Math.round(realVal));
                 }
@@ -1044,7 +1031,6 @@
             let finalRealAsset = chartRealData[chartRealData.length - 1] || 0;
             document.getElementById('summary-real-asset').innerText = '$' + finalRealAsset.toLocaleString('en-US');
 
-            // 更新 Chart.js 圖表 [功能2]
             updateGrowthChart(chartLabels, chartNominalData, chartRealData);
         }
 
@@ -1092,7 +1078,6 @@
             });
         }
 
-        // 功能 1：逆向目標規劃 Modal 控制與運算
         function openReverseCalcModal() {
             document.getElementById('reverse-calc-modal').classList.remove('hidden');
         }
@@ -1108,7 +1093,6 @@
             const monthlyRate = annualRate / 12;
             const months = years * 12;
 
-            // 公式：FV = PMT * [((1 + r)^n - 1) / r] => PMT = FV * r / ((1 + r)^n - 1)
             let monthlyNeeded = 0;
             if (monthlyRate > 0) {
                 monthlyNeeded = targetAmount * monthlyRate / (Math.pow(1 + monthlyRate, months) - 1);
@@ -1120,24 +1104,26 @@
         }
 
         let cfStocks = [
-            { name: "SPYI", weight: 50 },
-            { name: "QQQI", weight: 50 }
+            { name: "SPYI", weight: 50, rate: 12.1 },
+            { name: "QQQI", weight: 50, rate: 14.3 }
         ];
 
         function renderCashFlowStocks() {
             const container = document.getElementById('cf-stocks-container');
             container.innerHTML = '';
             cfStocks.forEach((stock, index) => {
-                const currentYield = getYieldForSymbol(stock.name);
+                if (stock.rate === undefined) stock.rate = getDefaultYield(stock.name);
                 container.innerHTML += `
                     <div class="flex items-center gap-2 bg-[#1e293b] p-3 rounded-xl border-2 border-pink-500/30">
-                        <input type="text" value="${stock.name}" oninput="updateCashFlowStock(${index}, 'name', this.value)" placeholder="如 SPYI" class="custom-input p-2 rounded-lg text-xs w-1/3">
-                        <div class="w-1/3 flex items-center gap-1">
-                            <input type="number" min="0" max="100" value="${stock.weight}" oninput="updateCashFlowStock(${index}, 'weight', Number(this.value))" class="custom-input p-2 rounded-lg text-xs w-full">
+                        <input type="text" value="${stock.name}" oninput="updateCashFlowStock(${index}, 'name', this.value)" placeholder="如 SPYI" class="custom-input p-2 rounded-lg text-xs w-1/4">
+                        <div class="w-1/4 flex items-center gap-1">
+                            <input type="number" min="0" max="100" value="${stock.weight}" oninput="updateCashFlowStock(${index}, 'weight', Number(this.value))" class="custom-input p-2 rounded-lg text-xs w-full text-center">
                             <span class="text-xs font-black text-white">%</span>
                         </div>
-                        <div class="w-1/3 text-xs font-black text-pink-400 text-right pr-2">
-                            股息率: ~${currentYield}%
+                        <div class="w-1/3 flex items-center gap-1">
+                            <span class="text-xs text-desc">股息率:</span>
+                            <input type="number" step="0.1" value="${stock.rate}" oninput="updateCashFlowStock(${index}, 'rate', Number(this.value))" class="custom-input p-2 rounded-lg text-xs w-full text-center text-pink-400 font-bold">
+                            <span class="text-xs text-white">%</span>
                         </div>
                         <button onclick="removeCashFlowStock(${index})" class="text-red-400 hover:text-red-300 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
                     </div>
@@ -1147,7 +1133,7 @@
         }
 
         function addCashFlowRow() {
-            cfStocks.push({ name: "SPYI", weight: 0 });
+            cfStocks.push({ name: "SPYI", weight: 0, rate: 12.1 });
             renderCashFlowStocks();
         }
 
@@ -1177,14 +1163,14 @@
 
             cfStocks.forEach(stock => {
                 const assetAmount = totalAsset * (stock.weight / 100);
-                const stockYield = getYieldForSymbol(stock.name);
+                if (stock.rate === undefined) stock.rate = getDefaultYield(stock.name);
                 
                 let isUsAsset = !stock.name.toUpperCase().includes('.HK');
-                let effectiveYield = stockYield;
+                let effectiveYield = stock.rate;
                 let taxNote = "";
 
                 if (applyUsTax && isUsAsset) {
-                    effectiveYield = stockYield * (1 - 0.30);
+                    effectiveYield = stock.rate * (1 - 0.30);
                     taxNote = ` <span class="text-red-400 font-bold">(已扣30%美股稅)</span>`;
                 } else if (!isUsAsset) {
                     taxNote = ` <span class="text-gray-400 font-bold">(港股免美稅)</span>`;
@@ -1199,7 +1185,7 @@
                     <div class="bg-[#1e293b] p-3.5 rounded-xl border border-pink-500/30">
                         <div class="font-black text-pink-400 text-xs mb-1">${stock.name || '未命名'} (${stock.weight}%)</div>
                         <div class="text-xs text-desc">配置金額: $${assetAmount.toFixed(2)}</div>
-                        <div class="text-xs text-desc">原始股息率: ${stockYield}%${taxNote}</div>
+                        <div class="text-xs text-desc">設定股息率: ${stock.rate}%${taxNote}</div>
                         <div class="text-xs font-bold text-emerald-400 mt-1">稅後預估年現金流: $${annualIncome.toFixed(2)}</div>
                     </div>
                 `;
