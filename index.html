@@ -317,10 +317,10 @@
                 </div>
             </div>
 
-            <!-- 現金流資產屬性對照表（已新增：預估年化報酬率欄位） -->
+            <!-- 現金流資產屬性對照表（已簡化：只保留預估年化股息率） -->
             <div class="dashboard-card p-6">
                 <h2 class="text-lg font-black text-white mb-1"><i class="fa-solid fa-table-cells text-pink-500 mr-2"></i>現金流資產屬性對照表</h2>
-                <p class="text-xs text-desc mb-5">詳細列出代碼、名稱、預估年化股息率、預估年化報酬率與策略優勢</p>
+                <p class="text-xs text-desc mb-5">詳細列出代碼、名稱、預估年化股息率與策略優勢</p>
                 <div class="overflow-x-auto rounded-xl border-2 border-pink-500/50">
                     <table class="w-full text-left border-collapse bg-[#1e293b]">
                         <thead>
@@ -328,7 +328,6 @@
                                 <th class="p-3.5">代碼</th>
                                 <th class="p-3.5">名稱 / 資產類型</th>
                                 <th class="p-3.5">預估年化股息率</th>
-                                <th class="p-3.5">預估年化報酬率</th>
                                 <th class="p-3.5">派息頻率</th>
                                 <th class="p-3.5">策略與優勢</th>
                             </tr>
@@ -338,7 +337,6 @@
                                 <td class="p-3.5 font-black text-pink-400">SPYI</td>
                                 <td class="p-3.5 font-bold text-white">NEOS S&P 500 High Income ETF</td>
                                 <td class="p-3.5 font-black text-pink-400">~12.1%</td>
-                                <td class="p-3.5 font-black text-emerald-400">~13.5%</td>
                                 <td class="p-3.5"><span class="bg-pink-950 text-pink-300 border border-pink-700 px-2 py-0.5 rounded font-bold">每月派息</span></td>
                                 <td class="p-3.5 text-desc">Covered Call 策略，保留標普部分上行空間</td>
                             </tr>
@@ -346,7 +344,6 @@
                                 <td class="p-3.5 font-black text-pink-400">QQQI</td>
                                 <td class="p-3.5 font-bold text-white">NEOS Nasdaq-100 High Income ETF</td>
                                 <td class="p-3.5 font-black text-pink-400">~14.3%</td>
-                                <td class="p-3.5 font-black text-emerald-400">~16.0%</td>
                                 <td class="p-3.5"><span class="bg-pink-950 text-pink-300 border border-pink-700 px-2 py-0.5 rounded font-bold">每月派息</span></td>
                                 <td class="p-3.5 text-desc">聚焦科技巨頭，提供超高月度現金流</td>
                             </tr>
@@ -354,7 +351,6 @@
                                 <td class="p-3.5 font-black text-pink-400">QQQY</td>
                                 <td class="p-3.5 font-bold text-white">Defiance Nasdaq-100 Enhanced Options Income ETF</td>
                                 <td class="p-3.5 font-black text-pink-400">~50%+</td>
-                                <td class="p-3.5 font-black text-emerald-400">~25.0%</td>
                                 <td class="p-3.5"><span class="bg-pink-950 text-pink-300 border border-pink-700 px-2 py-0.5 rounded font-bold">每月/高頻派息</span></td>
                                 <td class="p-3.5 text-desc">極深價內 (ITM) / 0DTE 期權策略，追求極高現金流</td>
                             </tr>
@@ -362,7 +358,6 @@
                                 <td class="p-3.5 font-black text-pink-400">0941.HK</td>
                                 <td class="p-3.5 font-bold text-white">中國移動 (China Mobile)</td>
                                 <td class="p-3.5 font-black text-pink-400">~6.8%</td>
-                                <td class="p-3.5 font-black text-emerald-400">~9.5%</td>
                                 <td class="p-3.5"><span class="bg-pink-950 text-pink-300 border border-pink-700 px-2 py-0.5 rounded font-bold">半年度</span></td>
                                 <td class="p-3.5 text-desc">港股防守型國企巨頭，派息非常穩健</td>
                             </tr>
@@ -370,7 +365,6 @@
                                 <td class="p-3.5 font-black text-pink-400">DIVO</td>
                                 <td class="p-3.5 font-bold text-white">Amplify Cash Flow ETF</td>
                                 <td class="p-3.5 font-black text-pink-400">~4.8%</td>
-                                <td class="p-3.5 font-black text-emerald-400">~11.0%</td>
                                 <td class="p-3.5"><span class="bg-pink-950 text-pink-300 border border-pink-700 px-2 py-0.5 rounded font-bold">每月派息</span></td>
                                 <td class="p-3.5 text-desc">主動篩選高股息藍籌，波動小兼顧資本增值</td>
                             </tr>
@@ -378,7 +372,6 @@
                                 <td class="p-3.5 font-black text-pink-400">JEPI</td>
                                 <td class="p-3.5 font-bold text-white">JPMorgan Equity Premium Income ETF</td>
                                 <td class="p-3.5 font-black text-pink-400">~7.5%</td>
-                                <td class="p-3.5 font-black text-emerald-400">~11.5%</td>
                                 <td class="p-3.5"><span class="bg-pink-950 text-pink-300 border border-pink-700 px-2 py-0.5 rounded font-bold">每月派息</span></td>
                                 <td class="p-3.5 text-desc">摩根大通主動管理，低波動防守型現金流</td>
                             </tr>
@@ -401,10 +394,10 @@
                 </div>
             </div>
 
-            <!-- 本金資產增長屬性對照表（已新增：預估年化報酬率欄位） -->
+            <!-- 本金資產增長屬性對照表（已更新：根據最近年化報酬率，SGOV 設為約 3.75%） -->
             <div class="dashboard-card p-6">
                 <h2 class="text-lg font-black text-white mb-1"><i class="fa-solid id-card fa-table-cells text-pink-500 mr-2"></i>本金資產增長屬性對照表</h2>
-                <p class="text-xs text-desc mb-5">涵蓋 SPMO、QQQM、SPYM、VT、SGOV 及適合定期定額的大型指數標的</p>
+                <p class="text-xs text-desc mb-5">涵蓋 SPMO、QQQM、SPYM、VT、SGOV 及適合定期定額的大型指數標的（已更新最近年化報酬率）</p>
                 <div class="overflow-x-auto rounded-xl border-2 border-pink-500/50">
                     <table class="w-full text-left border-collapse bg-[#1e293b]">
                         <thead>
@@ -412,7 +405,7 @@
                                 <th class="p-3.5">代碼 (Ticker)</th>
                                 <th class="p-3.5">資產名稱 / 追蹤指數</th>
                                 <th class="p-3.5">增長屬性</th>
-                                <th class="p-3.5">預估年化報酬率</th>
+                                <th class="p-3.5">最近年化報酬率</th>
                                 <th class="p-3.5">波動特性</th>
                                 <th class="p-3.5">適合策略</th>
                             </tr>
@@ -462,7 +455,7 @@
                                 <td class="p-3.5 font-black text-pink-400">SGOV</td>
                                 <td class="p-3.5 font-bold text-white">iShares 0-3 Month Treasury Bond ETF</td>
                                 <td class="p-3.5"><span class="bg-gray-800 text-gray-300 border border-gray-600 px-2 py-0.5 rounded font-bold">現金替代 / 保本</span></td>
-                                <td class="p-3.5 font-black text-emerald-400">~4.8%</td>
+                                <td class="p-3.5 font-black text-emerald-400">~3.75%</td>
                                 <td class="p-3.5 text-desc">極低波動</td>
                                 <td class="p-3.5 text-desc">資金停泊 / 防守配置</td>
                             </tr>
@@ -546,7 +539,7 @@
                 </div>
             </div>
 
-            <!-- 長期複利計劃（收益率改為手動輸入） -->
+            <!-- 長期複利計劃（收益率改為手動輸入，SGOV 預設更新為 3.75） -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
@@ -765,14 +758,14 @@
             "0941.HK": 6.8,
             "DIVO": 4.8,
             "JEPI": 7.5,
-            "SGOV": 5.0,
-            "SPY": 10.0,
-            "QQQ": 11.0,
-            "SPMO": 12.0,
-            "QQQM": 11.5,
-            "SPYM": 10.0,
-            "VOO": 10.0,
-            "VT": 9.0
+            "SGOV": 3.75,
+            "SPY": 12.0,
+            "QQQ": 16.5,
+            "SPMO": 15.0,
+            "QQQM": 16.5,
+            "SPYM": 12.0,
+            "VOO": 12.0,
+            "VT": 9.5
         };
 
         function getDefaultYield(symbol) {
@@ -889,7 +882,7 @@
                 years: 5,
                 stocks: [
                     { name: "SPYI", weight: 70, rate: 12.1 },
-                    { name: "SGOV", weight: 30, rate: 5.0 }
+                    { name: "SGOV", weight: 30, rate: 3.75 }
                 ]
             }
         ];
@@ -953,7 +946,7 @@
                             </div>
                             <div class="flex items-center gap-1 w-1/3">
                                 <span class="text-xs text-desc">回報:</span>
-                                <input type="number" step="0.1" value="${st.rate}" onchange="updatePhaseStock(${pIndex}, ${sIndex}, 'rate', Number(this.value))" class="custom-input p-1.5 rounded text-xs w-full text-center text-pink-400">
+                                <input type="number" step="0.05" value="${st.rate}" onchange="updatePhaseStock(${pIndex}, ${sIndex}, 'rate', Number(this.value))" class="custom-input p-1.5 rounded text-xs w-full text-center text-pink-400">
                                 <span class="text-xs text-white">%</span>
                             </div>
                             <button onclick="removePhaseStock(${pIndex}, ${sIndex})" class="text-red-400 hover:text-red-300 px-1 text-xs"><i class="fa-solid fa-trash"></i></button>
