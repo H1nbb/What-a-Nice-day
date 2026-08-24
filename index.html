@@ -472,12 +472,35 @@
             </div>
         </div>
 
-        <!-- 頁面 4：全市場熱力圖 -->
+        <!-- 頁面 4：全市場熱力圖 (已修改為官方即時動態追蹤組件) -->
         <div id="tab-heatmap" class="tab-pane hidden flex-col">
             <div class="dashboard-card p-5 flex-1 flex flex-col">
-                <h2 class="text-base font-black text-white mb-3"><i class="fa-solid fa-fire text-amber-400 mr-2"></i>S&P 500 板塊資金熱力圖</h2>
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-base font-black text-white"><i class="fa-solid fa-fire text-amber-400 mr-2"></i>S&P 500 板塊資金實時熱力圖</h2>
+                    <span class="text-xs bg-emerald-950 text-emerald-300 border border-emerald-700 font-bold px-2.5 py-1 rounded-lg">🔥 TradingView 實時串流中</span>
+                </div>
                 <div class="w-full rounded-xl overflow-hidden border-2 border-pink-500/50" style="height: 650px;">
-                    <iframe src="https://s.tradingview.com/embed-widget/stock-heatmap/?locale=zh_TW#%7B%22exchanges%22%3A%5B%5D%2C%22dataSource%22%3A%22SPX500%22%2C%22grouping%22%3A%22sector%22%2C%22blockSize%22%3A%22market_cap_basic%22%2C%22blockColor%22%3A%22change%22%2C%22symbolUrl%22%3A%22%22%2C%22colorTheme%22%3A%22dark%22%2C%22hasTopBar%22%3Atrue%2C%22isDataSetEnabled%22%3Afalse%2C%22isZoomEnabled%22%3Atrue%2C%22hasSymbolTooltip%22%3Atrue%7D" class="w-full h-full border-0"></iframe>
+                    <div class="tradingview-widget-container" style="height:100%;width:100%">
+                        <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+                        {
+                            "exchanges": [],
+                            "dataSource": "SPX500",
+                            "grouping": "sector",
+                            "blockSize": "market_cap_basic",
+                            "blockColor": "change",
+                            "locale": "zh_TW",
+                            "symbolUrl": "",
+                            "colorTheme": "dark",
+                            "hasTopBar": true,
+                            "isDataSetEnabled": false,
+                            "isZoomEnabled": true,
+                            "hasSymbolTooltip": true,
+                            "width": "100%",
+                            "height": "100%"
+                        }
+                        </script>
+                    </div>
                 </div>
             </div>
         </div>
@@ -836,7 +859,6 @@
                 if (data && data.rates && data.rates.HKD) {
                     const liveRate = parseFloat(data.rates.HKD.toFixed(2));
                     const fxInput = document.getElementById('fx-rate');
-                    // 僅當用戶沒有手動改過或者剛好載入時更新
                     if (fxInput && !fxInput.dataset.manual) {
                         fxInput.value = liveRate;
                     }
@@ -1078,7 +1100,6 @@
             saveAllToLocalStorage();
         }
 
-        // 再平衡功能渲染與計算
         function renderRebalanceInputs() {
             const container = document.getElementById('rebalance-inputs-container');
             container.innerHTML = '';
@@ -1102,10 +1123,6 @@
             });
 
             const newMoneyInput = parseFloat(document.getElementById('calc-total').value) || 0;
-            const currency = document.getElementById('currency-select').value;
-            const fxRate = parseFloat(document.getElementById('fx-rate').value) || 7.8;
-            
-            // 轉換新投入資金為統一基準（若以當前計算幣種為準）
             let totalNewPortfolio = totalCurrentPortfolio + newMoneyInput;
             const resultsContainer = document.getElementById('rebalance-results-container');
             resultsContainer.innerHTML = '';
@@ -1524,7 +1541,6 @@
             document.getElementById('cf-total-annual').innerText = '$' + totalAnnualCashFlow.toFixed(2);
             document.getElementById('cf-total-monthly').innerText = '$' + totalMonthlyCashFlow.toFixed(2);
 
-            // 渲染預估每月領息日曆
             renderDividendCalendar(totalMonthlyCashFlow);
             saveAllToLocalStorage();
         }
