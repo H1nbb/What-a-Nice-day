@@ -108,11 +108,11 @@
                             <span class="text-xs font-black text-emerald-400">實時更新中</span>
                         </div>
                     </div>
-                    <p class="text-xs text-desc">多資產定投 • 雙幣轉換 • 自動儲存配置</p>
+                    <p class="text-xs text-desc">多資產定投 • 雙幣轉換 • 全自動雲端記憶配置</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
+            <div class="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0 relative">
                 <nav class="flex bg-[#0f172a] p-1 rounded-2xl border-2 border-pink-500/50 gap-1 no-scrollbar">
                     <button onclick="switchTab('macro')" id="btn-macro" class="tab-btn active px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300">核心資產與美債收益率</button>
                     <button onclick="switchTab('cashflow')" id="btn-cashflow" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300">現金流與本金資產對照</button>
@@ -318,7 +318,7 @@
 
             <div class="dashboard-card p-6">
                 <h2 class="text-lg font-black text-white mb-1"><i class="fa-solid fa-table-cells text-pink-500 mr-2"></i>現金流資產屬性對照表</h2>
-                <p class="text-xs text-desc mb-5">詳細列出代碼、名稱、預估年化股息率與策略優勢（提示：愛爾蘭 UCITS 基金具備獨特稅務優勢）</p>
+                <p class="text-xs text-desc mb-5">詳細列出代碼、名稱、預估年化股息率與策略優勢</p>
                 <div class="overflow-x-auto rounded-xl border-2 border-pink-500/50">
                     <table class="w-full text-left border-collapse bg-[#1e293b] min-w-[650px]">
                         <thead>
@@ -485,11 +485,28 @@
         <!-- 頁面 5：多標的定投、幣種轉換與動態階段複利計算器 -->
         <div id="tab-calc" class="tab-pane hidden flex-col space-y-6">
             
+            <!-- 全域備份與匯入功能列 -->
+            <div class="dashboard-card p-4 bg-[#0f172a] flex flex-wrap justify-between items-center gap-3">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-down text-pink-500"></i>
+                    <span class="text-xs font-black text-white">全站配置備份與還原（自動保存中）</span>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="exportConfigJSON()" class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-bold px-3 py-2 rounded-xl transition-all flex items-center gap-1">
+                        <i class="fa-solid fa-file-arrow-down"></i> 匯出配置檔案
+                    </button>
+                    <label class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-xl transition-all flex items-center gap-1 cursor-pointer">
+                        <i class="fa-solid fa-file-arrow-up"></i> 匯入配置檔案
+                        <input type="file" id="import-file-input" accept=".json" onchange="importConfigJSON(event)" class="hidden">
+                    </label>
+                </div>
+            </div>
+
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
                         <h2 class="text-lg font-black text-white"><i class="fa-solid fa-coins text-pink-500 mr-2"></i>多資產定投與幣種折算計算器</h2>
-                        <p class="text-xs text-desc">支援滑桿或直接打字輸入百分比設定權重（已自動同步儲存至瀏覽器）</p>
+                        <p class="text-xs text-desc">支援滑桿或直接打字輸入百分比設定權重（全自動即時儲存）</p>
                     </div>
                     <div class="flex gap-2">
                         <button onclick="resetCalculatorSettings()" class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-black px-3 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1">
@@ -514,7 +531,10 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-black text-white mb-1">即時參考匯率 (1 USD = HKD)</label>
+                        <label class="block text-xs font-black text-white mb-1 flex justify-between">
+                            <span>即時參考匯率 (1 USD = HKD)</span>
+                            <span id="fx-update-status" class="text-emerald-400 font-normal text-[10px]">🟢 自動連線中</span>
+                        </label>
                         <input type="number" id="fx-rate" value="7.8" step="0.01" class="custom-input w-full p-2.5 rounded-xl text-sm" oninput="calculateMultiDCA()">
                     </div>
                 </div>
@@ -532,7 +552,7 @@
                     <span id="total-weight-display" class="text-pink-400 text-sm">100%</span>
                 </div>
 
-                <!-- 新增：資產配置圓餅圖視覺化 -->
+                <!-- 資產配置圓餅圖視覺化 -->
                 <div class="bg-[#0f172a] border-2 border-pink-500/50 p-5 rounded-2xl mb-6">
                     <h3 class="text-xs font-black text-white mb-3 uppercase tracking-wider">
                         <i class="fa-solid fa-chart-pie mr-1.5 text-pink-500"></i> 資產配置比例視覺化
@@ -542,11 +562,26 @@
                     </div>
                 </div>
 
-                <div class="bg-[#0f172a] border-2 border-pink-500/50 p-5 rounded-2xl">
+                <div class="bg-[#0f172a] border-2 border-pink-500/50 p-5 rounded-2xl mb-6">
                     <h3 class="text-xs font-black text-white mb-3 uppercase tracking-wider">
                         <i class="fa-solid fa-receipt mr-1.5 text-pink-500"></i> 本期定投拆分結果與雙幣對照
                     </h3>
                     <div id="multi-results-grid" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
+                </div>
+
+                <!-- 新增：資產再平衡 (Rebalancing) 計算器 -->
+                <div class="bg-[#0f172a] border-2 border-indigo-500/50 p-5 rounded-2xl">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xs font-black text-white uppercase tracking-wider">
+                            <i class="fa-solid fa-scale-balanced mr-1.5 text-indigo-400"></i> 資產再平衡 (Rebalancing) 試算
+                        </h3>
+                        <span class="text-[10px] text-desc">輸入目前實際各資產持倉金額，計算本期應投入資金以拉回目標權重</span>
+                    </div>
+                    <div id="rebalance-inputs-container" class="space-y-2 mb-4"></div>
+                    <button onclick="calculateRebalance()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all w-full">
+                        執行再平衡調整計算
+                    </button>
+                    <div id="rebalance-results-container" class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3"></div>
                 </div>
             </div>
 
@@ -555,7 +590,7 @@
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
                         <h2 class="text-base font-black text-white"><i class="fa-solid fa-arrow-trend-up text-pink-500 mr-2"></i>長期複利與資產增長動態預測計劃（進階量化戰情室）</h2>
-                        <p class="text-xs text-desc">支援 1 至 5 個階段自由增減；各資產收益率支援手動輸入</p>
+                        <p class="text-xs text-desc">支援 1 至 5 個階段自由增減；各階段資料全自動保存</p>
                     </div>
                     <div class="flex flex-wrap gap-2">
                         <button onclick="openReverseCalcModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black px-3.5 py-2 rounded-xl shadow-sm transition-all flex items-center gap-1">
@@ -584,7 +619,7 @@
                         </select>
                     </div>
                     <div class="flex items-end">
-                        <div class="text-xs text-desc pb-1">💡 股票收益率現可直接於下方各階段手動修改</div>
+                        <div class="text-xs text-desc pb-1">💡 股票收益率與階段配置全自動保存在本地</div>
                     </div>
                 </div>
 
@@ -640,7 +675,7 @@
             <div class="dashboard-card p-6">
                 <div class="mb-6 border-b-2 border-gray-700 pb-4">
                     <h2 class="text-base font-black text-white"><i class="fa-solid fa-calculator text-pink-500 mr-2"></i>現金流收益專用計算器</h2>
-                    <p class="text-xs text-desc">各股票收益率支援手動輸入，自動依配重與 30% 稅率計算預估現金流</p>
+                    <p class="text-xs text-desc">各股票收益率支援手動輸入，自動依配重與稅率計算，並即時自動記憶</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -683,7 +718,7 @@
                     <span id="cf-total-weight-display" class="text-pink-400 text-sm">100%</span>
                 </div>
 
-                <div class="bg-[#0f172a] border-2 border-pink-500/50 p-5 rounded-2xl">
+                <div class="bg-[#0f172a] border-2 border-pink-500/50 p-5 rounded-2xl mb-6">
                     <h3 class="text-xs font-black text-white mb-3 uppercase tracking-wider">
                         <i class="fa-solid fa-sack-dollar mr-1.5 text-pink-500"></i> 現金流預估收益結果（稅後）
                     </h3>
@@ -702,6 +737,15 @@
                         </div>
                     </div>
                     <div id="cf-results-grid" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
+                </div>
+
+                <!-- 新增：預估每月領息日曆 (Dividend Calendar) -->
+                <div class="bg-[#0f172a] border-2 border-pink-500/50 p-5 rounded-2xl">
+                    <h3 class="text-xs font-black text-white mb-3 uppercase tracking-wider">
+                        <i class="fa-solid fa-calendar-check mr-1.5 text-pink-500"></i> 預估每月領息日曆與現金流分佈
+                    </h3>
+                    <p class="text-xs text-desc mb-3">多數高股息 ETF（如 SPYI、QQQI、JEPI）為每月派息，下方為您按月份試算的預估現金流進帳：</p>
+                    <div id="dividend-calendar-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2"></div>
                 </div>
             </div>
 
@@ -784,13 +828,134 @@
             return defaultYieldsMap[clean] !== undefined ? defaultYieldsMap[clean] : 8.0;
         }
 
-        // 從 LocalStorage 讀取儲存的配置，若無則使用預設值
+        // 自動從 API 取得即時匯率
+        async function fetchLiveFXRate() {
+            try {
+                const res = await fetch('https://open.er-api.com/v6/latest/USD');
+                const data = await res.json();
+                if (data && data.rates && data.rates.HKD) {
+                    const liveRate = parseFloat(data.rates.HKD.toFixed(2));
+                    const fxInput = document.getElementById('fx-rate');
+                    // 僅當用戶沒有手動改過或者剛好載入時更新
+                    if (fxInput && !fxInput.dataset.manual) {
+                        fxInput.value = liveRate;
+                    }
+                    document.getElementById('fx-update-status').innerText = `🟢 即時匯率已同步 (${liveRate})`;
+                    calculateMultiDCA();
+                }
+            } catch (e) {
+                document.getElementById('fx-update-status').innerText = `🟡 使用預設匯率`;
+            }
+        }
+
+        // 讀取 LocalStorage 配置
         let savedStocks = localStorage.getItem('dashboard_stocks');
         let stocks = savedStocks ? JSON.parse(savedStocks) : [
             { name: "SPYI", weight: 40 },
             { name: "QQQI", weight: 40 },
             { name: "SGOV", weight: 20 }
         ];
+
+        let savedPhases = localStorage.getItem('dashboard_phases');
+        let phases = savedPhases ? JSON.parse(savedPhases) : [
+            { 
+                title: "起步累積期", 
+                desc: "透過資產配置建立底倉", 
+                monthly: 5000, 
+                years: 5,
+                stocks: [
+                    { name: "SPYI", weight: 50, rate: 12.1 },
+                    { name: "QQQI", weight: 50, rate: 14.3 }
+                ]
+            },
+            { 
+                title: "加速滾存期", 
+                desc: "提高投入，加入增長資產加速複利", 
+                monthly: 7000, 
+                years: 5,
+                stocks: [
+                    { name: "QQQI", weight: 60, rate: 14.3 },
+                    { name: "SPYI", weight: 40, rate: 12.1 }
+                ]
+            },
+            { 
+                title: "本金自主運作期", 
+                desc: "停止額外現金投入，完全依靠前期本金複利滾存", 
+                monthly: 0, 
+                years: 5,
+                stocks: [
+                    { name: "SPYI", weight: 70, rate: 12.1 },
+                    { name: "SGOV", weight: 30, rate: 3.75 }
+                ]
+            }
+        ];
+
+        let savedEvents = localStorage.getItem('dashboard_events');
+        let cashFlowEvents = savedEvents ? JSON.parse(savedEvents) : [
+            { year: 3, amount: -150000, desc: "買房頭期款大額支出" },
+            { year: 7, amount: 50000, desc: "領到公司分紅獎金" }
+        ];
+
+        let savedCfStocks = localStorage.getItem('dashboard_cf_stocks');
+        let cfStocks = savedCfStocks ? JSON.parse(savedCfStocks) : [
+            { name: "SPYI", weight: 50, rate: 12.1 },
+            { name: "QQQI", weight: 50, rate: 14.3 }
+        ];
+
+        function saveAllToLocalStorage() {
+            localStorage.setItem('dashboard_stocks', JSON.stringify(stocks));
+            localStorage.setItem('dashboard_phases', JSON.stringify(phases));
+            localStorage.setItem('dashboard_events', JSON.stringify(cashFlowEvents));
+            localStorage.setItem('dashboard_cf_stocks', JSON.stringify(cfStocks));
+        }
+
+        // 匯出與匯入配置 JSON
+        function exportConfigJSON() {
+            const configData = {
+                stocks,
+                phases,
+                cashFlowEvents,
+                cfStocks,
+                totalInput: document.getElementById('calc-total').value,
+                currency: document.getElementById('currency-select').value,
+                inflation: document.getElementById('global-inflation-rate').value
+            };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(configData, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "quant_dashboard_config.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function importConfigJSON(event) {
+            const fileReader = new FileReader();
+            if (event.target.files[0]) {
+                fileReader.readAsText(event.target.files[0], "UTF-8");
+                fileReader.onload = function(e) {
+                    try {
+                        const parsed = JSON.parse(e.target.result);
+                        if (parsed.stocks) stocks = parsed.stocks;
+                        if (parsed.phases) phases = parsed.phases;
+                        if (parsed.cashFlowEvents) cashFlowEvents = parsed.cashFlowEvents;
+                        if (parsed.cfStocks) cfStocks = parsed.cfStocks;
+                        if (parsed.totalInput) document.getElementById('calc-total').value = parsed.totalInput;
+                        if (parsed.currency) document.getElementById('currency-select').value = parsed.currency;
+                        if (parsed.inflation) document.getElementById('global-inflation-rate').value = parsed.inflation;
+                        
+                        saveAllToLocalStorage();
+                        renderStocks();
+                        renderCashFlowStocks();
+                        renderCashFlowEvents();
+                        renderPhases();
+                        alert('配置檔案成功匯入並更新！');
+                    } catch (err) {
+                        alert('檔案格式錯誤，解析失敗！');
+                    }
+                };
+            }
+        }
 
         function renderStocks() {
             const container = document.getElementById('stocks-container');
@@ -808,22 +973,14 @@
                     </div>
                 `;
             });
-            saveToLocalStorage();
+            saveAllToLocalStorage();
             calculateMultiDCA();
-        }
-
-        function saveToLocalStorage() {
-            localStorage.setItem('dashboard_stocks', JSON.stringify(stocks));
+            renderRebalanceInputs();
         }
 
         function resetCalculatorSettings() {
-            localStorage.removeItem('dashboard_stocks');
-            stocks = [
-                { name: "SPYI", weight: 40 },
-                { name: "QQQI", weight: 40 },
-                { name: "SGOV", weight: 20 }
-            ];
-            renderStocks();
+            localStorage.clear();
+            location.reload();
         }
 
         function addStockRow() {
@@ -918,45 +1075,57 @@
             });
 
             updateAllocationPieChart();
+            saveAllToLocalStorage();
         }
 
-        let phases = [
-            { 
-                title: "起步累積期", 
-                desc: "透過資產配置建立底倉", 
-                monthly: 5000, 
-                years: 5,
-                stocks: [
-                    { name: "SPYI", weight: 50, rate: 12.1 },
-                    { name: "QQQI", weight: 50, rate: 14.3 }
-                ]
-            },
-            { 
-                title: "加速滾存期", 
-                desc: "提高投入，加入增長資產加速複利", 
-                monthly: 7000, 
-                years: 5,
-                stocks: [
-                    { name: "QQQI", weight: 60, rate: 14.3 },
-                    { name: "SPYI", weight: 40, rate: 12.1 }
-                ]
-            },
-            { 
-                title: "本金自主運作期", 
-                desc: "停止額外現金投入，完全依靠前期本金複利滾存", 
-                monthly: 0, 
-                years: 5,
-                stocks: [
-                    { name: "SPYI", weight: 70, rate: 12.1 },
-                    { name: "SGOV", weight: 30, rate: 3.75 }
-                ]
-            }
-        ];
+        // 再平衡功能渲染與計算
+        function renderRebalanceInputs() {
+            const container = document.getElementById('rebalance-inputs-container');
+            container.innerHTML = '';
+            stocks.forEach((stock, index) => {
+                container.innerHTML += `
+                    <div class="flex items-center gap-2 bg-[#1e293b] p-2 rounded-lg border border-indigo-500/30">
+                        <span class="text-xs font-black text-indigo-300 w-1/4">${stock.name || '未命名'} (目標 ${stock.weight}%)</span>
+                        <input type="number" id="reb-val-${index}" placeholder="輸入目前現有持倉金額" class="custom-input p-1.5 rounded text-xs w-3/4">
+                    </div>
+                `;
+            });
+        }
 
-        let cashFlowEvents = [
-            { year: 3, amount: -150000, desc: "買房頭期款大額支出" },
-            { year: 7, amount: 50000, desc: "領到公司分紅獎金" }
-        ];
+        function calculateRebalance() {
+            let currentValues = [];
+            let totalCurrentPortfolio = 0;
+            stocks.forEach((stock, index) => {
+                const val = parseFloat(document.getElementById(`reb-val-${index}`).value) || 0;
+                currentValues.push(val);
+                totalCurrentPortfolio += val;
+            });
+
+            const newMoneyInput = parseFloat(document.getElementById('calc-total').value) || 0;
+            const currency = document.getElementById('currency-select').value;
+            const fxRate = parseFloat(document.getElementById('fx-rate').value) || 7.8;
+            
+            // 轉換新投入資金為統一基準（若以當前計算幣種為準）
+            let totalNewPortfolio = totalCurrentPortfolio + newMoneyInput;
+            const resultsContainer = document.getElementById('rebalance-results-container');
+            resultsContainer.innerHTML = '';
+
+            stocks.forEach((stock, index) => {
+                const targetAmount = totalNewPortfolio * (stock.weight / 100);
+                const currentVal = currentValues[index];
+                const neededBuy = targetAmount - currentVal;
+
+                resultsContainer.innerHTML += `
+                    <div class="bg-[#1e293b] p-3 rounded-xl border border-indigo-500/30">
+                        <div class="font-black text-indigo-400 text-xs mb-1">${stock.name} (目標 ${stock.weight}%)</div>
+                        <div class="text-xs text-desc">現有市值: $${currentVal.toFixed(2)}</div>
+                        <div class="text-xs font-bold ${neededBuy >= 0 ? 'text-emerald-400' : 'text-amber-400'} mt-1">
+                            ${neededBuy >= 0 ? '建議本期買入: $' + neededBuy.toFixed(2) : '偏高建議暫緩買入'}
+                        </div>
+                    </div>
+                `;
+            });
+        }
 
         function renderCashFlowEvents() {
             const container = document.getElementById('cashflow-events-container');
@@ -975,6 +1144,7 @@
                     </div>
                 `;
             });
+            saveAllToLocalStorage();
             calculatePhases();
         }
 
@@ -990,7 +1160,7 @@
 
         function updateCashFlowEvent(index, field, value) {
             cashFlowEvents[index][field] = value;
-            calculatePhases();
+            renderCashFlowEvents();
         }
 
         function renderPhases() {
@@ -1063,6 +1233,7 @@
                     </div>
                 `;
             });
+            saveAllToLocalStorage();
             calculatePhases();
         }
 
@@ -1092,6 +1263,7 @@
 
         function updatePhaseValueOnly(index, field, value) {
             phases[index][field] = value;
+            saveAllToLocalStorage();
             calculatePhases();
         }
 
@@ -1112,7 +1284,7 @@
 
         function updatePhaseStock(pIndex, sIndex, field, value) {
             phases[pIndex].stocks[sIndex][field] = field === 'name' ? value.toUpperCase().trim() : value;
-            calculatePhases();
+            renderPhases();
         }
 
         let growthChart = null;
@@ -1190,6 +1362,7 @@
             document.getElementById('summary-real-asset').innerText = '$' + finalRealAsset.toLocaleString('en-US');
 
             updateGrowthChart(chartLabels, chartNominalData, chartRealData);
+            saveAllToLocalStorage();
         }
 
         function updateGrowthChart(labels, nominalData, realData) {
@@ -1261,11 +1434,6 @@
             document.getElementById('rev-result-display').innerText = '$' + Math.round(monthlyNeeded).toLocaleString('en-US') + ' / 月';
         }
 
-        let cfStocks = [
-            { name: "SPYI", weight: 50, rate: 12.1 },
-            { name: "QQQI", weight: 50, rate: 14.3 }
-        ];
-
         function renderCashFlowStocks() {
             const container = document.getElementById('cf-stocks-container');
             container.innerHTML = '';
@@ -1287,6 +1455,7 @@
                     </div>
                 `;
             });
+            saveAllToLocalStorage();
             calculateCashFlowCalc();
         }
 
@@ -1302,7 +1471,7 @@
 
         function updateCashFlowStock(index, field, value) {
             cfStocks[index][field] = field === 'name' ? value.toUpperCase().trim() : value;
-            calculateCashFlowCalc();
+            renderCashFlowStocks();
         }
 
         function calculateCashFlowCalc() {
@@ -1354,8 +1523,28 @@
             document.getElementById('cf-avg-yield').innerText = (totalWeight > 0 ? (weightedYieldSum / (totalWeight > 0 ? totalWeight/100 : 1)).toFixed(2) : 0) + '%';
             document.getElementById('cf-total-annual').innerText = '$' + totalAnnualCashFlow.toFixed(2);
             document.getElementById('cf-total-monthly').innerText = '$' + totalMonthlyCashFlow.toFixed(2);
+
+            // 渲染預估每月領息日曆
+            renderDividendCalendar(totalMonthlyCashFlow);
+            saveAllToLocalStorage();
         }
 
+        function renderDividendCalendar(monthlyIncome) {
+            const calendarGrid = document.getElementById('dividend-calendar-grid');
+            calendarGrid.innerHTML = '';
+            const months = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
+            months.forEach(m => {
+                calendarGrid.innerHTML += `
+                    <div class="bg-[#1e293b] p-2.5 rounded-xl border border-pink-500/30 text-center">
+                        <div class="text-[11px] font-bold text-desc mb-1">${m} 預估領息</div>
+                        <div class="text-xs font-black text-emerald-400">$${monthlyIncome.toFixed(0)}</div>
+                    </div>
+                `;
+            });
+        }
+
+        // 初始化執行
+        fetchLiveFXRate();
         renderStocks();
         renderCashFlowStocks();
         renderCashFlowEvents();
