@@ -108,7 +108,7 @@
                             <span class="text-xs font-black text-emerald-400">實時更新中</span>
                         </div>
                     </div>
-                    <p class="text-xs text-desc">多資產定投 • 雙幣轉換 • 護眼深色模式</p>
+                    <p class="text-xs text-desc">多資產定投 • 雙幣轉換 • 自動儲存配置</p>
                 </div>
             </div>
 
@@ -303,7 +303,6 @@
         <!-- 頁面 2：現金流資產與本金增長屬性報價 -->
         <div id="tab-cashflow" class="tab-pane hidden flex-col space-y-6">
             
-            <!-- 現金流資產即時報價 -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-white mb-1"><i class="fa-solid fa-sack-dollar text-pink-500 mr-2"></i>現金流資產即時報價</h2>
                 <p class="text-xs text-desc mb-4">100% 成功連線，開市期間價格實時跳動</p>
@@ -317,12 +316,11 @@
                 </div>
             </div>
 
-            <!-- 現金流資產屬性對照表（已簡化：只保留預估年化股息率） -->
             <div class="dashboard-card p-6">
                 <h2 class="text-lg font-black text-white mb-1"><i class="fa-solid fa-table-cells text-pink-500 mr-2"></i>現金流資產屬性對照表</h2>
-                <p class="text-xs text-desc mb-5">詳細列出代碼、名稱、預估年化股息率與策略優勢</p>
+                <p class="text-xs text-desc mb-5">詳細列出代碼、名稱、預估年化股息率與策略優勢（提示：愛爾蘭 UCITS 基金具備獨特稅務優勢）</p>
                 <div class="overflow-x-auto rounded-xl border-2 border-pink-500/50">
-                    <table class="w-full text-left border-collapse bg-[#1e293b]">
+                    <table class="w-full text-left border-collapse bg-[#1e293b] min-w-[650px]">
                         <thead>
                             <tr class="bg-[#0f172a] text-white text-xs font-black">
                                 <th class="p-3.5">代碼</th>
@@ -380,7 +378,6 @@
                 </div>
             </div>
 
-            <!-- 本金資產增長屬性即時報價區塊 -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-white mb-1"><i class="fa-solid fa-chart-line text-pink-500 mr-2"></i>本金資產增長屬性即時報價</h2>
                 <p class="text-xs text-desc mb-4">定期定額與長期資產配置核心標的實時價格</p>
@@ -394,12 +391,11 @@
                 </div>
             </div>
 
-            <!-- 本金資產增長屬性對照表（已更新：根據最近年化報酬率，SGOV 設為約 3.75%） -->
             <div class="dashboard-card p-6">
-                <h2 class="text-lg font-black text-white mb-1"><i class="fa-solid id-card fa-table-cells text-pink-500 mr-2"></i>本金資產增長屬性對照表</h2>
-                <p class="text-xs text-desc mb-5">涵蓋 SPMO、QQQM、SPYM、VT、SGOV 及適合定期定額的大型指數標的（已更新最近年化報酬率）</p>
+                <h2 class="text-lg font-black text-white mb-1"><i class="fa-solid fa-table-cells text-pink-500 mr-2"></i>本金資產增長屬性對照表</h2>
+                <p class="text-xs text-desc mb-5">涵蓋 SPMO、QQQM、SPYM、VT、SGOV 及適合定期定額的大型指數標的</p>
                 <div class="overflow-x-auto rounded-xl border-2 border-pink-500/50">
-                    <table class="w-full text-left border-collapse bg-[#1e293b]">
+                    <table class="w-full text-left border-collapse bg-[#1e293b] min-w-[700px]">
                         <thead>
                             <tr class="bg-[#0f172a] text-white text-xs font-black">
                                 <th class="p-3.5">代碼 (Ticker)</th>
@@ -493,11 +489,16 @@
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
                         <h2 class="text-lg font-black text-white"><i class="fa-solid fa-coins text-pink-500 mr-2"></i>多資產定投與幣種折算計算器</h2>
-                        <p class="text-xs text-desc">支援滑桿或直接打字輸入百分比設定權重</p>
+                        <p class="text-xs text-desc">支援滑桿或直接打字輸入百分比設定權重（已自動同步儲存至瀏覽器）</p>
                     </div>
-                    <button onclick="addStockRow()" class="bg-pink-600 hover:bg-pink-700 text-white text-xs font-black px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1.5 self-start">
-                        <i class="fa-solid fa-plus"></i> 新增股票標的
-                    </button>
+                    <div class="flex gap-2">
+                        <button onclick="resetCalculatorSettings()" class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-black px-3 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-right"></i> 重設預設值
+                        </button>
+                        <button onclick="addStockRow()" class="bg-pink-600 hover:bg-pink-700 text-white text-xs font-black px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-plus"></i> 新增股票標的
+                        </button>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -531,6 +532,16 @@
                     <span id="total-weight-display" class="text-pink-400 text-sm">100%</span>
                 </div>
 
+                <!-- 新增：資產配置圓餅圖視覺化 -->
+                <div class="bg-[#0f172a] border-2 border-pink-500/50 p-5 rounded-2xl mb-6">
+                    <h3 class="text-xs font-black text-white mb-3 uppercase tracking-wider">
+                        <i class="fa-solid fa-chart-pie mr-1.5 text-pink-500"></i> 資產配置比例視覺化
+                    </h3>
+                    <div class="relative mx-auto" style="height: 220px; max-width: 250px;">
+                        <canvas id="allocationPieChart"></canvas>
+                    </div>
+                </div>
+
                 <div class="bg-[#0f172a] border-2 border-pink-500/50 p-5 rounded-2xl">
                     <h3 class="text-xs font-black text-white mb-3 uppercase tracking-wider">
                         <i class="fa-solid fa-receipt mr-1.5 text-pink-500"></i> 本期定投拆分結果與雙幣對照
@@ -539,7 +550,7 @@
                 </div>
             </div>
 
-            <!-- 長期複利計劃（收益率改為手動輸入，SGOV 預設更新為 3.75） -->
+            <!-- 長期複利計劃 -->
             <div class="dashboard-card p-6">
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-6 border-b-2 border-gray-700 pb-4">
                     <div>
@@ -625,7 +636,7 @@
                 </div>
             </div>
 
-            <!-- 現金流計算器（收益率改為手動輸入） -->
+            <!-- 現金流計算器 -->
             <div class="dashboard-card p-6">
                 <div class="mb-6 border-b-2 border-gray-700 pb-4">
                     <h2 class="text-base font-black text-white"><i class="fa-solid fa-calculator text-pink-500 mr-2"></i>現金流收益專用計算器</h2>
@@ -773,7 +784,9 @@
             return defaultYieldsMap[clean] !== undefined ? defaultYieldsMap[clean] : 8.0;
         }
 
-        let stocks = [
+        // 從 LocalStorage 讀取儲存的配置，若無則使用預設值
+        let savedStocks = localStorage.getItem('dashboard_stocks');
+        let stocks = savedStocks ? JSON.parse(savedStocks) : [
             { name: "SPYI", weight: 40 },
             { name: "QQQI", weight: 40 },
             { name: "SGOV", weight: 20 }
@@ -795,7 +808,22 @@
                     </div>
                 `;
             });
+            saveToLocalStorage();
             calculateMultiDCA();
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('dashboard_stocks', JSON.stringify(stocks));
+        }
+
+        function resetCalculatorSettings() {
+            localStorage.removeItem('dashboard_stocks');
+            stocks = [
+                { name: "SPYI", weight: 40 },
+                { name: "QQQI", weight: 40 },
+                { name: "SGOV", weight: 20 }
+            ];
+            renderStocks();
         }
 
         function addStockRow() {
@@ -810,7 +838,7 @@
 
         function updateStock(index, field, value) {
             stocks[index][field] = field === 'name' ? value.toUpperCase().trim() : value;
-            calculateMultiDCA();
+            renderStocks();
         }
 
         function normalizeWeights() {
@@ -818,6 +846,42 @@
             const equalWeight = parseFloat((100 / stocks.length).toFixed(2));
             stocks.forEach(s => s.weight = equalWeight);
             renderStocks();
+        }
+
+        let allocationPieChart = null;
+
+        function updateAllocationPieChart() {
+            const ctx = document.getElementById('allocationPieChart').getContext('2d');
+            const labels = stocks.map(s => s.name || '未命名');
+            const data = stocks.map(s => s.weight);
+            const backgroundColors = ['#db2777', '#38bdf8', '#fbbf24', '#a855f7', '#34d399', '#f87171', '#818cf8'];
+
+            if (allocationPieChart) {
+                allocationPieChart.destroy();
+            }
+
+            allocationPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: backgroundColors.slice(0, labels.length),
+                        borderWidth: 1,
+                        borderColor: '#1e293b'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#f8fafc', font: { size: 10, weight: 'bold' } }
+                        }
+                    }
+                }
+            });
         }
 
         function calculateMultiDCA() {
@@ -852,6 +916,8 @@
                     </div>
                 `;
             });
+
+            updateAllocationPieChart();
         }
 
         let phases = [
