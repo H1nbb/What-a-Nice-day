@@ -117,7 +117,7 @@
                     <button onclick="switchTab('macro')" id="btn-macro" class="tab-btn active px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300">核心資產與美債收益率</button>
                     <button onclick="switchTab('cashflow')" id="btn-cashflow" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300">現金流與本金資產對照</button>
                     <button onclick="switchTab('news')" id="btn-news" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300">中文新聞摘要</button>
-                    <button onclick="switchTab('heatmap')" id="btn-heatmap" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300">全市場熱力圖</button>
+                    <button onclick="switchTab('heatmap')" id="btn-heatmap" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300">綜合戰情室 (情緒+現金流+技術)</button>
                     <button onclick="switchTab('calc')" id="btn-calc" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300"><i class="fa-solid fa-calculator mr-1"></i>快捷計算器</button>
                 </nav>
             </div>
@@ -472,37 +472,120 @@
             </div>
         </div>
 
-        <!-- 頁面 4：全市場熱力圖 (已修改為官方即時動態追蹤組件) -->
-        <div id="tab-heatmap" class="tab-pane hidden flex-col">
-            <div class="dashboard-card p-5 flex-1 flex flex-col">
+        <!-- 頁面 4：綜合戰情室 (融合 方案1情緒 + 方案2現金流對比 + 方案3技術分析) -->
+        <div id="tab-heatmap" class="tab-pane hidden flex-col space-y-6">
+            
+            <!-- 區塊 A：市場宏觀情緒與恐懼貪婪指標 (方案 1) -->
+            <div class="dashboard-card p-5">
                 <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-base font-black text-white"><i class="fa-solid fa-fire text-amber-400 mr-2"></i>S&P 500 板塊資金實時熱力圖</h2>
-                    <span class="text-xs bg-emerald-950 text-emerald-300 border border-emerald-700 font-bold px-2.5 py-1 rounded-lg">🔥 TradingView 實時串流中</span>
+                    <h2 class="text-base font-black text-white"><i class="fa-solid fa-gauge-high text-amber-400 mr-2"></i>市場宏觀情緒與恐懼貪婪指數</h2>
+                    <span class="text-xs bg-emerald-950 text-emerald-300 border border-emerald-700 font-bold px-2.5 py-1 rounded-lg">🔥 實時串流中</span>
                 </div>
-                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-500/50" style="height: 650px;">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="h-[350px] rounded-xl overflow-hidden border-2 border-pink-500/30 p-2 bg-[#1e293b]">
+                        <div class="tradingview-widget-container" style="height:100%;width:100%">
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                            {
+                                "colorTheme": "dark",
+                                "dateRange": "12M",
+                                "showChart": true,
+                                "locale": "zh_TW",
+                                "width": "100%",
+                                "height": "100%",
+                                "percentChange": true,
+                                "showSymbolLogo": true,
+                                "tabs": [
+                                    {
+                                        "title": "市場情緒指標",
+                                        "symbols": [
+                                            { "s": "TVC:VIX", "title": "VIX 恐慌指數" },
+                                            { "s": "TVC:US10Y", "title": "10年期美債收益率" },
+                                            { "s": "TVC:GOLD", "title": "現貨黃金" },
+                                            { "s": "FX_IDC:USDHKD", "title": "美元/港幣" }
+                                        ]
+                                    }
+                                ]
+                            }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="h-[350px] rounded-xl overflow-hidden border-2 border-pink-500/30 p-2 bg-[#1e293b]">
+                        <div class="tradingview-widget-container" style="height:100%;width:100%">
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+                            {
+                                "interval": "1D",
+                                "width": "100%",
+                                "isTransparent": true,
+                                "height": "100%",
+                                "symbol": "AMEX:SPY",
+                                "showIntervalTabs": true,
+                                "locale": "zh_TW",
+                                "colorTheme": "dark"
+                            }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 區塊 B：高股息與現金流標的即時報價對比矩陣 (方案 2) -->
+            <div class="dashboard-card p-5">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-base font-black text-white"><i class="fa-solid fa-sack-dollar text-pink-500 mr-2"></i>核心現金流與高股息資產即時矩陣</h2>
+                    <span class="text-xs bg-pink-950 text-pink-300 border border-pink-700 font-bold px-2.5 py-1 rounded-lg">月配息專區</span>
+                </div>
+                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-500/50 p-2 bg-[#1e293b]" style="height: 320px;">
                     <div class="tradingview-widget-container" style="height:100%;width:100%">
-                        <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
                         {
-                            "exchanges": [],
-                            "dataSource": "SPX500",
-                            "grouping": "sector",
-                            "blockSize": "market_cap_basic",
-                            "blockColor": "change",
-                            "locale": "zh_TW",
-                            "symbolUrl": "",
-                            "colorTheme": "dark",
-                            "hasTopBar": true,
-                            "isDataSetEnabled": false,
-                            "isZoomEnabled": true,
-                            "hasSymbolTooltip": true,
                             "width": "100%",
-                            "height": "100%"
+                            "height": "100%",
+                            "symbolsGroups": [
+                                {
+                                    "name": "Cash Flow Assets",
+                                    "symbols": [
+                                        { "name": "AMEX:SPYI", "title": "NEOS S&P 500 High Income (SPYI)" },
+                                        { "name": "NASDAQ:QQQI", "title": "NEOS Nasdaq-100 High Income (QQQI)" },
+                                        { "name": "BATS:QQQY", "title": "Defiance Nasdaq-100 Enhanced (QQQY)" },
+                                        { "name": "AMEX:JEPI", "title": "JPMorgan Equity Premium (JEPI)" },
+                                        { "name": "AMEX:DIVO", "title": "Amplify Cash Flow ETF (DIVO)" }
+                                    ]
+                                }
+                            ],
+                            "showSymbolLogo": true,
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "locale": "zh_TW"
                         }
                         </script>
                     </div>
                 </div>
             </div>
+
+            <!-- 區塊 C：多維度技術分析與資產走勢對比 (方案 3) -->
+            <div class="dashboard-card p-5">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-base font-black text-white"><i class="fa-solid fa-chart-line text-emerald-400 mr-2"></i>跨資產技術面與多空對比熱圖</h2>
+                    <span class="text-xs bg-indigo-950 text-indigo-300 border border-indigo-700 font-bold px-2.5 py-1 rounded-lg">多維度指標</span>
+                </div>
+                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-500/50 p-2 bg-[#1e293b]" style="height: 450px;">
+                    <div class="tradingview-widget-container" style="height:100%;width:100%">
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+                        {
+                            "width": "100%",
+                            "height": "100%",
+                            "defaultColumn": "overview",
+                            "screener_type": "crypto_mkt",
+                            "displayCurrency": "USD",
+                            "colorTheme": "dark",
+                            "locale": "zh_TW",
+                            "market": "america"
+                        }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- 頁面 5：多標的定投、幣種轉換與動態階段複利計算器 -->
@@ -851,7 +934,6 @@
             return defaultYieldsMap[clean] !== undefined ? defaultYieldsMap[clean] : 8.0;
         }
 
-        // 自動從 API 取得即時匯率
         async function fetchLiveFXRate() {
             try {
                 const res = await fetch('https://open.er-api.com/v6/latest/USD');
@@ -870,7 +952,6 @@
             }
         }
 
-        // 讀取 LocalStorage 配置
         let savedStocks = localStorage.getItem('dashboard_stocks');
         let stocks = savedStocks ? JSON.parse(savedStocks) : [
             { name: "SPYI", weight: 40 },
@@ -931,7 +1012,6 @@
             localStorage.setItem('dashboard_cf_stocks', JSON.stringify(cfStocks));
         }
 
-        // 匯出與匯入配置 JSON
         function exportConfigJSON() {
             const configData = {
                 stocks,
@@ -1559,7 +1639,6 @@
             });
         }
 
-        // 初始化執行
         fetchLiveFXRate();
         renderStocks();
         renderCashFlowStocks();
