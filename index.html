@@ -115,7 +115,7 @@
             <div class="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
                 <nav class="flex bg-[#0f172a] p-1 rounded-2xl border-2 border-pink-500/50 gap-1 no-scrollbar">
                     <button onclick="switchTab('macro')" id="btn-macro" class="tab-btn active px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300">核心資產與美債收益率</button>
-                    <button onclick="switchTab('cashflow')" id="btn-cashflow" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300">現金流資產與報價</button>
+                    <button onclick="switchTab('cashflow')" id="btn-cashflow" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300">現金流與本金資產對照</button>
                     <button onclick="switchTab('news')" id="btn-news" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300">中文新聞摘要</button>
                     <button onclick="switchTab('heatmap')" id="btn-heatmap" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300">全市場熱力圖</button>
                     <button onclick="switchTab('calc')" id="btn-calc" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs md:text-sm whitespace-nowrap transition-all font-bold text-gray-300"><i class="fa-solid fa-calculator mr-1"></i>快捷計算器</button>
@@ -300,8 +300,10 @@
             </div>
         </div>
 
-        <!-- 頁面 2：現金流資產與報價 -->
+        <!-- 頁面 2：現金流資產與本金增長屬性報價 -->
         <div id="tab-cashflow" class="tab-pane hidden flex-col space-y-6">
+            
+            <!-- 現金流資產即時報價 -->
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-white mb-1"><i class="fa-solid fa-sack-dollar text-pink-500 mr-2"></i>現金流資產即時報價</h2>
                 <p class="text-xs text-desc mb-4">100% 成功連線，開市期間價格實時跳動</p>
@@ -315,7 +317,7 @@
                 </div>
             </div>
 
-            <!-- 復原：現金流資產屬性對照表 -->
+            <!-- 現金流資產屬性對照表 -->
             <div class="dashboard-card p-6">
                 <h2 class="text-lg font-black text-white mb-1"><i class="fa-solid fa-table-cells text-pink-500 mr-2"></i>現金流資產屬性對照表</h2>
                 <p class="text-xs text-desc mb-5">詳細列出代碼、名稱、預估年化股息率與策略優勢</p>
@@ -377,6 +379,84 @@
                     </table>
                 </div>
             </div>
+
+            <!-- 新增：本金資產增長屬性即時報價區塊 -->
+            <div class="dashboard-card p-5">
+                <h2 class="text-base font-black text-white mb-1"><i class="fa-solid fa-chart-line text-pink-500 mr-2"></i>本金資產增長屬性即時報價</h2>
+                <p class="text-xs text-desc mb-4">定期定額與長期資產配置核心標的實時價格</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                    <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPMO", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "NASDAQ:QQQM", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPYM", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "ARCA:VOO", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:VT", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SGOV", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                </div>
+            </div>
+
+            <!-- 新增：本金資產增長屬性對照表 -->
+            <div class="dashboard-card p-6">
+                <h2 class="text-lg font-black text-white mb-1"><i class="fa-solid id-card fa-table-cells text-pink-500 mr-2"></i>本金資產增長屬性對照表</h2>
+                <p class="text-xs text-desc mb-5">涵蓋 SPMO、QQQM、SPYM、VT、SGOV 及適合定期定額的大型指數標的</p>
+                <div class="overflow-x-auto rounded-xl border-2 border-pink-500/50">
+                    <table class="w-full text-left border-collapse bg-[#1e293b]">
+                        <thead>
+                            <tr class="bg-[#0f172a] text-white text-xs font-black">
+                                <th class="p-3.5">代碼 (Ticker)</th>
+                                <th class="p-3.5">資產名稱 / 追蹤指數</th>
+                                <th class="p-3.5">增長屬性</th>
+                                <th class="p-3.5">波動特性</th>
+                                <th class="p-3.5">適合策略</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700 text-xs font-medium text-gray-200">
+                            <tr class="hover:bg-gray-800/50">
+                                <td class="p-3.5 font-black text-pink-400">SPMO</td>
+                                <td class="p-3.5 font-bold text-white">Invesco S&P 500 Momentum ETF</td>
+                                <td class="p-3.5"><span class="bg-purple-950 text-purple-300 border border-purple-700 px-2 py-0.5 rounded font-bold">動能增長</span></td>
+                                <td class="p-3.5 text-desc">高波動</td>
+                                <td class="p-3.5 text-desc">強勢股追蹤 / 定期定額</td>
+                            </tr>
+                            <tr class="hover:bg-gray-800/50">
+                                <td class="p-3.5 font-black text-pink-400">QQQM</td>
+                                <td class="p-3.5 font-bold text-white">Invesco NASDAQ 100 ETF</td>
+                                <td class="p-3.5"><span class="bg-blue-950 text-blue-300 border border-blue-700 px-2 py-0.5 rounded font-bold">科技成長</span></td>
+                                <td class="p-3.5 text-desc">中高波動</td>
+                                <td class="p-3.5 text-desc">長期核心 / 科技配置</td>
+                            </tr>
+                            <tr class="hover:bg-gray-800/50">
+                                <td class="p-3.5 font-black text-pink-400">SPYM</td>
+                                <td class="p-3.5 font-bold text-white">SPDR Portfolio S&P 500 ETF</td>
+                                <td class="p-3.5"><span class="bg-emerald-950 text-emerald-300 border border-emerald-700 px-2 py-0.5 rounded font-bold">大盤市值</span></td>
+                                <td class="p-3.5 text-desc">中等波動</td>
+                                <td class="p-3.5 text-desc">資產配置 / 長期底倉</td>
+                            </tr>
+                            <tr class="hover:bg-gray-800/50">
+                                <td class="p-3.5 font-black text-pink-400">VOO</td>
+                                <td class="p-3.5 font-bold text-white">Vanguard S&P 500 ETF</td>
+                                <td class="p-3.5"><span class="bg-emerald-950 text-emerald-300 border border-emerald-700 px-2 py-0.5 rounded font-bold">美股大盤</span></td>
+                                <td class="p-3.5 text-desc">中等波動</td>
+                                <td class="p-3.5 text-desc">常態定期定額首選</td>
+                            </tr>
+                            <tr class="hover:bg-gray-800/50">
+                                <td class="p-3.5 font-black text-pink-400">VT</td>
+                                <td class="p-3.5 font-bold text-white">Vanguard Total World Stock ETF</td>
+                                <td class="p-3.5"><span class="bg-indigo-950 text-indigo-300 border border-indigo-700 px-2 py-0.5 rounded font-bold">全球分散</span></td>
+                                <td class="p-3.5 text-desc">中低波動</td>
+                                <td class="p-3.5 text-desc">全球市場一鍵配置</td>
+                            </tr>
+                            <tr class="hover:bg-gray-800/50">
+                                <td class="p-3.5 font-black text-pink-400">SGOV</td>
+                                <td class="p-3.5 font-bold text-white">iShares 0-3 Month Treasury Bond ETF</td>
+                                <td class="p-3.5"><span class="bg-gray-800 text-gray-300 border border-gray-600 px-2 py-0.5 rounded font-bold">現金替代 / 保本</span></td>
+                                <td class="p-3.5 text-desc">極低波動</td>
+                                <td class="p-3.5 text-desc">資金停泊 / 防守配置</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
 
         <!-- 頁面 3：中文新聞摘要 -->
@@ -673,7 +753,12 @@
             "JEPI": 7.5,
             "SGOV": 5.0,
             "SPY": 10.0,
-            "QQQ": 11.0
+            "QQQ": 11.0,
+            "SPMO": 12.0,
+            "QQQM": 11.5,
+            "SPYM": 10.0,
+            "VOO": 10.0,
+            "VT": 9.0
         };
 
         function getDefaultYield(symbol) {
