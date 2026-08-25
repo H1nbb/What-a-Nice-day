@@ -472,121 +472,282 @@
             </div>
         </div>
 
-        <!-- 頁面 4：綜合戰情室 (融合 方案1情緒 + 方案2現金流對比 + 方案3技術分析) -->
-        <div id="tab-heatmap" class="tab-pane hidden flex-col space-y-6">
-            
-            <!-- 區塊 A：市場宏觀情緒與恐懼貪婪指標 (方案 1) -->
-            <div class="dashboard-card p-5">
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-base font-black text-white"><i class="fa-solid fa-gauge-high text-amber-400 mr-2"></i>市場宏觀情緒與恐懼貪婪指數</h2>
-                    <span class="text-xs bg-emerald-950 text-emerald-300 border border-emerald-700 font-bold px-2.5 py-1 rounded-lg">🔥 實時串流中</span>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="h-[350px] rounded-xl overflow-hidden border-2 border-pink-500/30 p-2 bg-[#1e293b]">
-                        <div class="tradingview-widget-container" style="height:100%;width:100%">
-                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                            {
-                                "colorTheme": "dark",
-                                "dateRange": "12M",
-                                "showChart": true,
-                                "locale": "zh_TW",
-                                "width": "100%",
-                                "height": "100%",
-                                "percentChange": true,
-                                "showSymbolLogo": true,
-                                "tabs": [
-                                    {
-                                        "title": "市場情緒指標",
-                                        "symbols": [
-                                            { "s": "TVC:VIX", "title": "VIX 恐慌指數" },
-                                            { "s": "TVC:US10Y", "title": "10年期美債收益率" },
-                                            { "s": "TVC:GOLD", "title": "現貨黃金" },
-                                            { "s": "FX_IDC:USDHKD", "title": "美元/港幣" }
-                                        ]
-                                    }
-                                ]
-                            }
-                            </script>
-                        </div>
-                    </div>
-                    <div class="h-[350px] rounded-xl overflow-hidden border-2 border-pink-500/30 p-2 bg-[#1e293b]">
-                        <div class="tradingview-widget-container" style="height:100%;width:100%">
-                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-                            {
-                                "interval": "1D",
-                                "width": "100%",
-                                "isTransparent": true,
-                                "height": "100%",
-                                "symbol": "AMEX:SPY",
-                                "showIntervalTabs": true,
-                                "locale": "zh_TW",
-                                "colorTheme": "dark"
-                            }
-                            </script>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 區塊 B：高股息與現金流標的即時報價對比矩陣 (方案 2) -->
-            <div class="dashboard-card p-5">
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-base font-black text-white"><i class="fa-solid fa-sack-dollar text-pink-500 mr-2"></i>核心現金流與高股息資產即時矩陣</h2>
-                    <span class="text-xs bg-pink-950 text-pink-300 border border-pink-700 font-bold px-2.5 py-1 rounded-lg">月配息專區</span>
-                </div>
-                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-500/50 p-2 bg-[#1e293b]" style="height: 320px;">
-                    <div class="tradingview-widget-container" style="height:100%;width:100%">
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
-                        {
-                            "width": "100%",
-                            "height": "100%",
-                            "symbolsGroups": [
-                                {
-                                    "name": "Cash Flow Assets",
-                                    "symbols": [
-                                        { "name": "AMEX:SPYI", "title": "NEOS S&P 500 High Income (SPYI)" },
-                                        { "name": "NASDAQ:QQQI", "title": "NEOS Nasdaq-100 High Income (QQQI)" },
-                                        { "name": "BATS:QQQY", "title": "Defiance Nasdaq-100 Enhanced (QQQY)" },
-                                        { "name": "AMEX:JEPI", "title": "JPMorgan Equity Premium (JEPI)" },
-                                        { "name": "AMEX:DIVO", "title": "Amplify Cash Flow ETF (DIVO)" }
-                                    ]
-                                }
-                            ],
-                            "showSymbolLogo": true,
-                            "colorTheme": "dark",
-                            "isTransparent": true,
-                            "locale": "zh_TW"
-                        }
-                        </script>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 區塊 C：多維度技術分析與資產走勢對比 (方案 3) -->
-            <div class="dashboard-card p-5">
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-base font-black text-white"><i class="fa-solid fa-chart-line text-emerald-400 mr-2"></i>跨資產技術面與多空對比熱圖</h2>
-                    <span class="text-xs bg-indigo-950 text-indigo-300 border border-indigo-700 font-bold px-2.5 py-1 rounded-lg">多維度指標</span>
-                </div>
-                <div class="w-full rounded-xl overflow-hidden border-2 border-pink-500/50 p-2 bg-[#1e293b]" style="height: 450px;">
-                    <div class="tradingview-widget-container" style="height:100%;width:100%">
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-                        {
-                            "width": "100%",
-                            "height": "100%",
-                            "defaultColumn": "overview",
-                            "screener_type": "crypto_mkt",
-                            "displayCurrency": "USD",
-                            "colorTheme": "dark",
-                            "locale": "zh_TW",
-                            "market": "america"
-                        }
-                        </script>
-                    </div>
-                </div>
-            </div>
-
+        <!-- 第四頁：量化回測與財富自由解鎖專區 (Page 4: Historical Stress Test & Passive Income Milestones) -->
+<div class="container-fluid py-4 text-light" style="background-color: #121212; min-height: 100vh;">
+    
+    <!-- 頁面標題 -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="fw-bold text-info"><i class="bi bi-shield-lock-fill me-2"></i>極端行情壓力測試與被動收入里程碑</h2>
+            <p class="text-muted">模擬歷史黑天鵝事件下的資產抗壓性，並透過遊戲化進度條追蹤你的財富自由解鎖進度。</p>
         </div>
+    </div>
+
+    <div class="row g-4">
+        
+        <!-- 📌 模組一：歷史極端行情回測與壓力測試 -->
+        <div class="col-lg-6">
+            <div class="card bg-dark border-secondary shadow-lg h-100">
+                <div class="card-header bg-secondary bg-opacity-10 border-secondary d-flex justify-content-between align-items-center">
+                    <h5 class="card-title text-warning mb-0"><i class="bi bi-graph-down-arrow me-2"></i>歷史極端行情回測與壓力測試</h5>
+                    <span class="badge bg-warning text-dark">Risk Simulator</span>
+                </div>
+                <div class="card-body">
+                    <form id="stressTestForm">
+                        <!-- 選擇歷史情境 -->
+                        <div class="mb-3">
+                            <label for="crisisScenario" class="form-label text-light">選擇歷史災難情境</label>
+                            <select class="form-select bg-dark text-light border-secondary" id="crisisScenario">
+                                <option value="2008" data-drawdown="0.51" data-desc="2008 年金融海嘯（深度流動性危機，大盤與高風險資產面臨流動性枯竭）">2008 年金融海嘯（歷史級流動性危機：預估回撤 -51%）</option>
+                                <option value="2020" data-drawdown="0.34" data-desc="2020 年新冠疫情熔斷（急跌與極高波動，聯準會迅速進場救市）">2020 年新冠疫情熔斷（急跌與高波動：預估回撤 -34%）</option>
+                                <option value="2022" data-drawdown="0.25" data-desc="2022 年升息與通膨熊市（股債雙殺，傳統防禦型資產同步失效）">2022 年升息與通膨熊市（股債雙殺：預估回撤 -25%）</option>
+                            </select>
+                            <div id="scenarioDesc" class="form-text text-muted mt-1">2008 年金融海嘯（深度流動性危機，大盤與高風險資產面臨流動性枯竭）</div>
+                        </div>
+
+                        <!-- 總投資本金 -->
+                        <div class="mb-3">
+                            <label for="totalCapital" class="form-label text-light">目前總投資本金 ($)</label>
+                            <input type="number" class="form-control bg-dark text-light border-secondary" id="totalCapital" value="100000" min="1000" step="1000">
+                        </div>
+
+                        <!-- 資產配置比例 -->
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="allocGrowth" class="form-label text-muted small">大盤成長股 (%)</label>
+                                <input type="number" class="form-control bg-dark text-light border-secondary asset-alloc" id="allocGrowth" value="50" min="0" max="100">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="allocIncome" class="form-label text-muted small">高股息現金流 (%)</label>
+                                <input type="number" class="form-control bg-dark text-light border-secondary asset-alloc" id="allocIncome" value="30" min="0" max="100">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="allocCash" class="form-label text-muted small">短端防禦現金 (%)</label>
+                                <input type="number" class="form-control bg-dark text-light border-secondary asset-alloc" id="allocCash" value="20" min="0" max="100">
+                            </div>
+                        </div>
+                        <div id="allocError" class="text-danger small mb-3" style="display: none;">資產配置比例總和必須等於 100%！</div>
+
+                        <button type="button" class="btn btn-warning w-100 fw-bold" id="runStressTest">執行壓力測試</button>
+                    </form>
+
+                    <!-- 壓力測試結果輸出 -->
+                    <div id="stressResultContainer" class="mt-4 p-3 bg-black rounded border border-secondary" style="display: none;">
+                        <h6 class="text-info border-bottom border-secondary pb-2 mb-3">📊 壓力測試模擬結果</h6>
+                        <div class="row text-center mb-3">
+                            <div class="col-6 border-end border-secondary">
+                                <span class="d-block text-muted small">預估最大回撤 (Max DD)</span>
+                                <span id="resMaxDrawdown" class="fs-4 fw-bold text-danger">-0.00%</span>
+                            </div>
+                            <div class="col-6">
+                                <span class="d-block text-muted small">極端環境本金剩餘</span>
+                                <span id="resRemainingCapital" class="fs-4 fw-bold text-success">$0</span>
+                            </div>
+                        </div>
+                        <div class="alert alert-secondary bg-dark text-light border-secondary mb-0 small">
+                            <i class="bi bi-shield-check text-warning me-1"></i><strong>現金流抗壓提示：</strong>
+                            <span id="resStressTip">請執行測試以查看高股息現金流標的在該極端環境下的配息穩健度與防禦錨點效果。</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📌 模組二：財富自由里程碑與生活開銷覆蓋率 -->
+        <div class="col-lg-6">
+            <div class="card bg-dark border-secondary shadow-lg h-100">
+                <div class="card-header bg-secondary bg-opacity-10 border-secondary d-flex justify-content-between align-items-center">
+                    <h5 class="card-title text-success mb-0"><i class="bi bi-trophy-fill me-2"></i>財富自由里程碑與生活開銷覆蓋率</h5>
+                    <span class="badge bg-success text-dark">Milestone Tracker</span>
+                </div>
+                <div class="card-body">
+                    <!-- 輸入每月平均被動現金流 -->
+                    <div class="mb-4">
+                        <label for="monthlyCashflow" class="form-label text-light">目前每月平均被動現金流收入 ($)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-secondary text-light border-secondary">$</span>
+                            <input type="number" class="form-control bg-dark text-light border-secondary" id="monthlyCashflow" value="4200" min="0" step="100">
+                            <button class="btn btn-outline-success" type="button" id="updateMilestones">更新進度</button>
+                        </div>
+                    </div>
+
+                    <!-- 總體達成率進度條 -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted small">最終目標覆蓋率 (Level 4: $30,000)</span>
+                            <span id="overallProgressText" class="text-success fw-bold small">14.0%</span>
+                        </div>
+                        <div class="progress bg-secondary bg-opacity-25" style="height: 12px;">
+                            <div id="overallProgressBar" class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 14%;" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+
+                    <!-- 階梯式里程碑卡片清單 -->
+                    <h6 class="text-muted small mb-3">階梯式生活解鎖關卡</h6>
+                    <div class="vstack gap-2" id="milestoneList">
+                        <!-- Level 1 -->
+                        <div class="p-3 rounded border border-secondary milestone-item" data-level="1" data-target="500">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-bold text-light"><i class="bi bi-unlock-fill text-muted me-2 badge-icon"></i>Level 1：每月通訊費 / 訂閱費</span>
+                                <span class="badge bg-secondary text-light target-val">$500 / 月</span>
+                            </div>
+                            <div class="progress bg-secondary bg-opacity-25" style="height: 6px;">
+                                <div class="progress-bar bg-success level-bar" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <!-- Level 2 -->
+                        <div class="p-3 rounded border border-secondary milestone-item" data-level="2" data-target="5000">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-bold text-light"><i class="bi bi-lock-fill text-muted me-2 badge-icon"></i>Level 2：每月伙食費 / 交通費</span>
+                                <span class="badge bg-secondary text-light target-val">$5,000 / 月</span>
+                            </div>
+                            <div class="progress bg-secondary bg-opacity-25" style="height: 6px;">
+                                <div class="progress-bar bg-success level-bar" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <!-- Level 3 -->
+                        <div class="p-3 rounded border border-secondary milestone-item" data-level="3" data-target="15000">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-bold text-light"><i class="bi bi-lock-fill text-muted me-2 badge-icon"></i>Level 3：每月租金 / 房貸覆蓋</span>
+                                <span class="badge bg-secondary text-light target-val">$15,000 / 月</span>
+                            </div>
+                            <div class="progress bg-secondary bg-opacity-25" style="height: 6px;">
+                                <div class="progress-bar bg-success level-bar" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <!-- Level 4 -->
+                        <div class="p-3 rounded border border-secondary milestone-item" data-level="4" data-target="30000">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-bold text-light"><i class="bi bi-lock-fill text-muted me-2 badge-icon"></i>Level 4：完全財富自由 / 薪資全覆蓋</span>
+                                <span class="badge bg-secondary text-light target-val">$30,000+ / 月</span>
+                            </div>
+                            <div class="progress bg-secondary bg-opacity-25" style="height: 6px;">
+                                <div class="progress-bar bg-success level-bar" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 模組互動 JavaScript 邏輯 -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // ----------------------------------------------------
+    // 模組一：歷史極端行情回測與壓力測試邏輯
+    // ----------------------------------------------------
+    const crisisSelect = document.getElementById('crisisScenario');
+    const scenarioDesc = document.getElementById('scenarioDesc');
+    const runStressTestBtn = document.getElementById('runStressTest');
+    const allocInputs = document.querySelectorAll('.asset-alloc');
+    const allocError = document.getElementById('allocError');
+    const stressResultContainer = document.getElementById('stressResultContainer');
+
+    // 當情境選單改變時，更新說明文字
+    crisisSelect.addEventListener('change', function () {
+        const selectedOption = this.options[this.selectedIndex];
+        scenarioDesc.textContent = selectedOption.getAttribute('data-desc');
+    });
+
+    // 執行壓力測試計算
+    runStressTestBtn.addEventListener('click', function () {
+        let allocGrowth = parseFloat(document.getElementById('allocGrowth').value) || 0;
+        let allocIncome = parseFloat(document.getElementById('allocIncome').value) || 0;
+        let allocCash = parseFloat(document.getElementById('allocCash').value) || 0;
+        let totalAlloc = allocGrowth + allocIncome + allocCash;
+
+        // 檢查資產配置加總是否為 100%
+        if (Math.abs(totalAlloc - 100) > 0.01) {
+            allocError.style.display = 'block';
+            return;
+        } else {
+            allocError.style.display = 'none';
+        }
+
+        const selectedOption = crisisSelect.options[crisisSelect.selectedIndex];
+        const baseDrawdown = parseFloat(selectedOption.getAttribute('data-drawdown'));
+        const crisisType = crisisSelect.value;
+        const totalCapital = parseFloat(document.getElementById('totalCapital').value) || 0;
+
+        // 加權壓力回撤計算模型：
+        // 大盤成長股承受 100% 基準回撤；高股息現金流抗跌約 75% 基準回撤；短端現金防禦（抗跌 98%）
+        let weightedDrawdown = (allocGrowth * baseDrawdown + allocIncome * (baseDrawdown * 0.75) + allocCash * (baseDrawdown * 0.02)) / 100;
+        let remainingCapital = totalCapital * (1 - weightedDrawdown);
+
+        // 顯示結果
+        document.getElementById('resMaxDrawdown').textContent = `-${(weightedDrawdown * 100).toFixed(2)}%`;
+        document.getElementById('resRemainingCapital').textContent = `$${remainingCapital.toLocaleString('en-US', {maximumFractionDigits: 0})}`;
+
+        // 動態生成抗壓提示
+        let tipText = "";
+        if (crisisType === '2008') {
+            tipText = `在 2008 年流動性危機中，高股息現金流部位（佔 ${allocIncome}%）展現了穩健的配息錨點效果，現金部位（佔 ${allocCash}%）有效緩衝了流動性衝擊，本金保住了核心防禦力。`;
+        } else if (crisisType === '2020') {
+            tipText = `在 2020 年急跌熔斷期間，市場復甦極快。高股息標的雖然隨大盤回撤，但其持續產生的現金流提供了極佳的心理安全邊際與再平衡籌碼。`;
+        } else if (crisisType === '2022') {
+            tipText = `面對 2022 年股債雙殺的通膨熊市，傳統防禦型資產壓力較大。你的現金配置（佔 ${allocCash}%）發揮了關鍵避險作用，避免了過度割肉。`;
+        }
+        document.getElementById('resStressTip').textContent = tipText;
+        stressResultContainer.style.display = 'block';
+    });
+
+
+    // ----------------------------------------------------
+    // 模組二：財富自由里程碑與生活開銷覆蓋率邏輯
+    // ----------------------------------------------------
+    const monthlyCashflowInput = document.getElementById('monthlyCashflow');
+    const updateMilestonesBtn = document.getElementById('updateMilestones');
+    const overallProgressBar = document.getElementById('overallProgressBar');
+    const overallProgressText = document.getElementById('overallProgressText');
+    const milestoneItems = document.querySelectorAll('.milestone-item');
+
+    function updateMilestonesProgress() {
+        let currentCashflow = parseFloat(monthlyCashflowInput.value) || 0;
+        let maxTarget = 30000; // Level 4 終極目標
+
+        // 計算整體進度條 (上限 100%)
+        let overallPercent = Math.min((currentCashflow / maxTarget) * 100, 100);
+        overallProgressBar.style.width = `${overallPercent.toFixed(1)}%`;
+        overallProgressBar.setAttribute('aria-valuenow', overallPercent.toFixed(1));
+        overallProgressText.textContent = `${overallPercent.toFixed(1)}%`;
+
+        // 更新各個 Level 的進度與解鎖徽章
+        milestoneItems.forEach(item => {
+            let target = parseFloat(item.getAttribute('data-target'));
+            let levelBar = item.querySelector('.level-bar');
+            let badgeIcon = item.querySelector('.badge-icon');
+            let itemPercent = Math.min((currentCashflow / target) * 100, 100);
+
+            levelBar.style.width = `${itemPercent}%`;
+
+            if (currentCashflow >= target) {
+                // 已解鎖
+                item.classList.remove('border-secondary');
+                item.classList.add('border-success', 'bg-success', 'bg-opacity-10');
+                badgeIcon.className = "bi bi-unlock-fill text-success me-2 badge-icon";
+            } else {
+                // 未解鎖
+                item.classList.remove('border-success', 'bg-success', 'bg-opacity-10');
+                item.classList.add('border-secondary');
+                badgeIcon.className = "bi bi-lock-fill text-muted me-2 badge-icon";
+            }
+        });
+    }
+
+    // 綁定更新按鈕與即時輸入事件
+    updateMilestonesBtn.addEventListener('click', updateMilestonesProgress);
+    monthlyCashflowInput.addEventListener('input', updateMilestonesProgress);
+
+    // 頁面載入時自動初始化一次
+    updateMilestonesProgress();
+    // 自動預跑一次壓力測試讓畫面更豐富
+    runStressTestBtn.click();
+});
+</script>
 
         <!-- 頁面 5：多標的定投、幣種轉換與動態階段複利計算器 -->
         <div id="tab-calc" class="tab-pane hidden flex-col space-y-6">
