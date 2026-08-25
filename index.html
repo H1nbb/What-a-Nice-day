@@ -189,7 +189,7 @@
 
             <div class="dashboard-card p-5">
                 <h2 class="text-base font-black text-white mb-1"><i class="fa-solid fa-list-check text-pink-500 mr-2"></i>核心資產與商品行情列表</h2>
-                <p class="text-xs text-desc mb-3">包含 SPY、QQQ、黃金、比特幣、SOXX、SGOV 及原油</p>
+                <p class="text-xs text-desc mb-3">包含 SPY、QQQ、黃金、比特幣、SOXX、SGOV、原油及 **VXUS**</p>
                 <div class="w-full rounded-xl overflow-hidden border-2 border-pink-500/50 p-2 bg-[#1e293b]" style="height: 350px;">
                     <div class="tradingview-widget-container" style="height:100%;width:100%">
                         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
@@ -202,6 +202,7 @@
                                     "symbols": [
                                         { "name": "AMEX:SPY", "title": "標普 500 ETF (SPY)" },
                                         { "name": "NASDAQ:QQQ", "title": "納指 100 ETF (QQQ)" },
+                                        { "name": "AMEX:VXUS", "title": "全球非美股票 ETF (VXUS)" },
                                         { "name": "TVC:GOLD", "title": "現貨黃金 (Gold)" },
                                         { "name": "BINANCE:BTCUSDT", "title": "比特幣 (Bitcoin)" },
                                         { "name": "NASDAQ:SOXX", "title": "費城半導體 ETF (SOXX)" },
@@ -386,13 +387,13 @@
                     <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SPYM", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                     <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "ARCA:VOO", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                     <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:VT", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
-                    <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:SGOV", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
+                    <div class="dashboard-card p-2 h-[110px]"><div class="tradingview-widget-container h-full"><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>{ "symbol": "AMEX:VXUS", "width": "100%", "height": "100%", "colorTheme": "dark", "isTransparent": true, "locale": "zh_TW" }</script></div></div>
                 </div>
             </div>
 
             <div class="dashboard-card p-6">
                 <h2 class="text-lg font-black text-white mb-1"><i class="fa-solid fa-table-cells text-pink-500 mr-2"></i>本金資產增長屬性對照表</h2>
-                <p class="text-xs text-desc mb-5">涵蓋 SPMO、QQQM、SPYM、VT、SGOV 及適合定期定額的大型指數標的</p>
+                <p class="text-xs text-desc mb-5">涵蓋 SPMO、QQQM、SPYM、VT、VXUS、SGOV 及適合定期定額的大型指數標的</p>
                 <div class="overflow-x-auto rounded-xl border-2 border-pink-500/50">
                     <table class="w-full text-left border-collapse bg-[#1e293b] min-w-[700px]">
                         <thead>
@@ -445,6 +446,14 @@
                                 <td class="p-3.5 font-black text-emerald-400">~9.5%</td>
                                 <td class="p-3.5 text-desc">中低波動</td>
                                 <td class="p-3.5 text-desc">全球市場一鍵配置</td>
+                            </tr>
+                            <tr class="hover:bg-gray-800/50">
+                                <td class="p-3.5 font-black text-pink-400">VXUS</td>
+                                <td class="p-3.5 font-bold text-white">Vanguard Total International Stock ETF</td>
+                                <td class="p-3.5"><span class="bg-cyan-950 text-cyan-300 border border-cyan-700 px-2 py-0.5 rounded font-bold">全球非美市場</span></td>
+                                <td class="p-3.5 font-black text-emerald-400">~8.5%</td>
+                                <td class="p-3.5 text-desc">中等波動</td>
+                                <td class="p-3.5 text-desc">非美股票分散 / 搭配VTI或VOO</td>
                             </tr>
                             <tr class="hover:bg-gray-800/50">
                                 <td class="p-3.5 font-black text-pink-400">SGOV</td>
@@ -809,7 +818,8 @@
             "QQQM": 16.5,
             "SPYM": 12.0,
             "VOO": 12.0,
-            "VT": 9.5
+            "VT": 9.5,
+            "VXUS": 8.5
         };
 
         function getDefaultYield(symbol) {
