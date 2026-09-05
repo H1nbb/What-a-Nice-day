@@ -1,0 +1,102 @@
+{
+    "SPYI": {
+        "price": 53.86,
+        "dividend_yield": 11.76,
+        "ter": 0.1
+    },
+    "QQQI": {
+        "price": 54.75,
+        "dividend_yield": 13.97,
+        "ter": 0.1
+    },
+    "QQQY": {
+        "price": 22.34,
+        "dividend_yield": 34.59,
+        "ter": 0.1
+    },
+    "DIVO": {
+        "price": 48.39,
+        "dividend_yield": 6.21,
+        "ter": 0.1
+    },
+    "JEPI": {
+        "price": 57.22,
+        "dividend_yield": 8.01,
+        "ter": 0.1
+    },
+    "SGOV": {
+        "price": 100.47,
+        "dividend_yield": 3.69,
+        "ter": 0.1
+    },
+    "SPY": {
+        "price": 770.19,
+        "dividend_yield": 0.98,
+        "ter": 0.1
+    },
+    "QQQ": {
+        "price": 718.96,
+        "dividend_yield": 0.42,
+        "ter": 0.1
+    },
+    "VOO": {
+        "price": 708.01,
+        "dividend_yield": 1.04,
+        "ter": 0.1
+    },
+    "VT": {
+        "price": 161.73,
+        "dividend_yield": 1.54,
+        "ter": 0.1
+    },
+    "VXUS": {
+        "price": 88.41,
+        "dividend_yield": 2.48,
+        "ter": 0.1
+    },
+    "SPMO": {
+        "price": 149.72,
+        "dividend_yield": 0.7,
+        "ter": 0.1
+    },
+    "QQQM": {
+        "price": 296.07,
+        "dividend_yield": 0.44,
+        "ter": 0.1
+    },
+    "SPYM": {
+        "price": 90.67,
+        "dividend_yield": 1.0,
+        "ter": 0.1
+    },
+    "SOXX": {
+        "price": 519.86,
+        "dividend_yield": 0.28,
+        "ter": 0.1
+    },
+    "SCHD": {
+        "price": 34.8,
+        "dividend_yield": 3.01,
+        "ter": 0.1
+    },
+    "VWRA.L": {
+        "price": NaN,
+        "dividend_yield": 0.0,
+        "ter": 0.1
+    },
+    "CSPX.L": {
+        "price": NaN,
+        "dividend_yield": 0.0,
+        "ter": 0.1
+    },
+    "VUAA.L": {
+        "price": NaN,
+        "dividend_yield": 0.0,
+        "ter": 0.1
+    },
+    "0941.HK": {
+        "price": 79.65,
+        "dividend_yield": 6.81,
+        "ter": 0.1
+    }
+}
