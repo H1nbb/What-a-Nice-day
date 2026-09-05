@@ -256,7 +256,7 @@
                                 <td class="p-3.5 font-black text-pink-400">9 月 17 日 (四)</td>
                                 <td class="p-3.5 font-bold text-white"><i class="fa-solid fa-bolt text-amber-400 mr-1"></i> FOMC 利率決議與點陣圖</td>
                                 <td class="p-3.5"><span class="bg-red-950 text-red-300 border border-red-700 px-2 py-0.5 rounded font-black">★★★★★ (重磅)</span></td>
-                                <td class="p-3.5 text-desc">市場高度關注的降息靴子落地時刻及主席發言</td>
+                                <td class="p-3.5 text-desc">市場高度關注的降息靴落地時刻及主席發言</td>
                             </tr>
                             <tr class="hover:bg-gray-800/50">
                                 <td class="p-3.5 font-black text-pink-400">10 月 2 日 (五)</td>
@@ -519,11 +519,12 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div>
                         <label class="block text-xs font-black text-white mb-1">投資本金總額</label>
-                        <input type="number" id="calc-total" value="5000" class="custom-input w-full p-2.5 rounded-xl text-sm" oninput="calculateMultiDCA()">
+                        <!-- 更新點：加入防抖函數 debouncedCalculateMultiDCA() -->
+                        <input type="number" id="calc-total" value="5000" class="custom-input w-full p-2.5 rounded-xl text-sm" oninput="debouncedCalculateMultiDCA()">
                     </div>
                     <div>
                         <label class="block text-xs font-black text-white mb-1">輸入幣種 (Input Currency)</label>
-                        <select id="currency-select" class="custom-input w-full p-2.5 rounded-xl text-sm" onchange="calculateMultiDCA()">
+                        <select id="currency-select" class="custom-input w-full p-2.5 rounded-xl text-sm" onchange="debouncedCalculateMultiDCA()">
                             <option value="HKD" selected>港幣 (HKD $)</option>
                             <option value="USD">美元 (USD $)</option>
                         </select>
@@ -533,7 +534,7 @@
                             <span>即時參考匯率 (1 USD = HKD)</span>
                             <span id="fx-update-status" class="text-emerald-400 font-normal text-[10px]">🟢 自動連線中</span>
                         </label>
-                        <input type="number" id="fx-rate" value="7.8" step="0.01" class="custom-input w-full p-2.5 rounded-xl text-sm" oninput="calculateMultiDCA()">
+                        <input type="number" id="fx-rate" value="7.8" step="0.01" class="custom-input w-full p-2.5 rounded-xl text-sm" oninput="debouncedCalculateMultiDCA()">
                     </div>
                 </div>
 
@@ -679,11 +680,12 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                         <label class="block text-xs font-black text-white mb-1">總投入資產金額</label>
-                        <input type="number" id="cf-total-asset" value="100000" class="custom-input w-full p-2.5 rounded-xl text-sm" oninput="calculateCashFlowCalc()">
+                        <!-- 更新點：加入防抖函數 debouncedCalculateCashFlowCalc() -->
+                        <input type="number" id="cf-total-asset" value="100000" class="custom-input w-full p-2.5 rounded-xl text-sm" oninput="debouncedCalculateCashFlowCalc()">
                     </div>
                     <div>
                         <label class="block text-xs font-black text-white mb-1">幣種</label>
-                        <select id="cf-currency" class="custom-input w-full p-2.5 rounded-xl text-sm" onchange="calculateCashFlowCalc()">
+                        <select id="cf-currency" class="custom-input w-full p-2.5 rounded-xl text-sm" onchange="debouncedCalculateCashFlowCalc()">
                             <option value="HKD" selected>港幣 (HKD)</option>
                             <option value="USD">美元 (USD)</option>
                         </select>
@@ -693,10 +695,10 @@
                 <div class="mb-6 bg-[#0f172a] p-3.5 rounded-xl border-2 border-pink-500/50 flex items-center justify-between shadow-xs">
                     <div>
                         <div class="text-xs font-black text-white"><i class="fa-solid fa-file-invoice-dollar text-pink-500 mr-1"></i>香港居民美股稅務設定（30% 股息預扣稅）</div>
-                        <div class="text-xs text-desc">自動為美股及美股 ETF 扣除 30% 美國 IRS 預扣稅（代碼含 .HK 之港股除外）</div>
+                        <div class="text-xs text-desc">自動為美股及美股 ETF 扣除 30% 美國 IRS 預扣稅（代碼含 .HK 等非美股除外）</div>
                     </div>
                     <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="apply-us-tax" checked onchange="calculateCashFlowCalc()" class="sr-only peer">
+                        <input type="checkbox" id="apply-us-tax" checked onchange="debouncedCalculateCashFlowCalc()" class="sr-only peer">
                         <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
                     </label>
                 </div>
@@ -791,6 +793,15 @@
     </footer>
 
     <script>
+        // ------------------ 更新：加入 Debounce 防抖函數 ------------------
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -827,10 +838,16 @@
             return defaultYieldsMap[clean] !== undefined ? defaultYieldsMap[clean] : 8.0;
         }
 
+        // ------------------ 更新：API 斷線超時保護機制 ------------------
         async function fetchLiveFXRate() {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000); 
+
             try {
-                const res = await fetch('https://open.er-api.com/v6/latest/USD');
+                const res = await fetch('https://open.er-api.com/v6/latest/USD', { signal: controller.signal });
                 const data = await res.json();
+                clearTimeout(timeoutId);
+
                 if (data && data.rates && data.rates.HKD) {
                     const liveRate = parseFloat(data.rates.HKD.toFixed(2));
                     const fxInput = document.getElementById('fx-rate');
@@ -838,10 +855,10 @@
                         fxInput.value = liveRate;
                     }
                     document.getElementById('fx-update-status').innerText = `🟢 即時匯率已同步 (${liveRate})`;
-                    calculateMultiDCA();
+                    debouncedCalculateMultiDCA();
                 }
             } catch (e) {
-                document.getElementById('fx-update-status').innerText = `🟡 使用預設匯率`;
+                document.getElementById('fx-update-status').innerText = `🟡 API 超時，使用預設匯率`;
             }
         }
 
@@ -969,7 +986,7 @@
                 `;
             });
             saveAllToLocalStorage();
-            calculateMultiDCA();
+            debouncedCalculateMultiDCA();
             renderRebalanceInputs();
         }
 
@@ -993,8 +1010,9 @@
             renderStocks();
         }
 
+        // ------------------ 更新：除以零防呆 ------------------
         function normalizeWeights() {
-            if (stocks.length === 0) return;
+            if (stocks.length === 0) return; 
             const equalWeight = parseFloat((100 / stocks.length).toFixed(2));
             stocks.forEach(s => s.weight = equalWeight);
             renderStocks();
@@ -1002,38 +1020,43 @@
 
         let allocationPieChart = null;
 
+        // ------------------ 更新：Chart.js 向量化更新不銷毀 ------------------
         function updateAllocationPieChart() {
             const ctx = document.getElementById('allocationPieChart').getContext('2d');
             const labels = stocks.map(s => s.name || '未命名');
             const data = stocks.map(s => s.weight);
             const backgroundColors = ['#db2777', '#38bdf8', '#fbbf24', '#a855f7', '#34d399', '#f87171', '#818cf8'];
 
-            if (allocationPieChart) {
-                allocationPieChart.destroy();
-            }
-
-            allocationPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: data,
-                        backgroundColor: backgroundColors.slice(0, labels.length),
-                        borderWidth: 1,
-                        borderColor: '#1e293b'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: { color: '#f8fafc', font: { size: 10, weight: 'bold' } }
+            if (!allocationPieChart) {
+                allocationPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: backgroundColors.slice(0, labels.length),
+                            borderWidth: 1,
+                            borderColor: '#1e293b'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: { duration: 300 },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: '#f8fafc', font: { size: 10, weight: 'bold' } }
+                            }
                         }
                     }
-                }
-            });
+                });
+            } else {
+                allocationPieChart.data.labels = labels;
+                allocationPieChart.data.datasets[0].data = data;
+                allocationPieChart.data.datasets[0].backgroundColor = backgroundColors.slice(0, labels.length);
+                allocationPieChart.update();
+            }
         }
 
         function calculateMultiDCA() {
@@ -1072,6 +1095,9 @@
             updateAllocationPieChart();
             saveAllToLocalStorage();
         }
+
+        // 綁定防抖
+        const debouncedCalculateMultiDCA = debounce(calculateMultiDCA, 300);
 
         function renderRebalanceInputs() {
             const container = document.getElementById('rebalance-inputs-container');
@@ -1446,7 +1472,7 @@
                 `;
             });
             saveAllToLocalStorage();
-            calculateCashFlowCalc();
+            debouncedCalculateCashFlowCalc();
         }
 
         function addCashFlowRow() {
@@ -1464,6 +1490,7 @@
             renderCashFlowStocks();
         }
 
+        // ------------------ 更新：修復非美股的免稅判斷邏輯 ------------------
         function calculateCashFlowCalc() {
             const totalAsset = parseFloat(document.getElementById('cf-total-asset').value) || 0;
             const applyUsTax = document.getElementById('apply-us-tax').checked;
@@ -1482,15 +1509,16 @@
                 const assetAmount = totalAsset * (stock.weight / 100);
                 if (stock.rate === undefined) stock.rate = getDefaultYield(stock.name);
                 
-                let isUsAsset = !stock.name.toUpperCase().includes('.HK');
+                let suffix = stock.name.toUpperCase();
+                let isNonUsAsset = suffix.includes('.HK') || suffix.includes('.TW') || suffix.includes('.L') || suffix.includes('.KS');
                 let effectiveYield = stock.rate;
                 let taxNote = "";
 
-                if (applyUsTax && isUsAsset) {
+                if (applyUsTax && !isNonUsAsset) {
                     effectiveYield = stock.rate * (1 - 0.30);
                     taxNote = ` <span class="text-red-400 font-bold">(已扣30%美股稅)</span>`;
-                } else if (!isUsAsset) {
-                    taxNote = ` <span class="text-gray-400 font-bold">(港股免美稅)</span>`;
+                } else if (isNonUsAsset) {
+                    taxNote = ` <span class="text-gray-400 font-bold">(非美股免美稅)</span>`;
                 }
 
                 const annualIncome = assetAmount * (effectiveYield / 100);
@@ -1517,6 +1545,8 @@
             renderDividendCalendar(totalMonthlyCashFlow);
             saveAllToLocalStorage();
         }
+
+        const debouncedCalculateCashFlowCalc = debounce(calculateCashFlowCalc, 300);
 
         function renderDividendCalendar(monthlyIncome) {
             const calendarGrid = document.getElementById('dividend-calendar-grid');
