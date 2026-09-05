@@ -1,9 +1,11 @@
 name: 自動更新量化市場數據
 
 on:
+  push:
+    branches: [ main ]      # 只要存檔儲存到 main，立刻強制執行測試！
   schedule:
-    - cron: '0 22 * * 1-5' # 每個工作日美股收盤後自動執行
-  workflow_dispatch:        # 允許手動點擊按鈕執行
+    - cron: '0 22 * * 1-5'  # 每個工作日美股收盤後自動執行
+  workflow_dispatch:        # 保留手動點擊按鈕
 
 permissions:
   contents: write
