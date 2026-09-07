@@ -80,23 +80,23 @@
         "ter": 0.1
     },
     "VWRA.L": {
-        "price": NaN,
+        "price": 195.1,
         "dividend_yield": 0.0,
         "ter": 0.1
     },
     "CSPX.L": {
-        "price": NaN,
+        "price": 830.26,
         "dividend_yield": 0.0,
         "ter": 0.1
     },
     "VUAA.L": {
-        "price": NaN,
+        "price": 148.88,
         "dividend_yield": 0.0,
         "ter": 0.1
     },
     "0941.HK": {
-        "price": 79.65,
-        "dividend_yield": 6.81,
+        "price": 79.1,
+        "dividend_yield": 6.85,
         "ter": 0.1
     }
 }
