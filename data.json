@@ -1,82 +1,82 @@
 {
     "SPYI": {
-        "price": 51.64,
-        "dividend_yield": 12.24,
+        "price": 51.12,
+        "dividend_yield": 12.37,
         "ter": 0.1
     },
     "QQQI": {
-        "price": 49.91,
-        "dividend_yield": 15.29,
+        "price": 49.55,
+        "dividend_yield": 15.4,
         "ter": 0.1
     },
     "QQQY": {
-        "price": 19.36,
-        "dividend_yield": 36.77,
+        "price": 19.23,
+        "dividend_yield": 37.02,
         "ter": 0.1
     },
     "DIVO": {
-        "price": 46.76,
-        "dividend_yield": 6.47,
+        "price": 46.25,
+        "dividend_yield": 6.54,
         "ter": 0.1
     },
     "JEPI": {
-        "price": 57.19,
-        "dividend_yield": 7.98,
+        "price": 56.64,
+        "dividend_yield": 8.06,
         "ter": 0.1
     },
     "SGOV": {
-        "price": 100.58,
+        "price": 100.59,
         "dividend_yield": 3.63,
         "ter": 0.1
     },
     "SPY": {
-        "price": 739.95,
-        "dividend_yield": 1.02,
+        "price": 732.44,
+        "dividend_yield": 1.04,
         "ter": 0.1
     },
     "QQQ": {
-        "price": 661.75,
+        "price": 656.95,
         "dividend_yield": 0.47,
         "ter": 0.1
     },
     "VOO": {
-        "price": 680.26,
-        "dividend_yield": 1.09,
+        "price": 673.19,
+        "dividend_yield": 1.1,
         "ter": 0.1
     },
     "VT": {
-        "price": 152.36,
-        "dividend_yield": 1.58,
+        "price": 150.65,
+        "dividend_yield": 1.6,
         "ter": 0.1
     },
     "VXUS": {
-        "price": 80.99,
-        "dividend_yield": 2.45,
+        "price": 80.11,
+        "dividend_yield": 2.48,
         "ter": 0.1
     },
     "SPMO": {
-        "price": 128.06,
+        "price": 127.29,
         "dividend_yield": 0.86,
         "ter": 0.1
     },
     "QQQM": {
-        "price": 272.49,
-        "dividend_yield": 0.48,
+        "price": 270.42,
+        "dividend_yield": 0.49,
         "ter": 0.1
     },
     "SPYM": {
-        "price": 87.1,
-        "dividend_yield": 1.04,
+        "price": 86.22,
+        "dividend_yield": 1.06,
         "ter": 0.1
     },
     "SOXX": {
-        "price": 141.22,
+        "price": 141.46,
         "dividend_yield": 0.3,
         "ter": 0.1
     },
     "SCHD": {
-        "price": 35.86,
-        "dividend_yield": 2.94,
+        "price": 35.31,
+        "dividend_yield": 2.99,
         "ter": 0.1
     },
     "VWRA.L": {
@@ -95,8 +95,8 @@
         "ter": 0.1
     },
     "0941.HK": {
-        "price": 80.75,
-        "dividend_yield": 6.71,
+        "price": 80.45,
+        "dividend_yield": 6.74,
         "ter": 0.1
     }
 }
