@@ -1,22 +1,22 @@
 {
     "SPYI": {
         "price": 49.62,
-        "dividend_yield": 13.78,
+        "dividend_yield": 12.73,
         "ter": 0.1
     },
     "QQQI": {
         "price": 47.36,
-        "dividend_yield": 17.35,
+        "dividend_yield": 16.02,
         "ter": 0.1
     },
     "QQQY": {
         "price": 18.51,
-        "dividend_yield": 38.19,
+        "dividend_yield": 36.26,
         "ter": 0.1
     },
     "DIVO": {
         "price": 45.33,
-        "dividend_yield": 6.68,
+        "dividend_yield": 6.2,
         "ter": 0.1
     },
     "JEPI": {
@@ -95,8 +95,8 @@
         "ter": 0.1
     },
     "0941.HK": {
-        "price": 78.8,
-        "dividend_yield": 6.88,
+        "price": 77.95,
+        "dividend_yield": 6.95,
         "ter": 0.1
     }
 }
